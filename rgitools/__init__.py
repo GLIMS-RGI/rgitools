@@ -1,3 +1,4 @@
+# flake8: noqa
 try:
     from .version import version as __version__
     from .version import isreleased as __isreleased__
@@ -7,5 +8,3 @@ except ImportError:
                       'new virtual environment (using conda or virtualenv) '
                       'and  then install it in-place by running: '
                       'pip install -e .')
-
-from rgitools.core import *
