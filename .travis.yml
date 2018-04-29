@@ -1,7 +1,7 @@
 language: generic
 sudo: false
 notifications:
-email: false
+  email: false
 
 branches:  # blacklist
   except:
@@ -33,9 +33,9 @@ install:
 
 script:
   - if [[ "TEST_ENV" == "flake8" ]]; then
-      flake8 -j auto rgitools
+      flake8 -j auto rgitools;
     else
-      pytest rgitools
+      pytest rgitools;
     fi
 
 after_success:
