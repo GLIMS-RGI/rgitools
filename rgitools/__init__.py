@@ -7,3 +7,5 @@ except ImportError:
                       'new virtual environment (using conda or virtualenv) '
                       'and  then install it in-place by running: '
                       'pip install -e .')
+
+from rgitools.core import *
