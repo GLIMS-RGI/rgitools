@@ -1,4 +1,4 @@
-language: python
+language: generic
 sudo: false
 notifications:
 email: false
@@ -11,6 +11,9 @@ matrix:
   fast_finish: true
   include:
     - python: 3.6
+      env: TEST_ENV=defaults
+    - python: 3.6
+      env: TEST_ENV=flake8
 
 before_install:
   - "export DISPLAY=:99.0"
@@ -24,11 +27,15 @@ before_install:
   - pip install pyyaml
 
 install:
-  - conda env create --file ci/requirements.yml --quiet
+  - conda env create --file ci/requirements-$TEST_ENV.yml --quiet
   - source activate test_env
   - pip install -e .
 
 script:
-  - pytest rgitools
+  - if [[ "TEST_ENV" == "flake8" ]]; then
+      flake8 -j auto rgitools
+    else
+      pytest rgitools
+    fi
 
 after_success:
