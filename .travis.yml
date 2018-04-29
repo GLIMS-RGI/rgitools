@@ -32,7 +32,7 @@ install:
   - pip install -e .
 
 script:
-  - if [[ "TEST_ENV" == "flake8" ]]; then
+  - if [[ "$TEST_ENV" == "flake8" ]]; then
       flake8 -j auto rgitools;
     else
       pytest rgitools;
