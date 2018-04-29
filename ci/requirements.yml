@@ -1,0 +1,11 @@
+name: test_env
+channels:
+  - oggm
+  - conda-forge
+dependencies:
+  - python=3.6
+  - oggm-deps
+  - oggm
+  - pip:
+    - coveralls
+    - pytest-cov
