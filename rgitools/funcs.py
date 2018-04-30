@@ -238,15 +238,24 @@ def find_clusters(intersects_df):
         intersects_df = gpd.read_file(intersects_df)
 
     # Make the clusters
+    # https://en.wikipedia.org/wiki/Connected_component_%28graph_theory%29
+    l = np.vstack((intersects_df.RGIId_1.values,
+                   intersects_df.RGIId_2.values)).T
     clusters = []
-    for r1, r2 in zip(intersects_df.RGIId_1, intersects_df.RGIId_2):
-        found = False
-        for c in clusters:
-            if r1 in c or r2 in c:
-                found = True
-                c.update([r1, r2])
-        if not found:
-            clusters.append(set([r1, r2]))
+    while len(l) > 0:
+        n = l[0]
+        c = set(n)
+        found_one = True
+        while found_one:
+            found_one = False
+            remove = []
+            for i, ni in enumerate(l):
+                if ni[0] in c or ni[1] in c:
+                    c.update(ni)
+                    remove = np.append(remove, i)
+                    found_one = True
+            l = np.delete(l, remove, axis=0)
+        clusters.append(c)
 
     # Convert to dict and sort
     out = dict()
