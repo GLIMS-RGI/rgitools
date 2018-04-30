@@ -8,16 +8,27 @@ from distutils.version import LooseVersion
 
 import geopandas as gpd
 import numpy as np
-from numpy.testing import assert_equal
-from oggm.utils import get_demo_file, mkdir
+from numpy.testing import assert_equal, assert_allclose
 
 import rgitools
 from rgitools import funcs, scripts
+from rgitools.funcs import get_demo_file, mkdir
 
 
 def test_install():
     assert LooseVersion(rgitools.__version__) >= LooseVersion('0.0.0')
     assert rgitools.__isreleased__ in [False, True]
+
+
+def test_correct_geometries(tmpdir):
+
+    test_of = os.path.join(str(tmpdir), 'interfile.shp')
+    df = gpd.read_file(get_demo_file('RGI6_icecap.shp'))
+    out = funcs.check_geometries(df.copy(), to_file=test_of, job_id='test')
+
+    assert len(out) == len(df)
+    assert os.path.exists(test_of)
+    assert np.all(out.check_geom == '')
 
 
 def test_intersects(tmpdir):
@@ -41,6 +52,52 @@ def test_intersects_script(tmpdir):
         shutil.copyfile(get_demo_file('RGI6_icecap' + e),
                         os.path.join(rgi_reg_dir, '06_rgi60_Iceland' + e))
     out_dir = os.path.join(str(tmpdir), 'RGIV60_intersects')
-    scripts.write_intersects_to_dir(rgi_dir, out_dir)
+    scripts.compute_all_intersects(rgi_dir, out_dir)
     assert os.path.exists(os.path.join(out_dir, '06_rgi60_Iceland',
                                        'intersects_06_rgi60_Iceland.shp'))
+
+
+def test_find_clusters():
+
+    df = gpd.read_file(get_demo_file('RGI6_icecap.shp'))
+    idf = funcs.compute_intersects(df)
+
+    # Add dummy entries for testing
+    idf = idf.append({'RGIId_1': 'd1', 'RGIId_2': 'd2'}, ignore_index=True)
+    idf = idf.append({'RGIId_1': 'd1', 'RGIId_2': 'd3'}, ignore_index=True)
+    out = funcs.find_clusters(idf)
+    assert len(out) == 2
+    assert len(out['d1']) == 3
+
+
+def test_merge_clusters():
+
+    df = gpd.read_file(get_demo_file('RGI6_icecap.shp'))
+
+    # Save the area for testing later
+    area_ref = df.Area.sum()
+
+    # Add dummy entries for testing
+    from shapely.affinity import translate
+    idf = df.iloc[0].copy()
+    idf['geometry'] = translate(idf.geometry, xoff=0.15, yoff=0.0)
+    idf['RGIId'] = 'd1'
+    df = df.append(idf, ignore_index=True)
+
+    idf = df.iloc[1].copy()
+    idf['geometry'] = translate(idf.geometry, xoff=0.15, yoff=0.01)
+    idf['RGIId'] = 'd2'
+    df = df.append(idf, ignore_index=True)
+
+    # Intersects and go
+    idf = funcs.compute_intersects(df)
+    out = funcs.merge_clusters(df, idf)
+
+    assert len(out) == 3
+    assert_allclose(out.iloc[0].Area, area_ref)
+
+    s1 = df.iloc[-2]
+    s2 = out.loc[out.RGIId == 'd1'].iloc[0]
+    assert_equal(s1.CenLat, s2.CenLat)
+    assert_equal(s1.CenLon, s2.CenLon)
+    assert s1.geometry.equals(s2.geometry)
