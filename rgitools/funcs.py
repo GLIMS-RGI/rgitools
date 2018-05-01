@@ -1,19 +1,85 @@
+import os
 import logging
+from functools import wraps
 import time
 import numpy as np
 import pandas as pd
 import geopandas as gpd
 import shapely.geometry as shpg
 from shapely.ops import linemerge
+import networkx as nx
 from salem import wgs84
-from oggm.utils import haversine, get_demo_file, mkdir   # noqa: F401
+from oggm.utils import haversine
+# Interface
+from oggm.utils import get_demo_file, mkdir   # noqa: F401
+
 
 # Remove all previous handlers associated with the root logger object
 for handler in logging.root.handlers[:]:
     logging.root.removeHandler(handler)
-logging.basicConfig(format='%(asctime)s: %(name)s.%(funcName)s: %(message)s',
-                    datefmt='%Y-%m-%d %H:%M:%S', level=logging.INFO)
+
+
+# Recipe
+# https://stackoverflow.com/questions/7003898/
+# using-functools-wraps-with-a-logging-decorator
+class CustomFormatter(logging.Formatter):
+    """Overrides funcName with value of name_override if it exists"""
+    def format(self, record):
+        if hasattr(record, 'name_override'):
+            record.funcName = record.name_override
+        return super(CustomFormatter, self).format(record)
+
+
+handler = logging.StreamHandler()
+format = CustomFormatter('%(asctime)s: %(name)s.%(funcName)s: %(message)s',
+                         datefmt='%Y-%m-%d %H:%M:%S')
+handler.setFormatter(format)
 logger = logging.getLogger(__name__)
+logger.addHandler(handler)
+
+
+def io_logger(func):
+    """Decorator for common IO and logging logic."""
+
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+
+        job_id = kwargs.pop('job_id', '')
+        if job_id:
+            start_time = time.time()
+            logger.info('Starting job %s ...' % job_id,
+                        extra={'name_override': func.__name__})
+
+        to_file = kwargs.pop('to_file', '')
+        if to_file:
+            if os.path.exists(to_file):
+                raise RuntimeError("Won't overwrite existing file: " +
+                                   to_file)
+
+        nargs = []
+        for rgi_df in args:
+            if isinstance(rgi_df, str):
+                # A path to a file
+                rgi_df = gpd.read_file(rgi_df)
+            else:
+                rgi_df = rgi_df.copy()
+            nargs.append(rgi_df)
+
+        rgi_df = func(*nargs, **kwargs)
+
+        # Write and return
+        rgi_df.crs = wgs84.srs
+        if to_file:
+            rgi_df.to_file(to_file)
+
+        if job_id:
+            m, s = divmod(time.time() - start_time, 60)
+            logger.info('Job {} done in '
+                        '{} m {} s!'.format(job_id, int(m), round(s)),
+                        extra={'name_override': func.__name__})
+        return rgi_df
+
+    return wrapper
 
 
 def _multi_to_poly(geometry, rid=''):
@@ -24,7 +90,7 @@ def _multi_to_poly(geometry, rid=''):
     geometry : shpg.Polygon or shpg.MultiPolygon
         the geometry to check
     rid : str, optional
-        the glacie ID (for logging)
+        the glacier ID (for logging)
 
     Returns
     -------
@@ -63,6 +129,7 @@ def _multi_to_poly(geometry, rid=''):
     return geometry
 
 
+@io_logger
 def check_geometries(rgi_df, to_file='', job_id=''):
     """Checks and (when possible) corrects the RGI geometries.
 
@@ -86,22 +153,13 @@ def check_geometries(rgi_df, to_file='', job_id=''):
     a geopandas.GeoDataFrame
     """
 
-    if job_id:
-        start_time = time.time()
-        logger.info('Starting job %s ...' % job_id)
-
-    if isinstance(rgi_df, str):
-        # A path to a file
-        rgi_df = gpd.read_file(rgi_df)
-    else:
-        rgi_df = rgi_df.copy()
-
     for i, s in rgi_df.iterrows():
         geometry = s.geometry
         rgi_df.loc[i, 'check_geom'] = ''
         if geometry.type != 'Polygon':
             geometry = _multi_to_poly(geometry, rid=s.RGIId)
             msg = 'WARN:WasMultiPolygon;'
+            logger.debug('{}: '.format(s.RGIId) + msg)
             rgi_df.loc[i, 'check_geom'] = rgi_df.loc[i, 'check_geom'] + msg
 
         if not geometry.is_valid:
@@ -110,20 +168,14 @@ def check_geometries(rgi_df, to_file='', job_id=''):
                 raise RuntimeError('Geometry cannot be corrected: '
                                    '{}'.format(s.RGIId))
             msg = 'WARN:WasInvalid;' if geometry.is_valid else 'ERR:isInvalid'
+            logger.debug('{}: '.format(s.RGIId) + msg)
             rgi_df.loc[i, 'check_geom'] = rgi_df.loc[i, 'check_geom'] + msg
         rgi_df.loc[i, 'geometry'] = geometry
 
-    # Write and return
-    if to_file:
-        rgi_df.to_file(to_file)
-
-    if job_id:
-        m, s = divmod(time.time() - start_time, 60)
-        logger.info('Job {} done in '
-                    '{} m {} s!'.format(job_id, int(m), round(s)))
     return rgi_df
 
 
+@io_logger
 def compute_intersects(rgi_df, to_file='', job_id=''):
     """Computes the intersection geometries between glaciers.
 
@@ -144,14 +196,6 @@ def compute_intersects(rgi_df, to_file='', job_id=''):
     -------
     a geopandas.GeoDataFrame
     """
-
-    if job_id:
-        start_time = time.time()
-        logger.info('Starting compute_intersects job %s ...' % job_id)
-
-    if isinstance(rgi_df, str):
-        # A path to a file
-        rgi_df = gpd.read_file(rgi_df)
 
     gdf = rgi_df.copy()
     out_cols = ['RGIId_1', 'RGIId_2', 'geometry']
@@ -204,19 +248,13 @@ def compute_intersects(rgi_df, to_file='', job_id=''):
                 mult_intersect = [mult_intersect]
             for line in mult_intersect:
                 assert isinstance(line, shpg.linestring.LineString)
+                # Filter the very small ones
+                if len(line.coords) <= 6:
+                    continue
                 line = gpd.GeoDataFrame([[major.RGIId, neighbor.RGIId, line]],
                                         columns=out_cols)
                 out = out.append(line)
 
-    # Write and return
-    out.crs = wgs84.srs
-    if to_file:
-        out.to_file(to_file)
-
-    if job_id:
-        m, s = divmod(time.time() - start_time, 60)
-        logger.info('compute_intersects job {} done in '
-                    '{} m {} s!'.format(job_id, int(m), round(s)))
     return out
 
 
@@ -239,32 +277,19 @@ def find_clusters(intersects_df):
 
     # Make the clusters
     # https://en.wikipedia.org/wiki/Connected_component_%28graph_theory%29
-    l = np.vstack((intersects_df.RGIId_1.values,
-                   intersects_df.RGIId_2.values)).T
-    clusters = []
-    while len(l) > 0:
-        n = l[0]
-        c = set(n)
-        found_one = True
-        while found_one:
-            found_one = False
-            remove = []
-            for i, ni in enumerate(l):
-                if ni[0] in c or ni[1] in c:
-                    c.update(ni)
-                    remove = np.append(remove, i)
-                    found_one = True
-            l = np.delete(l, remove, axis=0)
-        clusters.append(c)
+    graph = nx.Graph()
+    graph.add_edges_from(np.vstack((intersects_df.RGIId_1.values,
+                                    intersects_df.RGIId_2.values)).T)
 
     # Convert to dict and sort
     out = dict()
-    for c in clusters:
+    for c in nx.connected_components(graph):
         c = sorted(list(c))
         out[c[0]] = c
     return out
 
 
+@io_logger
 def merge_clusters(rgi_df, intersects_df, keep_all=True, to_file='',
                    job_id=''):
     """Selects the glacier clusters out of an RGI file and merges them.
@@ -290,17 +315,6 @@ def merge_clusters(rgi_df, intersects_df, keep_all=True, to_file='',
     -------
     a geopandas.GeoDataFrame
     """
-
-    if job_id:
-        start_time = time.time()
-        logger.info('Starting job %s ...' % job_id)
-
-    if isinstance(rgi_df, str):
-        rgi_df = gpd.read_file(rgi_df)
-    else:
-        rgi_df = rgi_df.copy()
-    if isinstance(intersects_df, str):
-        intersects_df = gpd.read_file(intersects_df)
 
     # Find the clusters first
     clusters = find_clusters(intersects_df)
@@ -337,12 +351,4 @@ def merge_clusters(rgi_df, intersects_df, keep_all=True, to_file='',
     out = out.sort_values(by='RGIId')
     out.reset_index(drop=True)
 
-    out.crs = wgs84.srs
-    if to_file:
-        out.to_file(to_file)
-
-    if job_id:
-        m, s = divmod(time.time() - start_time, 60)
-        logger.info('Job {} done in {} m {} s!'.format(job_id, int(m),
-                                                       round(s)))
     return out
