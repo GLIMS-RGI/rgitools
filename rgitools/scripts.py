@@ -1,4 +1,6 @@
 import os
+import shutil
+import tempfile
 from glob import glob
 import multiprocessing as mp
 
@@ -93,3 +95,36 @@ def compute_all_intersects(rgi_dir, out_dir, n_processes=None):
                   zip([funcs.compute_intersects] * len(rgi_shps),
                       rgi_shps, out_paths, log_names),
                   chunksize=1)
+
+
+def zip_rgi_dir(rgi_dir, out_file, manifest_str=''):
+    """Zips an RGI directory and makes it look like a real one.
+
+    Parameters
+    ----------
+    rgi_dir : str
+        path to the RGI directory
+    out_file : str
+        path to the output file (without zip ending!)
+    """
+
+    # First zip the regions
+    bname = os.path.basename(rgi_dir)
+    tmpdir = tempfile.mkdtemp()
+    workdir = os.path.join(tmpdir, bname)
+    funcs.mkdir(tmpdir, reset=True)
+    for reg_dir in os.listdir(rgi_dir):
+        zipf = os.path.join(workdir, reg_dir)
+        reg_dir = os.path.join(rgi_dir, reg_dir)
+        shutil.make_archive(zipf, 'zip', reg_dir)
+
+    # Make the manifest file
+    mpath = os.path.join(workdir, '000_' + bname + '_manifest.txt')
+    with open(mpath, 'w') as file:
+        file.write(manifest_str)
+
+    # Compress the working directory
+    shutil.make_archive(out_file, 'zip', workdir)
+
+    # Delete our working dir
+    shutil.rmtree(tmpdir)

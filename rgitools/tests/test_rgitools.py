@@ -161,3 +161,21 @@ def test_merge_clusters_all():
 
     assert np.all(g.is_valid for g in out.geometry)
     assert np.all(g.type == 'Polygon' for g in out.geometry)
+
+
+def test_zip_script(tmpdir):
+
+    rgi_dir = os.path.join(str(tmpdir), 'rgi_61')
+    outf = os.path.join(str(tmpdir), 'rgi_61')
+
+    regdirs = ['06_rgi61_Iceland', '07_rgi61_Scandinavia']
+    for regdir in regdirs:
+        rgi_reg_dir = os.path.join(rgi_dir, regdir)
+        mkdir(rgi_reg_dir)
+        for e in ['.shp', '.prj', '.dbf', '.shx']:
+            shutil.copyfile(get_demo_file('RGI6_icecap' + e),
+                            os.path.join(rgi_reg_dir, '01_rgi61_Iceland' + e))
+
+    scripts.zip_rgi_dir(rgi_dir, outf)
+
+    assert os.path.exists(outf)
