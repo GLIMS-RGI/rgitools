@@ -30,9 +30,8 @@ def test_install():
 
 def test_correct_geometries(tmpdir):
 
-    test_of = os.path.join(str(tmpdir), 'interfile.shp')
-
     # Simple ice cap
+    test_of = os.path.join(str(tmpdir), 'interfile.shp')
     df = get_iceland_df(reduced=True)
     out = funcs.check_geometries(df.copy(), to_file=test_of, job_id='test')
     assert len(out) == len(df)
@@ -40,6 +39,7 @@ def test_correct_geometries(tmpdir):
     assert np.all(out.check_geom == '')
 
     # All
+    test_of = os.path.join(str(tmpdir), 'interfile2.shp')
     df = get_iceland_df()
     out = funcs.check_geometries(df.copy(), to_file=test_of, job_id='test')
     assert len(out) == len(df)

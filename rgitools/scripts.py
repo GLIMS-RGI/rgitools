@@ -33,8 +33,6 @@ def correct_all_geometries(rgi_dir, out_dir, replace_str=None,
     rgi_shps = list(glob(os.path.join(rgi_dir, "*", fp)))
     rgi_shps = sorted([r for r in rgi_shps if 'Regions' not in r])
 
-    rgi_shps = rgi_shps[5:6]
-
     funcs.mkdir(out_dir)
 
     out_paths = []
