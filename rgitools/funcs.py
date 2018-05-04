@@ -255,6 +255,8 @@ def compute_intersects(rgi_df, to_file='', job_id=''):
                                         columns=out_cols)
                 out = out.append(line)
 
+    # Index and merge
+    out.reset_index(inplace=True, drop=True)
     return out
 
 

@@ -97,7 +97,7 @@ def compute_all_intersects(rgi_dir, out_dir, n_processes=None):
                   chunksize=1)
 
 
-def zip_rgi_dir(rgi_dir, out_file, manifest_str=''):
+def zip_rgi_dir(rgi_dir, out_file, manifest=''):
     """Zips an RGI directory and makes it look like a real one.
 
     Parameters
@@ -121,7 +121,7 @@ def zip_rgi_dir(rgi_dir, out_file, manifest_str=''):
     # Make the manifest file
     mpath = os.path.join(workdir, '000_' + bname + '_manifest.txt')
     with open(mpath, 'w') as file:
-        file.write(manifest_str)
+        file.write(manifest)
 
     # Compress the working directory
     shutil.make_archive(out_file, 'zip', workdir)
