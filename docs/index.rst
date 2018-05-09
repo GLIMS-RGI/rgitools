@@ -56,6 +56,8 @@ About
         :target: https://travis-ci.org/OGGM/rgitools
         :alt: Linux build status
 
+:Documentation:
+
     .. image:: https://readthedocs.org/projects/rgitools/badge/?version=latest
         :target: http://rgitools.readthedocs.org/en/latest/?badge=latest
         :alt: Documentation status
