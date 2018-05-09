@@ -23,7 +23,6 @@ eggs
 rgitools/version.py
 *.cache
 *.lock
-*.html
 build/
 docs/*-gen.rst
 docs/_build
