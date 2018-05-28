@@ -9,7 +9,16 @@ import shapely.geometry as shpg
 from shapely.ops import linemerge
 import networkx as nx
 from salem import wgs84
-from oggm.utils import haversine
+from oggm.utils import haversine, get_topo_file, nicenumber
+from shapely.geometry import mapping
+import rasterio
+try:
+    # rasterio V > 1.0
+    from rasterio.merge import merge as merge_tool
+except ImportError:
+    from rasterio.tools.merge import merge as merge_tool
+from rasterio.mask import mask as riomask
+
 # Interface
 from oggm.utils import get_demo_file, mkdir   # noqa: F401
 
@@ -354,3 +363,138 @@ def merge_clusters(rgi_df, intersects_df, keep_all=True, to_file='',
     out.reset_index(drop=True)
 
     return out
+
+
+def _feature(ind, rowobj):
+    return {
+        'id': str(ind),
+        'type': 'Feature',
+        'properties':
+            dict((k, v) for k, v in rowobj.items() if k != 'geometry'),
+        'geometry': mapping(rowobj['geometry'])}
+
+
+def get_hypsometries(rgi_path, to_file='', job_id='', bsize=50., blabel='center'):
+    """
+    Create hypsometries for glacier geometries using the best available DEM.
+
+    The DEM choice is currently managed fully automated by OGGM.
+
+    Parameters
+    ----------
+    rgi_path : str
+        Path to the RGI shapefile.
+    bsize: float, optional
+        Bin size, i.e. the height interval size in meters used to subdivide
+        the glacier. Default: 50 m.
+    blabel: str, optional
+        Label to use for each elevation bin when writing the hypsometries.
+        Available options:
+        - 'right': Uses the right bin edge as label.
+        - 'center': Uses the center of the bin as label.
+        - 'left': Uses the left bin edge as label.
+        Default: 'center'.
+    job_id : str, optional
+        if you want to log what happens, give a name to this job
+    """
+
+    if blabel not in ['left', 'center', 'right']:
+        raise ValueError('Bin label choice must be either of "left", "center" '
+                         'or "right".')
+    fail_flag = np.nan
+
+    df = pd.DataFrame([])
+
+    rgi_df = gpd.read_file(rgi_path)
+    for i, row in rgi_df.iterrows():
+
+        # Get the best DEM
+        try:
+            xx, yy = row.geometry.exterior.xy
+        except AttributeError:  # it's a MultiPolygon
+            row.geometry = _multi_to_poly(row.geometry)
+            xx, yy = row.geometry.exterior.xy
+        minlon, maxlon = np.min(xx), np.max(xx)
+        minlat, maxlat = np.min(yy), np.max(yy)
+        rgi_region = '{:02d}'.format(int(row.O1Region))
+        rgi_subreg = rgi_region + '-' + '{:02d}'.format(int(row.O2Region))
+        try:
+            dem_list, _ = get_topo_file((minlon, maxlon), (minlat, maxlat),
+                                        rgi_region=rgi_region,
+                                        rgi_subregion=rgi_subreg)
+        # Probably a nominal glacier:
+        except RuntimeError as e:
+            logger.warn('{} Probably a nominal glacier?: {}'.format(e,
+                                                                    row.RGIId))
+            df.loc[row.RGIId, :] = fail_flag
+            continue
+
+        # Assemble DEM
+        if len(dem_list) == 1:
+            dem_data = rasterio.open(dem_list[0])  # if one tile, just open it
+        else:
+            dem_dss = [rasterio.open(s) for s in dem_list]  # list of rasters
+            dem_data, src_transform = merge_tool(dem_dss)  # merged rasters
+            profile = dem_dss[0].profile
+            profile.update({
+                'transform': src_transform,
+                'width': dem_data.shape[2],
+                'height': dem_data.shape[1]
+            })
+            # Small detour as mask only accepts DataReader objects
+            with rasterio.io.MemoryFile() as memfile:
+                with memfile.open(**profile) as dataset:
+                    dataset.write(dem_data)
+                dem_data = rasterio.open(memfile.name)
+
+        # Clip DEM with polygon and sort heights into bins
+        try:
+            mask, out_transform = riomask(dem_data,
+                                          [_feature(i, row)['geometry']],
+                                          crop=True, all_touched=True,
+                                          filled=False)
+        except ValueError as e:  # DEM has zero width and/or height
+            logger.warn('No valid DEM found on glacier area: {}'.format(e,
+                                                                        row.RGIId))
+            df.loc[row.RGIId, :] = fail_flag
+
+
+        mask_valid = mask[mask != mask.fill_value]
+        # check if there are any valid values at all:
+        if mask.count() == 0:
+            logger.warn('No valid DEM found on glacier area: {}'
+                        .format(row.RGIId))
+            df.loc[row.RGIId, :] = fail_flag
+            continue
+        mask_valid = mask_valid.clip(0)  # values below 0 might occur
+        maxb = nicenumber(mask_valid.max(), bsize)
+        minb = nicenumber(mask_valid.min(), bsize, lower=True)
+        bins = np.arange(minb, maxb + 0.01, bsize)
+
+        # Bin indices for every grid cell
+        bin_ind = np.digitize(mask_valid, bins) - 1  # I prefer the left
+
+        # Sum bin numbers and divide by sum of cells in mask
+        for bi in range(len(bins) - 1):
+            bintopoarea = len(np.where(bin_ind == bi)[0])
+            try:
+                binratio = bintopoarea / len(np.where(mask_valid)[0])
+            except ZeroDivisionError:
+                logger.warn('Hypsometry calculation failed due to missing DEM '
+                             'information: {}'.format(row.RGIId))
+                df.loc[row.RGIId, :] = fail_flag
+                continue
+
+            # In percent
+            if blabel == 'left':
+                label = bins[bi]
+            if blabel == 'center':
+                label = bins[bi] + 0.5 * bsize
+            if blabel == 'right':
+                label = bins[bi] + bsize  # unlikely, but one can be missing
+
+            df.loc[row.RGIId, label] = float("{0:.2f}".format(binratio * 100))
+
+    # make nice
+    df_res = df.sort_index(axis=1)
+    return df_res
