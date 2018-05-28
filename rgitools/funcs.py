@@ -74,19 +74,21 @@ def io_logger(func):
                 rgi_df = rgi_df.copy()
             nargs.append(rgi_df)
 
-        rgi_df = func(*nargs, **kwargs)
+        out_file = func(*nargs, **kwargs)
 
         # Write and return
-        rgi_df.crs = wgs84.srs
-        if to_file:
-            rgi_df.to_file(to_file)
+        if isinstance(out_file, gpd.GeoDataFrame) and to_file:
+            out_file.crs = wgs84.srs
+            out_file.to_file(to_file)
+        if isinstance(out_file, pd.DataFrame) and to_file:
+            out_file.to_csv(to_file, index=True)
 
         if job_id:
             m, s = divmod(time.time() - start_time, 60)
             logger.info('Job {} done in '
                         '{} m {} s!'.format(job_id, int(m), round(s)),
                         extra={'name_override': func.__name__})
-        return rgi_df
+        return out_file
 
     return wrapper
 
