@@ -128,3 +128,53 @@ def zip_rgi_dir(rgi_dir, out_file, manifest=''):
 
     # Delete our working dir
     shutil.rmtree(tmpdir)
+
+
+def compute_all_hypsometries(rgi_dir, out_dir, binsize=50., binlabel='center',
+                             n_processes=None):
+    """Computes the intersects for an entire RGI directory.
+
+    Parameters
+    ----------
+    rgi_dir : str
+        path to the RGI directory
+    out_dir : str
+        path to the output directory
+    binsize: float, optional
+        Bin size, i.e. the height interval size in meters used to subdivide
+        the glacier. Default: 50 m.
+    binlabel: str
+        Label to use for each elevation bin when writing the hypsometries.
+        Available options:
+        - 'right': Uses the right bin edge as label.
+        - 'center': Uses the center of the bin as label.
+        - 'left': Uses the left bin edge as label.
+        Default: 'center'.
+    n_processes : int, optional
+        the number of processors to use
+    """
+
+    # Get RGI files
+    fp = '*_rgi*_*.shp'
+    rgi_shps = list(glob(os.path.join(rgi_dir, "*", fp)))
+
+    rgi_shps = sorted([r for r in rgi_shps if 'Regions' not in r])
+
+    funcs.mkdir(out_dir)
+
+    out_paths = []
+    log_names = []
+    for rgi_shp in rgi_shps:
+        odir = os.path.basename(os.path.dirname(rgi_shp))
+        odir = os.path.join(out_dir, odir)
+        funcs.mkdir(odir)
+        bn = os.path.splitext(os.path.basename(rgi_shp))[0]
+        of = os.path.join(odir, 'hypsometries_' + bn + '.csv')
+        out_paths.append(of)
+        log_names.append(bn)
+
+    with mp.Pool(n_processes) as p:
+        p.starmap(mappable_func,
+                  zip([funcs.get_hypsometries] * len(rgi_shps), rgi_shps,
+                      out_paths, log_names),
+                  chunksize=1)
