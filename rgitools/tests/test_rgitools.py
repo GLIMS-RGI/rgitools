@@ -6,6 +6,7 @@ import os
 import shutil
 from distutils.version import LooseVersion
 
+import pandas as pd
 import geopandas as gpd
 import numpy as np
 from numpy.testing import assert_equal, assert_allclose
@@ -178,4 +179,113 @@ def test_zip_script(tmpdir):
 
     scripts.zip_rgi_dir(rgi_dir, outf)
 
+    assert os.path.exists(outf)
+
+
+def test_hypsometry(tmpdir):
+
+    rgi_df = gpd.read_file(get_demo_file('rgi_oetztal.shp'))
+    rgi_df = rgi_df.loc[['_d' not in rid for rid in rgi_df.RGIId]]
+
+    outf = os.path.join(str(tmpdir), 'rgi_62')
+
+    # Make if fail somewhere
+    from shapely.affinity import translate
+    geo = rgi_df.iloc[0, -1]
+    rgi_df.iloc[0, -1] = translate(geo, xoff=10)
+
+    def set_oggm_params(cfg):
+        cfg.PATHS['dem_file'] = get_demo_file('srtm_oetztal.tif')
+        cfg.PARAMS['use_multiprocessing'] = False
+
+    df, gdf = funcs.hypsometries(rgi_df, set_oggm_params=set_oggm_params,
+                                 to_file=outf)
+
+    assert np.all(df.loc[0, df.columns[3:]] == -9)
+    assert not np.isfinite(gdf.loc[0, 'Aspect'])
+    df = df.iloc[1:]
+    assert np.all(df[df.columns[3:]].sum(axis=1) == 1000)
+
+    gdf = gdf.iloc[1:]
+    rgi_df = rgi_df.iloc[1:]
+
+    from oggm.utils import rmsd
+    assert rmsd(gdf['Zmed'], rgi_df['Zmed']) < 20
+    assert rmsd(gdf['Zmin'], rgi_df['Zmin']) < 20
+    assert rmsd(gdf['Zmax'], rgi_df['Zmax']) < 20
+    assert rmsd(gdf['Slope'], rgi_df['Slope']) < 1
+
+    # For aspect test for cos / sin  because of 0 360 thing
+    us = np.cos(np.deg2rad(gdf.Aspect))
+    ref = np.cos(np.deg2rad(rgi_df.Aspect))
+    assert rmsd(us, ref) < 0.3
+    us = np.sin(np.deg2rad(gdf.Aspect))
+    ref = np.sin(np.deg2rad(rgi_df.Aspect))
+    assert rmsd(us, ref) < 0.3
+
+    ##
+    df = pd.read_csv(outf + '_hypso.csv', index_col=0)
+    gdf = gpd.read_file(outf + '.shp')
+
+    assert np.all(df.loc[0, df.columns[3:]] == -9)
+    assert not np.isfinite(gdf.loc[0, 'Aspect'])
+    df = df.iloc[1:]
+    assert np.all(df[df.columns[3:]].sum(axis=1) == 1000)
+
+    gdf = gdf.iloc[1:]
+
+    from oggm.utils import rmsd
+    assert rmsd(gdf['Zmed'], rgi_df['Zmed']) < 20
+    assert rmsd(gdf['Zmin'], rgi_df['Zmin']) < 20
+    assert rmsd(gdf['Zmax'], rgi_df['Zmax']) < 20
+    assert rmsd(gdf['Slope'], rgi_df['Slope']) < 1
+
+    # For aspect test for cos / sin  because of 0 360 thing
+    us = np.cos(np.deg2rad(gdf.Aspect))
+    ref = np.cos(np.deg2rad(rgi_df.Aspect))
+    assert rmsd(us, ref) < 0.3
+    us = np.sin(np.deg2rad(gdf.Aspect))
+    ref = np.sin(np.deg2rad(rgi_df.Aspect))
+    assert rmsd(us, ref) < 0.3
+
+
+def test_hypsometries_script(tmpdir):
+
+    rgi_dir = os.path.join(str(tmpdir), 'RGIV60')
+    rgi_reg_dir = os.path.join(str(tmpdir), 'RGIV60', '11_rgi60_Europe')
+    mkdir(rgi_reg_dir)
+    for e in ['.shp', '.prj', '.dbf', '.shx']:
+        shutil.copyfile(get_demo_file('rgi_oetztal' + e),
+                        os.path.join(rgi_reg_dir, '11_rgi60_Europe' + e))
+    tmp_dir = os.path.join(str(tmpdir), 'RGIV61')
+
+    def replace(s):
+        return s.replace('rgi60', 'rgi61')
+
+    scripts.correct_all_geometries(rgi_dir, tmp_dir, replace_str=replace)
+    outf = os.path.join(tmp_dir, '11_rgi61_Europe', '11_rgi61_Europe.shp')
+    assert os.path.exists(outf)
+
+    # All
+    df = gpd.read_file(get_demo_file('rgi_oetztal.shp'))
+    out = gpd.read_file(outf)
+    assert len(out) == len(df)
+    assert np.all(g.is_valid for g in out.geometry)
+    assert np.any(out.check_geom != '')
+
+    out_dir = os.path.join(str(tmpdir), 'RGIV62')
+
+    def replace(s):
+        return s.replace('rgi61', 'rgi62')
+
+    def set_oggm_params(cfg):
+        cfg.PATHS['dem_file'] = get_demo_file('srtm_oetztal.tif')
+        cfg.PARAMS['use_multiprocessing'] = False
+
+    scripts.compute_all_hypsometries(tmp_dir, out_dir, replace_str=replace,
+                                     set_oggm_params=set_oggm_params)
+    outf = os.path.join(out_dir, '11_rgi62_Europe', '11_rgi62_Europe.shp')
+    assert os.path.exists(outf)
+    outf = os.path.join(out_dir, '11_rgi62_Europe',
+                        '11_rgi62_Europe_hypso.csv')
     assert os.path.exists(outf)
