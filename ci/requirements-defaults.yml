@@ -5,6 +5,7 @@ channels:
 dependencies:
   - python=3.6
   - oggm-deps
+  - rasterio=1.0b
   - pip:
     - git+https://github.com/OGGM/oggm.git
     - coveralls
