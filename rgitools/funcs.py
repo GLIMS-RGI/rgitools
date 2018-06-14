@@ -427,7 +427,12 @@ def hypsometries(rgi_df, to_file='', job_id='', oggm_working_dir='',
     workflow.execute_entity_task(tasks.simple_glacier_masks, gdirs)
 
     out_gdf = rgi_df.copy().set_index('RGIId')
-    out_gdf[['Zmed', 'Zmin', 'Zmax', 'Slope', 'Aspect']] = np.NaN
+    try:
+        is_nominal = np.array([s[0] == '2' for s in out_gdf.RGIFlag])
+    except AttributeError:
+        is_nominal = np.array([s == '2' for s in out_gdf.Status])
+    cols = ['Zmed', 'Zmin', 'Zmax', 'Slope', 'Aspect']
+    out_gdf.loc[~is_nominal, cols] = np.NaN
 
     df = pd.DataFrame()
     for gdir in gdirs:

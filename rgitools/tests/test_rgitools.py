@@ -193,6 +193,7 @@ def test_hypsometry(tmpdir):
     from shapely.affinity import translate
     geo = rgi_df.iloc[0, -1]
     rgi_df.iloc[0, -1] = translate(geo, xoff=10)
+    rgi_df.loc[1, 'RGIFlag'] = '2909'
 
     def set_oggm_params(cfg):
         cfg.PATHS['dem_file'] = get_demo_file('srtm_oetztal.tif')
@@ -202,17 +203,19 @@ def test_hypsometry(tmpdir):
                                  to_file=outf)
 
     assert np.all(df.loc[0, df.columns[3:]] == -9)
+    assert np.all(df.loc[1, df.columns[3:]] == -9)
     assert not np.isfinite(gdf.loc[0, 'Aspect'])
-    df = df.iloc[1:]
+    assert gdf.loc[1, 'Aspect'] == rgi_df.loc[1, 'Aspect']
+    df = df.iloc[2:]
     assert np.all(df[df.columns[3:]].sum(axis=1) == 1000)
 
-    gdf = gdf.iloc[1:]
-    rgi_df = rgi_df.iloc[1:]
+    gdf = gdf.iloc[2:]
+    rgi_df = rgi_df.iloc[2:]
 
     from oggm.utils import rmsd
-    assert rmsd(gdf['Zmed'], rgi_df['Zmed']) < 20
-    assert rmsd(gdf['Zmin'], rgi_df['Zmin']) < 20
-    assert rmsd(gdf['Zmax'], rgi_df['Zmax']) < 20
+    assert rmsd(gdf['Zmed'], rgi_df['Zmed']) < 25
+    assert rmsd(gdf['Zmin'], rgi_df['Zmin']) < 25
+    assert rmsd(gdf['Zmax'], rgi_df['Zmax']) < 25
     assert rmsd(gdf['Slope'], rgi_df['Slope']) < 1
 
     # For aspect test for cos / sin  because of 0 360 thing
@@ -228,16 +231,17 @@ def test_hypsometry(tmpdir):
     gdf = gpd.read_file(outf + '.shp')
 
     assert np.all(df.loc[0, df.columns[3:]] == -9)
+    assert np.all(df.loc[1, df.columns[3:]] == -9)
     assert not np.isfinite(gdf.loc[0, 'Aspect'])
-    df = df.iloc[1:]
+    df = df.iloc[2:]
     assert np.all(df[df.columns[3:]].sum(axis=1) == 1000)
 
-    gdf = gdf.iloc[1:]
+    gdf = gdf.iloc[2:]
 
     from oggm.utils import rmsd
-    assert rmsd(gdf['Zmed'], rgi_df['Zmed']) < 20
-    assert rmsd(gdf['Zmin'], rgi_df['Zmin']) < 20
-    assert rmsd(gdf['Zmax'], rgi_df['Zmax']) < 20
+    assert rmsd(gdf['Zmed'], rgi_df['Zmed']) < 25
+    assert rmsd(gdf['Zmin'], rgi_df['Zmin']) < 25
+    assert rmsd(gdf['Zmax'], rgi_df['Zmax']) < 25
     assert rmsd(gdf['Slope'], rgi_df['Slope']) < 1
 
     # For aspect test for cos / sin  because of 0 360 thing

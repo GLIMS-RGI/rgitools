@@ -119,6 +119,39 @@ If needed, you can merge each of these clusters into a single polygon:
     @savefig plot_merged.png width=100%
     df_merged.plot(ax=ax, column='cluster_id', edgecolor='k', cmap='Set2');
 
+.. _tools.hypso:
+
+Glacier hypsometry
+------------------
+
+Based on freely available topography data and automated download scripts
+from the OGGM model, rgitools provides an automated script to compute glacier
+hypsometry in the same format as the RGI:
+
+
+
+.. ipython:: python
+
+    rgi_df = gpd.read_file(get_demo_file('rgi_oetztal.shp'))
+
+    def set_params(cfg):
+        # For documentation only -- this is automated
+        cfg.PATHS['dem_file'] = get_demo_file('srtm_oetztal.tif')
+        cfg.PARAMS['use_multiprocessing'] = False
+        return
+
+    from rgitools.funcs import hypsometries
+    hypso_df, h_rgi_df = hypsometries(rgi_df, set_oggm_params=set_params)
+
+    hypso_df = hypso_df.set_index('RGIId')
+    hypso_df = hypso_df[hypso_df.columns[46:]]  / 10  # permil to percent
+    hypso_df.columns = [int(c) for c in hypso_df.columns]
+
+    f, ax = plt.subplots(figsize=(6, 5))
+    hypso_df.mean().plot.barh(ax=ax, color='C0');
+    @savefig plot_hypso.png width=100%
+    ax.set_xlabel('% area'); ax.set_ylabel('Altitude (m)');
+
 
 More tools
 ----------

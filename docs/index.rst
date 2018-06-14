@@ -10,16 +10,15 @@ It is currently in development, but our goal is to provide the following
 sevices to the RGI community:
 
 - **automated data quality check**: see :ref:`tools.qc`.
-- **ID link list between RGI versions**: the RGI glacier identifiers might
-  change from one version to another. If the geometry didn't change, it is
-  possible to automatically identify the new ID of a glacier in the new RGI
-  version.
 - **Geometry of the ice divides and listing or glacier clusters**:
   see :ref:`tools.intersects`.
 - **Merging of glacier clusters**: see :ref:`tools.merge`.
-- **Glacier hypsometry**: continuing the work done by Matthias Huss for
-  previous RGI version, rgitools relies on OGGM to provide the glacier
-  hypsometries and topography data for each single glacier in the RGI.
+- **Glacier hypsometry**: see :ref:`tools.hypso`.
+- **ID link list between RGI versions** (not available yet): the RGI glacier
+  identifiers might change from one version to another. If the geometry didn't
+  change, it is possible to automatically identify the new ID of a glacier in
+  the new RGI version.
+
 
 Documentation
 -------------
