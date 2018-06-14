@@ -2,10 +2,11 @@ name: test_env
 channels:
   - oggm
   - conda-forge
+  - conda-forge/label/dev
 dependencies:
   - python=3.6
   - oggm-deps
-  - rasterio=1.0b
+  - rasterio>=1.*
   - pip:
     - git+https://github.com/OGGM/oggm.git
     - coveralls
