@@ -1,7 +1,9 @@
 import os
+import shutil
 import logging
 from functools import wraps
 import time
+import tempfile
 import numpy as np
 import pandas as pd
 import geopandas as gpd
@@ -9,15 +11,8 @@ import shapely.geometry as shpg
 from shapely.ops import linemerge
 import networkx as nx
 from salem import wgs84
-from oggm.utils import haversine, get_topo_file, nicenumber
+from oggm.utils import haversine
 from shapely.geometry import mapping
-import rasterio
-try:
-    # rasterio V > 1.0
-    from rasterio.merge import merge as merge_tool
-except ImportError:
-    from rasterio.tools.merge import merge as merge_tool
-from rasterio.mask import mask as riomask
 
 # Interface
 from oggm.utils import get_demo_file, mkdir   # noqa: F401
@@ -59,7 +54,7 @@ def io_logger(func):
             logger.info('Starting job %s ...' % job_id,
                         extra={'name_override': func.__name__})
 
-        to_file = kwargs.pop('to_file', '')
+        to_file = kwargs.get('to_file', '')
         if to_file:
             if os.path.exists(to_file):
                 raise RuntimeError("Won't overwrite existing file: " +
@@ -76,12 +71,10 @@ def io_logger(func):
 
         out_file = func(*nargs, **kwargs)
 
-        # Write and return
+        # Write and return -- only if expected output
         if isinstance(out_file, gpd.GeoDataFrame) and to_file:
             out_file.crs = wgs84.srs
             out_file.to_file(to_file)
-        if isinstance(out_file, pd.DataFrame) and to_file:
-            out_file.to_csv(to_file, index=True)
 
         if job_id:
             m, s = divmod(time.time() - start_time, 60)
@@ -376,127 +369,109 @@ def _feature(ind, rowobj):
         'geometry': mapping(rowobj['geometry'])}
 
 
-def get_hypsometries(rgi_path, to_file='', job_id='', bsize=50., blabel='center'):
+@io_logger
+def hypsometries(rgi_df, to_file='', job_id='', oggm_working_dir='',
+                 set_oggm_params=None):
     """
     Create hypsometries for glacier geometries using the best available DEM.
 
-    The DEM choice is currently managed fully automated by OGGM.
+    We use the same convention as documented in RGIV6: bins of size 50,
+    from 0 m a.s.l. to max elevation in 50 m bins.
+
+    The DEM choice and grid resolution is managed by OGGM.
 
     Parameters
     ----------
-    rgi_path : str
-        Path to the RGI shapefile.
-    bsize: float, optional
-        Bin size, i.e. the height interval size in meters used to subdivide
-        the glacier. Default: 50 m.
-    blabel: str, optional
-        Label to use for each elevation bin when writing the hypsometries.
-        Available options:
-        - 'right': Uses the right bin edge as label.
-        - 'center': Uses the center of the bin as label.
-        - 'left': Uses the left bin edge as label.
-        Default: 'center'.
+    rgi_df : str or geopandas.GeoDataFrame
+        the RGI shapefile
+    to_file : str, optional
+        set to a valid path to write the file on disk
+        For this task: the file name should have no ending, as two files
+        are written to disk
     job_id : str, optional
         if you want to log what happens, give a name to this job
+    oggm_working_dir: str, optional
+        path to the folder where oggm will write its GlacierDirectories.
+        Default is to use a temporary folder (not recommended)
+    oggm_cfg : str, optional
+        path to a valid oggm config file (useful to override oggm defaults)
     """
 
-    if blabel not in ['left', 'center', 'right']:
-        raise ValueError('Bin label choice must be either of "left", "center" '
-                         'or "right".')
-    fail_flag = np.nan
+    if to_file:
+        _, ext = os.path.splitext(to_file)
+        if ext != '':
+            raise ValueError('to_file should not have an extension!')
+        if os.path.exists(to_file + '.csv'):
+            raise RuntimeError("Won't overwrite existing file: " +
+                               to_file + '.csv')
+        if os.path.exists(to_file + '.shp'):
+            raise RuntimeError("Won't overwrite existing file: " +
+                               to_file + '.shp')
 
-    df = pd.DataFrame([])
+    from oggm import cfg, workflow, tasks
+    cfg.initialize()
 
-    rgi_df = gpd.read_file(rgi_path)
-    for i, row in rgi_df.iterrows():
+    if set_oggm_params is not None:
+        set_oggm_params(cfg)
 
-        # Get the best DEM
-        try:
-            xx, yy = row.geometry.exterior.xy
-        except AttributeError:  # it's a MultiPolygon
-            row.geometry = _multi_to_poly(row.geometry)
-            xx, yy = row.geometry.exterior.xy
-        minlon, maxlon = np.min(xx), np.max(xx)
-        minlat, maxlat = np.min(yy), np.max(yy)
-        rgi_region = '{:02d}'.format(int(row.O1Region))
-        rgi_subreg = rgi_region + '-' + '{:02d}'.format(int(row.O2Region))
-        try:
-            dem_list, _ = get_topo_file((minlon, maxlon), (minlat, maxlat),
-                                        rgi_region=rgi_region,
-                                        rgi_subregion=rgi_subreg)
-        # Probably a nominal glacier:
-        except RuntimeError as e:
-            logger.warn('{} Probably a nominal glacier?: {}'.format(e,
-                                                                    row.RGIId))
-            df.loc[row.RGIId, :] = fail_flag
+    del_dir = False
+    if not oggm_working_dir:
+        del_dir = True
+        oggm_working_dir = tempfile.mkdtemp()
+    cfg.PATHS['working_dir'] = oggm_working_dir
+
+    # Get the DEM job done by OGGM
+    cfg.PARAMS['use_intersects'] = False
+    cfg.PARAMS['continue_on_error'] = True
+    gdirs = workflow.init_glacier_regions(rgi_df)
+    workflow.execute_entity_task(tasks.simple_glacier_masks, gdirs)
+
+    out_gdf = rgi_df.copy().set_index('RGIId')
+    try:
+        is_nominal = np.array([s[0] == '2' for s in out_gdf.RGIFlag])
+    except AttributeError:
+        is_nominal = np.array([s == '2' for s in out_gdf.Status])
+    cols = ['Zmed', 'Zmin', 'Zmax', 'Slope', 'Aspect']
+    out_gdf.loc[~is_nominal, cols] = np.NaN
+
+    df = pd.DataFrame()
+    for gdir in gdirs:
+
+        rid = gdir.rgi_id
+        df.loc[rid, 'RGIId'] = gdir.rgi_id
+        df.loc[rid, 'GLIMSId '] = gdir.glims_id
+        df.loc[rid, 'Area '] = gdir.rgi_area_km2
+
+        if not gdir.has_file('hypsometry') or gdir.is_nominal:
             continue
 
-        # Assemble DEM
-        if len(dem_list) == 1:
-            dem_data = rasterio.open(dem_list[0])  # if one tile, just open it
-        else:
-            dem_dss = [rasterio.open(s) for s in dem_list]  # list of rasters
-            dem_data, src_transform = merge_tool(dem_dss)  # merged rasters
-            profile = dem_dss[0].profile
-            profile.update({
-                'transform': src_transform,
-                'width': dem_data.shape[2],
-                'height': dem_data.shape[1]
-            })
-            # Small detour as mask only accepts DataReader objects
-            with rasterio.io.MemoryFile() as memfile:
-                with memfile.open(**profile) as dataset:
-                    dataset.write(dem_data)
-                dem_data = rasterio.open(memfile.name)
-
-        # Clip DEM with polygon and sort heights into bins
-        try:
-            mask, out_transform = riomask(dem_data,
-                                          [_feature(i, row)['geometry']],
-                                          crop=True, all_touched=True,
-                                          filled=False)
-        except ValueError as e:  # DEM has zero width and/or height
-            logger.warn('No valid DEM found on glacier area: {}'.format(e,
-                                                                        row.RGIId))
-            df.loc[row.RGIId, :] = fail_flag
-
-
-        mask_valid = mask[mask != mask.fill_value]
-        # check if there are any valid values at all:
-        if mask.count() == 0:
-            logger.warn('No valid DEM found on glacier area: {}'
-                        .format(row.RGIId))
-            df.loc[row.RGIId, :] = fail_flag
-            continue
-        mask_valid = mask_valid.clip(0)  # values below 0 might occur
-        maxb = nicenumber(mask_valid.max(), bsize)
-        minb = nicenumber(mask_valid.min(), bsize, lower=True)
-        bins = np.arange(minb, maxb + 0.01, bsize)
-
-        # Bin indices for every grid cell
-        bin_ind = np.digitize(mask_valid, bins) - 1  # I prefer the left
-
-        # Sum bin numbers and divide by sum of cells in mask
-        for bi in range(len(bins) - 1):
-            bintopoarea = len(np.where(bin_ind == bi)[0])
+        idf = pd.read_csv(gdir.get_filepath('hypsometry')).iloc[0]
+        for c in idf.index:
             try:
-                binratio = bintopoarea / len(np.where(mask_valid)[0])
-            except ZeroDivisionError:
-                logger.warn('Hypsometry calculation failed due to missing DEM '
-                             'information: {}'.format(row.RGIId))
-                df.loc[row.RGIId, :] = fail_flag
+                int(c)
+            except ValueError:
                 continue
+            df.loc[rid, c] = idf[c]
 
-            # In percent
-            if blabel == 'left':
-                label = bins[bi]
-            if blabel == 'center':
-                label = bins[bi] + 0.5 * bsize
-            if blabel == 'right':
-                label = bins[bi] + bsize  # unlikely, but one can be missing
+        out_gdf.loc[rid, 'Zmed'] = idf.loc['Zmed']
+        out_gdf.loc[rid, 'Zmin'] = idf.loc['Zmin']
+        out_gdf.loc[rid, 'Zmax'] = idf.loc['Zmax']
+        out_gdf.loc[rid, 'Slope'] = idf.loc['Slope']
+        out_gdf.loc[rid, 'Aspect'] = idf.loc['Aspect']
 
-            df.loc[row.RGIId, label] = float("{0:.2f}".format(binratio * 100))
+    df = df.reset_index(drop=True)
+    bdf = df[df.columns[3:]].fillna(0).astype(np.int)
+    ok = bdf.sum(axis=1)
+    bdf.loc[ok < 1000, :] = -9
+    df[df.columns[3:]] = bdf
 
-    # make nice
-    df_res = df.sort_index(axis=1)
-    return df_res
+    if del_dir:
+        shutil.rmtree(oggm_working_dir)
+
+    # replace io write
+    if to_file:
+        out_gdf.crs = wgs84.srs
+        out_gdf.to_file(to_file + '.shp')
+        df.to_csv(to_file + '_hypso.csv')
+
+    return df, out_gdf.reset_index()
