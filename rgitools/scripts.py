@@ -98,7 +98,8 @@ def compute_all_intersects(rgi_dir, out_dir, n_processes=None):
 
 
 def compute_all_hypsometries(rgi_dir, out_dir, replace_str=None,
-                             oggm_working_dir='', set_oggm_params=None):
+                             oggm_working_dir='', set_oggm_params=None,
+                             n_processes=None):
     """Computes the hypsometries for an entire RGI directory.
 
     Parameters
@@ -120,6 +121,8 @@ def compute_all_hypsometries(rgi_dir, out_dir, replace_str=None,
 
     funcs.mkdir(out_dir)
 
+    out_paths = []
+    log_names = []
     for rgi_shp in rgi_shps:
         odir = os.path.basename(os.path.dirname(rgi_shp))
         if replace_str:
@@ -131,9 +134,17 @@ def compute_all_hypsometries(rgi_dir, out_dir, replace_str=None,
             bn = replace_str(bn)
         bn = bn.replace('.shp', '')
         of = os.path.join(odir, bn)
-        funcs.hypsometries(rgi_shp, to_file=of,
-                           set_oggm_params=set_oggm_params,
-                           oggm_working_dir=oggm_working_dir)
+        out_paths.append(of)
+        log_names.append(bn)
+
+    with mp.Pool(n_processes) as p:
+        p.starmap(mappable_func,
+                  zip([funcs.hypsometries] * len(rgi_shps),
+                      rgi_shps, out_paths, log_names,
+                      [set_oggm_params] * len(rgi_shps),
+                      [oggm_working_dir] * len(rgi_shps),
+                      ),
+                  chunksize=1)
 
 
 def zip_rgi_dir(rgi_dir, out_file, manifest=''):
@@ -145,6 +156,8 @@ def zip_rgi_dir(rgi_dir, out_file, manifest=''):
         path to the RGI directory
     out_file : str
         path to the output file (without zip ending!)
+    manifest : str
+        text to put in the manifest
     """
 
     # First zip the regions
