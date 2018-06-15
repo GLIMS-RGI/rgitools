@@ -469,6 +469,9 @@ def hypsometries(rgi_df, to_file='', job_id='', oggm_working_dir='',
     bdf.loc[ok < 1000, :] = -9
     df[df.columns[3:]] = bdf
 
+    # Sort columns
+    df = df[np.append(df.columns[:3], sorted(df.columns[3:]))]
+
     if del_dir:
         shutil.rmtree(oggm_working_dir)
 

@@ -137,7 +137,6 @@ def compute_all_hypsometries(rgi_dir, out_dir, replace_str=None,
         out_paths.append(of)
         log_names.append(bn)
 
-
     with mp.Pool(n_processes) as p:
         p.starmap(mappable_func,
                   zip([funcs.hypsometries] * len(rgi_shps),

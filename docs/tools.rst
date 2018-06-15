@@ -126,9 +126,10 @@ Glacier hypsometry
 
 Based on freely available topography data and automated download scripts
 from the OGGM model, rgitools provides an automated script to compute glacier
-hypsometry in the same format as the RGI:
+hypsometry in the same format as the RGI.
 
-
+The data sources used by rgitools are listed
+`here <http://oggm.readthedocs.io/en/latest/input-data.html#topography-data>`_.
 
 .. ipython:: python
 
@@ -141,16 +142,15 @@ hypsometry in the same format as the RGI:
         return
 
     from rgitools.funcs import hypsometries
-    hypso_df, h_rgi_df = hypsometries(rgi_df, set_oggm_params=set_params)
+    df, h_rgi_df = hypsometries(rgi_df, set_oggm_params=set_params)
 
-    hypso_df = hypso_df.set_index('RGIId')
-    hypso_df = hypso_df[hypso_df.columns[46:]]  / 10  # permil to percent
-    hypso_df.columns = [int(c) for c in hypso_df.columns]
+    hypso_df = df[df.columns[3:]]
+    hypso_df = (hypso_df / 1000).multiply(df['Area'], axis=0) # to area bands
 
     f, ax = plt.subplots(figsize=(6, 5))
-    hypso_df.mean().plot.barh(ax=ax, color='C0');
+    hypso_df.sum().plot.barh(ax=ax, color='C0');
     @savefig plot_hypso.png width=100%
-    ax.set_xlabel('% area'); ax.set_ylabel('Altitude (m)');
+    ax.set_xlabel('Area (km2)'); ax.set_ylabel('Altitude (m)');
 
 
 More tools
