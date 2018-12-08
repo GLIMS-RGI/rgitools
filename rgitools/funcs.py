@@ -11,7 +11,7 @@ import shapely.geometry as shpg
 from shapely.ops import linemerge
 import networkx as nx
 from salem import wgs84
-from oggm.utils import haversine, glacier_characteristics
+from oggm.utils import haversine, compile_glacier_statistics
 from shapely.geometry import mapping
 
 # Interface
@@ -426,8 +426,8 @@ def hypsometries(rgi_df, to_file='', job_id='', oggm_working_dir='',
     cfg.PARAMS['use_multiprocessing'] = False
     gdirs = workflow.init_glacier_regions(rgi_df)
     workflow.execute_entity_task(tasks.simple_glacier_masks, gdirs)
-    glacier_characteristics(gdirs,
-                            filesuffix='_{}'.format(gdirs[0].rgi_region))
+    compile_glacier_statistics(gdirs,
+                               filesuffix='_{}'.format(gdirs[0].rgi_region))
 
     out_gdf = rgi_df.copy().set_index('RGIId')
     try:
