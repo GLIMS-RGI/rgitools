@@ -227,7 +227,7 @@ def test_hypsometry(tmpdir):
     assert rmsd(us, ref) < 0.3
 
     ##
-    df = pd.read_csv(outf + '_hypso.csv', index_col=0)
+    df = pd.read_csv(outf + '_hypso.csv')
     gdf = gpd.read_file(outf + '.shp')
 
     assert np.all(df.loc[0, df.columns[3:]] == -9)
@@ -251,6 +251,10 @@ def test_hypsometry(tmpdir):
     us = np.sin(np.deg2rad(gdf.Aspect))
     ref = np.sin(np.deg2rad(rgi_df.Aspect))
     assert rmsd(us, ref) < 0.3
+
+
+def set_oggm_params(cfg):
+    cfg.PATHS['dem_file'] = get_demo_file('srtm_oetztal.tif')
 
 
 def test_hypsometries_script(tmpdir):
@@ -282,13 +286,12 @@ def test_hypsometries_script(tmpdir):
     def replace(s):
         return s.replace('rgi61', 'rgi62')
 
-    def set_oggm_params(cfg):
-        cfg.PATHS['dem_file'] = get_demo_file('srtm_oetztal.tif')
-        cfg.PARAMS['use_multiprocessing'] = False
-
     scripts.compute_all_hypsometries(tmp_dir, out_dir, replace_str=replace,
                                      set_oggm_params=set_oggm_params)
     outf = os.path.join(out_dir, '11_rgi62_Europe', '11_rgi62_Europe.shp')
+    assert os.path.exists(outf)
+    outf = os.path.join(out_dir, '11_rgi62_Europe',
+                        '11_rgi62_Europe_hypso.csv')
     assert os.path.exists(outf)
     outf = os.path.join(out_dir, '11_rgi62_Europe',
                         '11_rgi62_Europe_hypso.csv')

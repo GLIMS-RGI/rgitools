@@ -29,6 +29,7 @@ Documentation
     whats-new
     installing
     tools
+    known-issues
     api
 
 
