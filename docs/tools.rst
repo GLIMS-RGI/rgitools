@@ -89,6 +89,7 @@ This information is then used by the ``rgitools.funcs.find_clusters`` function
 to detect the connected entities:
 
 .. ipython:: python
+    :okwarning:
 
     from rgitools.funcs import find_clusters
     clusters = find_clusters(dfi)
