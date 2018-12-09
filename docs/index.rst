@@ -30,6 +30,7 @@ Documentation
     installing
     tools
     known-issues
+    dems
     api
 
 
