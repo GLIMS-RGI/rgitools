@@ -9,8 +9,6 @@ default is DEM3**.
 Summary
 -------
 
-This shows us:
-
 - ASTER is very bad. The artefacts are not flagged as missing data like it
   mostly is in TanDEM-X or ArcticDEM
 - TanDEM-X and ArcticDEM agree well

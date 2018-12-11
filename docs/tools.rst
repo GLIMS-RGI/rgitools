@@ -74,7 +74,7 @@ neighbors and **which** glaciers are connected. This is what the
     f, ax = plt.subplots(figsize=(6, 4))
     df.plot(ax=ax, edgecolor='k');
     @savefig plot_intersects.png width=100%
-    dfi.plot(ax=ax, edgecolor='C3');
+    dfi.plot(ax=ax, edgecolor='C3'); plt.tight_layout();
 
 The intersects shapefile contains the divide geometries (in red on the plot)
 and the ID of the two glaciers it is the divide for:
@@ -99,7 +99,7 @@ to detect the connected entities:
 
     f, ax = plt.subplots(figsize=(6, 4))
     @savefig plot_clusters.png width=100%
-    df.plot(ax=ax, column='cluster_id', edgecolor='k', cmap='Set2');
+    df.plot(ax=ax, column='cluster_id', edgecolor='k', cmap='Set2'); plt.tight_layout();
 
 This function returns a dictionary containg the list of identifiers for
 each cluster.
@@ -130,7 +130,7 @@ from the OGGM model, rgitools provides an automated script to compute glacier
 hypsometry in the same format as the RGI.
 
 The data sources used by rgitools are listed
-`here <http://oggm.readthedocs.io/en/latest/input-data.html#topography-data>`_.
+`here <https://rgitools.readthedocs.io/en/latest/dems.html>`_.
 
 .. ipython:: python
 
@@ -151,7 +151,7 @@ The data sources used by rgitools are listed
     f, ax = plt.subplots(figsize=(6, 5))
     hypso_df.sum().plot.barh(ax=ax, color='C0');
     @savefig plot_hypso.png width=100%
-    ax.set_xlabel('Area (km2)'); ax.set_ylabel('Altitude (m)');
+    ax.set_xlabel('Area (km2)'); ax.set_ylabel('Altitude (m)'); plt.tight_layout();
 
 
 More tools
@@ -159,4 +159,18 @@ More tools
 
 More tools are coming soon! Stay tuned...
 
+Software versions
+-----------------
+
+.. ipython:: python
+
+    import rgitools
+    import oggm
+    import matplotlib
+    import geopandas
+
+    rgitools.__version__
+    oggm.__version__
+    matplotlib.__version__
+    geopandas.__version__
 

@@ -9,8 +9,7 @@ default is SRTM**.
 Summary
 -------
 
-This is one of the (many) examples where TanDEM-X has data gaps and artefacts
-(mostly at the boundaries with the gaps).
+- one of the (many) cases where TanDEM-X has data gaps and artefacts
 
 Maps
 ----

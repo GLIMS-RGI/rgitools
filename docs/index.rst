@@ -14,10 +14,7 @@ sevices to the RGI community:
   see :ref:`tools.intersects`.
 - **Merging of glacier clusters**: see :ref:`tools.merge`.
 - **Glacier hypsometry**: see :ref:`tools.hypso`.
-- **ID link list between RGI versions** (not available yet): the RGI glacier
-  identifiers might change from one version to another. If the geometry didn't
-  change, it is possible to automatically identify the new ID of a glacier in
-  the new RGI version.
+- **ID link list between RGI versions** (not available yet)
 
 
 Documentation
@@ -40,12 +37,14 @@ Get in touch
 - View the source code `on GitHub`_.
 - Report bugs or share your ideas on the `issue tracker`_.
 - Improve the model by submitting a `pull request`_.
+- Follow us on `Twitter`_.
 - Or you can always send us an `e-mail`_ the good old way.
 
-.. _e-mail: info@oggm.org
+.. _e-mail: https://mailman.zfn.uni-bremen.de/cgi-bin/mailman/listinfo/oggm-users
 .. _on GitHub: https://github.com/OGGM/rgitools
 .. _issue tracker: https://github.com/OGGM/rgitools/issues
 .. _pull request: https://github.com/OGGM/rgitools/pulls
+.. _Twitter: https://twitter.com/OGGM1
 
 
 About
@@ -65,4 +64,5 @@ About
 
 :Authors:
 
-    Fabien Maussion
+    `Fabien Maussion <https://fabienmaussion.info/>`_,
+    Johannes Landmann

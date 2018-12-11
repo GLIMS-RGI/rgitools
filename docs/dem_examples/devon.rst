@@ -1,5 +1,5 @@
-Devon ice-cap
-=============
+Devon ice-cap (Arctic Canada)
+=============================
 
 Located in Canada (`75°04'08"N 83°25'03"W <https://goo.gl/maps/Bo5uWJWRmNC2>`_).
 
@@ -9,8 +9,9 @@ default is DEM3**.
 Summary
 -------
 
-This is an example where DEM3 has small artifacts at the boundary between
-two tiles, fortunately not too large. ArcticDEM, TanDEM-X are performing well.
+- DEM3 has small artifacts at the boundary between two tiles, fortunately
+  not too dramatic
+- ArcticDEM, TanDEM-X are performing well
 
 Maps
 ----

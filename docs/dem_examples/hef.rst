@@ -1,5 +1,5 @@
-Hintereisferner
-===============
+Hintereisferner (Alps)
+======================
 
 Located in the Austrian Alps (`46°47'43"N 10°46'01"E <https://goo.gl/maps/hncE2T1NAnC2>`_).
 
@@ -9,10 +9,11 @@ default is SRTM**.
 Summary
 -------
 
-In an easy location in the mid-latitudes, all DEMs are qualitatively OK. DEM3
-is the most different from all, with an obvious higher elevation tongue.
-There is a worrying generalised bias between SRTM and TanDEM-X, the latter
-being higher of 40m in average. ASTER and SRTM agree the most.
+- in an easy location in the mid-latitudes, all DEMs are qualitatively OK
+- DEM3 is the most different from all, with an obvious higher elevation tongue
+- worrying generalised bias between SRTM and TanDEM-X, the latter
+  being higher of 40m in average
+- ASTER and SRTM agree the most
 
 Maps
 ----
