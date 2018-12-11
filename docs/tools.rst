@@ -94,6 +94,7 @@ to detect the connected entities:
     from rgitools.funcs import find_clusters
     clusters = find_clusters(dfi)
 
+    df['cluster_id'] = 0
     for i, (k, c) in enumerate(clusters.items()):
         df.loc[df.RGIId.isin(c), 'cluster_id'] = i+1
 
