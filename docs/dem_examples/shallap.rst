@@ -9,8 +9,9 @@ default is SRTM**.
 Summary
 -------
 
-Another location where TanDEM-X has artefacts. The other DEMS also agree
-quite poorly, whith some obvious smoothing in SRTM.
+- another location where TanDEM-X has artifacts
+- the other DEMS also agree quite poorly
+- obvious smoothing artefact in SRTM
 
 Maps
 ----

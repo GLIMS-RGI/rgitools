@@ -7,7 +7,7 @@ This page lists the issues that have been discovered in RGIV6.
 Data files
 ----------
 
-- The file '01_rgi60_Alaska_hypso.csv' contains RGI IDs which are still labelled
+- The file ``01_rgi60_Alaska_hypso.csv`` contains RGI IDs which are still labelled
   as RGI50.
 - The column ``Zmed`` in the file '19_rgi60_AntarcticSubantarctic.shp' contains
   only missing data
@@ -52,6 +52,6 @@ Noisy DEM data
 RGI does not currently ship DEM data directly, but only as aggregated,
 hypsometry statistics. We know however that these statistics might rely
 on a noisy DEM map (see `this blog post <https://oggm.org/2018/05/21/g2ti/>`_
-for more information). This is however very unlikely to have any significant
-influence on the aggregated statistics, since the DEMs are mostly correct
-(but noisy).
+for more information). This is very unlikely to have any significant
+influence on the aggregated statistics, since the DEMs are mostly correct and
+just noisy.

@@ -9,14 +9,12 @@ default is DEM3**.
 Summary
 -------
 
-This shows us:
-
 - ASTER (when it has no gaps, which is the case here) is noisy over flat
   glacier surfaces (north-east of the glacier)
 - DEM3 is obviously based on ASTER but is smoother
-- the difference in dates between ASTER and the newer products (TanDEM-X,
-  ArcticDEM) is very clear
-- it is one of these examples where ArctiDEM has too many data gaps.
+- clear differences between ASTER and the newer products (TanDEM-X,
+  ArcticDEM) might be due to mass-loss, although it seems exaggerated
+- it is one of the cases where ArctiDEM has too many data gaps
 
 
 Maps

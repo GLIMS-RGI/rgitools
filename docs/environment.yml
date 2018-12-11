@@ -7,6 +7,7 @@ dependencies:
   - oggm-deps
   - numpy>=1.15.1
   - rasterio>=1.0
+  - geopandas==0.3.0
   - numpydoc
   - ipython
   - sphinx

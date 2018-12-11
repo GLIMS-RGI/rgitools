@@ -9,7 +9,7 @@ default is GIMP**.
 Summary
 -------
 
-This is a good example, all work quite well.
+This is a good example, all DEM work quite well.
 
 Maps
 ----
