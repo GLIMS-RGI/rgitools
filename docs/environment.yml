@@ -1,4 +1,3 @@
-name: rgitools
 channels:
   - oggm
   - conda-forge
