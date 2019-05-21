@@ -105,7 +105,9 @@ def parse_args(args):
         if len(args.replace_str) != 2:
             raise ValueError('--replace-str needs two values!')
         s1, s2 = args.replace_str
-        replace_str = lambda x: x.replace(s1, s2)
+
+        def replace_str(x):
+            return x.replace(s1, s2)
     else:
         replace_str = None
 
