@@ -10,6 +10,7 @@ __pycache__
 # Notebook stuffs
 examples/*checkpoints
 .ipynb_checkpoints
+.nbgrader.log
 
 # Tests stuffs
 .pytest_cache

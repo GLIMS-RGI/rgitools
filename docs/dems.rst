@@ -24,9 +24,16 @@ their own issues. Here is the list currently supported by OGGM/rgitools:
 - the `Viewfinder Panoramas DEM3`_ products, a global DEM based on various of the
   above listed sources, manually merged and corrected.
 - the `TanDEM-X 90m`_ DEM, newly released and covering the entire globe.
-  (password protected for license issues)
 - the `Arctic DEM`_ newly released in version 7 and covering the northern
   latitudes at various resolutions (we picked 100m for a start).
+- the `REMA Antarctic DEM`_ newly released and covering the Antarctic
+  continent at various resolutions (we picked 100m for a start).
+- the `ALOS World 3D - 30mx`_ (AW3D30) global digital surface model from the
+  Japanese space agency JAXA.
+- the `AWS terrain tiles`_ data hosted on Amazon Web Services and maintained
+  by `Mapzen <https://www.mapzen.com>`_. This is a bundle of
+  `various data-sources`_ but very flexible in use.
+
 
 .. _Shuttle Radar Topography Mission: http://srtm.csi.cgiar.org/
 .. _Greenland Mapping Project: https://bpcrc.osu.edu/gdg/data/gimpdem
@@ -35,6 +42,10 @@ their own issues. Here is the list currently supported by OGGM/rgitools:
 .. _Advanced Spaceborne Thermal Emission and Reflection Radiometer: https://asterweb.jpl.nasa.gov/gdem.asp
 .. _TanDEM-X 90m: https://geoservice.dlr.de/web/dataguide/tdm90/
 .. _Arctic DEM: https://www.pgc.umn.edu/data/arcticdem/
+.. _ALOS World 3D - 30mx: https://www.eorc.jaxa.jp/ALOS/en/aw3d30/
+.. _AWS terrain tiles: https://registry.opendata.aws/terrain-tiles/
+.. _various data-sources: https://github.com/tilezen/joerd/blob/master/docs/data-sources.md
+.. _REMA Antarctic DEM: https://www.pgc.umn.edu/data/rema/
 
 In theory, this should be enough data. In practice, none of the solutions above
 is 100% satisfying. We didn't do a thorough assesment yet, but you can have a
@@ -51,7 +62,6 @@ look at the following examples:
     dem_examples/devon.rst
     dem_examples/shallap.rst
 
-TODO: examples in Antarctica
 
 Summary
 -------
