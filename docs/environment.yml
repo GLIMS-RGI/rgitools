@@ -1,4 +1,4 @@
-name: rgitools
+name: oggmdocs
 channels:
   - oggm
   - conda-forge
@@ -110,6 +110,7 @@ dependencies:
   - networkx=2.3=py_0
   - nose=1.3.7=py37_1002
   - numpy=1.16.3=py37he5ce36f_0
+  - oggm=1.1.1=py_0
   - olefile=0.46=py_0
   - openblas=0.3.6=h6e990d7_1
   - openjpeg=2.3.1=h58a6597_0
@@ -195,3 +196,5 @@ dependencies:
   - numpydoc=0.9.1
   - ipython=7.5.0
   - sphinx=2.0.1
+pip:
+  - git+https://github.com/OGGM/oggm.git
