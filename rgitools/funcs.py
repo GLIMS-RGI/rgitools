@@ -42,6 +42,12 @@ logger = logging.getLogger(__name__)
 logger.addHandler(handler)
 
 
+def mappable_func(*args):
+    """Wrapper to unpack kwargs and pass them to args[0]"""
+    kwargs = dict(to_file=args[2], job_id=args[3])
+    return args[0](args[1], **kwargs)
+
+
 def io_logger(func):
     """Decorator for common IO and logging logic."""
 
@@ -393,8 +399,8 @@ def hypsometries(rgi_df, to_file='', job_id='', oggm_working_dir='',
     oggm_working_dir: str, optional
         path to the folder where oggm will write its GlacierDirectories.
         Default is to use a temporary folder (not recommended)
-    oggm_cfg : str, optional
-        path to a valid oggm config file (useful to override oggm defaults)
+    set_oggm_params : callable, optional
+        a function which sets the desired OGGM parameters
     """
 
     if to_file:

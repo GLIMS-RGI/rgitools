@@ -18,6 +18,10 @@ Data files
 - in the `summary file <http://www.glims.org/RGI/rgi60_files/00_rgi60_summary.zip>`_,
   the RGI subregions of Region 08 (Scandinavia) are wrongly named and the
   subregion 08-03 as defined in the technical report is missing.
+- the files `00_rgi60_O1Regions.shp` and `00_rgi60_O2Regions.shp` contain
+  polygons describing the boundaries of all RGI regions and subregions.
+  149 RGI glaciers do not pass the geometrical test:
+  `reg_region.contains(rgi_center_point)`.
 
 
 Undivided glacier complexes

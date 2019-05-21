@@ -1,4 +1,4 @@
-name: rgitools
+name: oggmdocs
 channels:
   - oggm
   - conda-forge
@@ -195,3 +195,5 @@ dependencies:
   - numpydoc=0.9.1
   - ipython=7.5.0
   - sphinx=2.0.1
+pip:
+  - git+https://github.com/OGGM/oggm.git

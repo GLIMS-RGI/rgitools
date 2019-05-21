@@ -29,9 +29,9 @@ CLASSIFIERS = [
         'License :: OSI Approved :: GNU Lesser General Public License ' +
         'v3 or later (LGPLv3+)',
         'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
-        'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.6'
+        'Programming Language :: Python :: 3.7',
     ]
 
 DESCRIPTION = ('Python tools for processing and analyzing files from the '
@@ -171,5 +171,19 @@ setup(
     # Old
     data_files=[],
     # Executable scripts
-    entry_points={},
+    entry_points={
+        'console_scripts': [
+            ('rgitools_correct_geometries = '
+             'rgitools.cli.correct_geometries:main'),
+
+            ('rgitools_compute_intersects = '
+             'rgitools.cli.compute_intersects:main'),
+
+            ('rgitools_compute_hypsometries = '
+             'rgitools.cli.compute_hypsometries:main'),
+
+            ('rgitools_zip_rgi_dir = '
+             'rgitools.cli.zip_rgi_dir:main'),
+        ],
+    },
 )
