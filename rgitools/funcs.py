@@ -358,7 +358,7 @@ def merge_clusters(rgi_df, intersects_df, keep_all=True, to_file='',
 
     # dummy index and merge
     d2.reset_index(inplace=True)
-    out = pd.concat([d1, d2])
+    out = pd.concat([d1, d2], sort=False)
 
     out = out.sort_values(by='RGIId')
     out.reset_index(drop=True)
