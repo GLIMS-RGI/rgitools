@@ -11,7 +11,7 @@ import shapely.geometry as shpg
 from shapely.ops import linemerge
 import networkx as nx
 from salem import wgs84
-from oggm.utils import haversine
+from oggm.utils import haversine, compile_glacier_statistics
 from shapely.geometry import mapping
 
 # Interface
@@ -40,6 +40,12 @@ format = CustomFormatter('%(asctime)s: %(name)s.%(funcName)s: %(message)s',
 handler.setFormatter(format)
 logger = logging.getLogger(__name__)
 logger.addHandler(handler)
+
+
+def mappable_func(*args):
+    """Wrapper to unpack kwargs and pass them to args[0]"""
+    kwargs = dict(to_file=args[2], job_id=args[3])
+    return args[0](args[1], **kwargs)
 
 
 def io_logger(func):
@@ -393,8 +399,8 @@ def hypsometries(rgi_df, to_file='', job_id='', oggm_working_dir='',
     oggm_working_dir: str, optional
         path to the folder where oggm will write its GlacierDirectories.
         Default is to use a temporary folder (not recommended)
-    oggm_cfg : str, optional
-        path to a valid oggm config file (useful to override oggm defaults)
+    set_oggm_params : callable, optional
+        a function which sets the desired OGGM parameters
     """
 
     if to_file:
@@ -423,14 +429,17 @@ def hypsometries(rgi_df, to_file='', job_id='', oggm_working_dir='',
     # Get the DEM job done by OGGM
     cfg.PARAMS['use_intersects'] = False
     cfg.PARAMS['continue_on_error'] = True
+    cfg.PARAMS['use_multiprocessing'] = False
     gdirs = workflow.init_glacier_regions(rgi_df)
     workflow.execute_entity_task(tasks.simple_glacier_masks, gdirs)
+    compile_glacier_statistics(gdirs,
+                               filesuffix='_{}'.format(gdirs[0].rgi_region))
 
     out_gdf = rgi_df.copy().set_index('RGIId')
     try:
-        is_nominal = np.array([s[0] == '2' for s in out_gdf.RGIFlag])
+        is_nominal = np.array([int(s[0]) == 2 for s in out_gdf.RGIFlag])
     except AttributeError:
-        is_nominal = np.array([s == '2' for s in out_gdf.Status])
+        is_nominal = np.array([int(s) == 2 for s in out_gdf.Status])
     cols = ['Zmed', 'Zmin', 'Zmax', 'Slope', 'Aspect']
     out_gdf.loc[~is_nominal, cols] = np.NaN
 
@@ -439,8 +448,8 @@ def hypsometries(rgi_df, to_file='', job_id='', oggm_working_dir='',
 
         rid = gdir.rgi_id
         df.loc[rid, 'RGIId'] = gdir.rgi_id
-        df.loc[rid, 'GLIMSId '] = gdir.glims_id
-        df.loc[rid, 'Area '] = gdir.rgi_area_km2
+        df.loc[rid, 'GLIMSId'] = gdir.glims_id
+        df.loc[rid, 'Area'] = gdir.rgi_area_km2
 
         if not gdir.has_file('hypsometry') or gdir.is_nominal:
             continue
@@ -459,11 +468,15 @@ def hypsometries(rgi_df, to_file='', job_id='', oggm_working_dir='',
         out_gdf.loc[rid, 'Slope'] = idf.loc['Slope']
         out_gdf.loc[rid, 'Aspect'] = idf.loc['Aspect']
 
+    out_gdf = out_gdf.reset_index()
     df = df.reset_index(drop=True)
     bdf = df[df.columns[3:]].fillna(0).astype(np.int)
     ok = bdf.sum(axis=1)
     bdf.loc[ok < 1000, :] = -9
     df[df.columns[3:]] = bdf
+
+    # Sort columns
+    df = df[np.append(df.columns[:3], sorted(df.columns[3:]))]
 
     if del_dir:
         shutil.rmtree(oggm_working_dir)
@@ -472,6 +485,6 @@ def hypsometries(rgi_df, to_file='', job_id='', oggm_working_dir='',
     if to_file:
         out_gdf.crs = wgs84.srs
         out_gdf.to_file(to_file + '.shp')
-        df.to_csv(to_file + '_hypso.csv')
+        df.to_csv(to_file + '_hypso.csv', index=False)
 
     return df, out_gdf.reset_index()

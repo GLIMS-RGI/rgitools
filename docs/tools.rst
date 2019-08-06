@@ -74,7 +74,7 @@ neighbors and **which** glaciers are connected. This is what the
     f, ax = plt.subplots(figsize=(6, 4))
     df.plot(ax=ax, edgecolor='k');
     @savefig plot_intersects.png width=100%
-    dfi.plot(ax=ax, edgecolor='C3');
+    dfi.plot(ax=ax, edgecolor='C3'); plt.tight_layout();
 
 The intersects shapefile contains the divide geometries (in red on the plot)
 and the ID of the two glaciers it is the divide for:
@@ -89,16 +89,18 @@ This information is then used by the ``rgitools.funcs.find_clusters`` function
 to detect the connected entities:
 
 .. ipython:: python
+    :okwarning:
 
     from rgitools.funcs import find_clusters
     clusters = find_clusters(dfi)
 
+    df['cluster_id'] = 0
     for i, (k, c) in enumerate(clusters.items()):
         df.loc[df.RGIId.isin(c), 'cluster_id'] = i+1
 
     f, ax = plt.subplots(figsize=(6, 4))
     @savefig plot_clusters.png width=100%
-    df.plot(ax=ax, column='cluster_id', edgecolor='k', cmap='Set2');
+    df.plot(ax=ax, column='cluster_id', edgecolor='k', cmap='Set2'); plt.tight_layout();
 
 This function returns a dictionary containg the list of identifiers for
 each cluster.
@@ -126,9 +128,10 @@ Glacier hypsometry
 
 Based on freely available topography data and automated download scripts
 from the OGGM model, rgitools provides an automated script to compute glacier
-hypsometry in the same format as the RGI:
+hypsometry in the same format as the RGI.
 
-
+The data sources used by rgitools are listed
+`here <https://rgitools.readthedocs.io/en/latest/dems.html>`_.
 
 .. ipython:: python
 
@@ -141,16 +144,15 @@ hypsometry in the same format as the RGI:
         return
 
     from rgitools.funcs import hypsometries
-    hypso_df, h_rgi_df = hypsometries(rgi_df, set_oggm_params=set_params)
+    df, h_rgi_df = hypsometries(rgi_df, set_oggm_params=set_params)
 
-    hypso_df = hypso_df.set_index('RGIId')
-    hypso_df = hypso_df[hypso_df.columns[46:]]  / 10  # permil to percent
-    hypso_df.columns = [int(c) for c in hypso_df.columns]
+    hypso_df = df[df.columns[3:]]
+    hypso_df = (hypso_df / 1000).multiply(df['Area'], axis=0) # to area bands
 
     f, ax = plt.subplots(figsize=(6, 5))
-    hypso_df.mean().plot.barh(ax=ax, color='C0');
+    hypso_df.sum().plot.barh(ax=ax, color='C0');
     @savefig plot_hypso.png width=100%
-    ax.set_xlabel('% area'); ax.set_ylabel('Altitude (m)');
+    ax.set_xlabel('Area (km2)'); ax.set_ylabel('Altitude (m)'); plt.tight_layout();
 
 
 More tools
@@ -158,4 +160,18 @@ More tools
 
 More tools are coming soon! Stay tuned...
 
+Software versions
+-----------------
+
+.. ipython:: python
+
+    import rgitools
+    import oggm
+    import matplotlib
+    import geopandas
+
+    rgitools.__version__
+    oggm.__version__
+    matplotlib.__version__
+    geopandas.__version__
 
