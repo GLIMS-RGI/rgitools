@@ -48,7 +48,7 @@ def mappable_func(*args):
     if len(args) == 6:
         # horrible workaround for compute hypsometries
         kwargs['set_oggm_params'] = args[4]
-        kwargs['oggm_working_dir']= args[5]
+        kwargs['oggm_working_dir'] = args[5]
     return args[0](args[1], **kwargs)
 
 
