@@ -33,7 +33,7 @@ script:
   - if [[ "$TEST_ENV" == "flake8" ]]; then
       flake8 -j auto rgitools;
     else
-      pytest rgitools --cov=rgitools --cov-report term-missing;
+      pytest rgitools --verbose --cov=rgitools --cov-report term-missing;
     fi
 
 after_success:
