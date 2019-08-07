@@ -45,6 +45,10 @@ logger.addHandler(handler)
 def mappable_func(*args):
     """Wrapper to unpack kwargs and pass them to args[0]"""
     kwargs = dict(to_file=args[2], job_id=args[3])
+    if len(args) == 6:
+        # horrible workaround for compute hypsometries
+        kwargs['set_oggm_params'] = args[4]
+        kwargs['oggm_working_dir'] = args[5]
     return args[0](args[1], **kwargs)
 
 
