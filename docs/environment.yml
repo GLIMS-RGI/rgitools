@@ -3,7 +3,7 @@ channels:
   - conda-forge
 dependencies:
   - python=3.6
-  - numpy
+  - numpy<1.17
   - scipy
   - pandas
   - shapely
@@ -13,15 +13,12 @@ dependencies:
   - scikit-image
   - configobj
   - xarray
-  - pytest
-  - dask
   - bottleneck
   - pyproj
   - cartopy
   - geopandas
   - rasterio
   - descartes
-  - seaborn
   - numpydoc
   - ipython
   - sphinx
