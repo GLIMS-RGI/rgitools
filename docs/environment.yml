@@ -5,25 +5,25 @@ dependencies:
   - python=3.6
   - numpy<1.17
   - scipy
-  - pandas
   - shapely
   - matplotlib=3.0.3
   - Pillow
   - netcdf4
   - scikit-image
-  - configobj
-  - xarray
-  - bottleneck
   - pyproj
   - cartopy
-  - geopandas
   - rasterio
-  - descartes
-  - numpydoc
   - ipython
   - sphinx
   - pip
   - pip:
+    - bottleneck
+    - numpydoc
+    - descartes
+    - pandas
+    - xarray
+    - geopandas
+    - configobj
     - joblib
     - progressbar2
     - motionless
