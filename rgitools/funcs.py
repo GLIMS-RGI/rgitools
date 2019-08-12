@@ -80,11 +80,12 @@ def io_logger(func):
             nargs.append(rgi_df)
 
         out_file = func(*nargs, **kwargs)
-        out_file.crs = wgs84.srs
 
         # Write and return -- only if expected output
-        if isinstance(out_file, gpd.GeoDataFrame) and to_file:
-            out_file.to_file(to_file)
+        if isinstance(out_file, gpd.GeoDataFrame):
+            out_file.crs = wgs84.srs
+            if to_file:
+                out_file.to_file(to_file)
 
         if job_id:
             m, s = divmod(time.time() - start_time, 60)
