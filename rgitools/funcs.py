@@ -80,10 +80,10 @@ def io_logger(func):
             nargs.append(rgi_df)
 
         out_file = func(*nargs, **kwargs)
+        out_file.crs = wgs84.srs
 
         # Write and return -- only if expected output
         if isinstance(out_file, gpd.GeoDataFrame) and to_file:
-            out_file.crs = wgs84.srs
             out_file.to_file(to_file)
 
         if job_id:
@@ -222,10 +222,11 @@ def compute_intersects(rgi_df, to_file='', job_id=''):
         # sort by distance to the current glacier
         gdf['dis'] = haversine(major.CenLon, major.CenLat,
                                gdf.CenLon, gdf.CenLat)
-        gdfs = gdf.sort_values(by='dis').iloc[1:]
+        gdfs = gdf.sort_values(by='dis')
 
         # Keep glaciers in which intersect
         gdfs = gdfs.loc[gdfs.dis < 200000]
+        gdfs = gdfs.loc[gdfs.RGIId != major.RGIId]
         gdfs = gdfs.loc[gdfs.intersects(major_poly)]
 
         for _, neighbor in gdfs.iterrows():
@@ -263,7 +264,7 @@ def compute_intersects(rgi_df, to_file='', job_id=''):
             for line in mult_intersect:
                 assert isinstance(line, shpg.linestring.LineString)
                 # Filter the very small ones
-                if len(line.coords) <= 6:
+                if line.length < 1e-3:
                     continue
                 line = gpd.GeoDataFrame([[major.RGIId, neighbor.RGIId, line]],
                                         columns=out_cols)
