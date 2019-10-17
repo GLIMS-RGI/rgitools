@@ -40,11 +40,11 @@ Get in touch
 - Follow us on `Twitter`_.
 - Or you can always send us an `e-mail`_ the good old way.
 
-.. _e-mail: https://mailman.zfn.uni-bremen.de/cgi-bin/mailman/listinfo/oggm-users
+.. _e-mail: info@oggm.org
 .. _on GitHub: https://github.com/OGGM/rgitools
 .. _issue tracker: https://github.com/OGGM/rgitools/issues
 .. _pull request: https://github.com/OGGM/rgitools/pulls
-.. _Twitter: https://twitter.com/OGGM1
+.. _Twitter: https://twitter.com/OGGM_org
 
 
 About
@@ -61,8 +61,3 @@ About
     .. image:: https://readthedocs.org/projects/rgitools/badge/?version=latest
         :target: http://rgitools.readthedocs.org/en/latest/?badge=latest
         :alt: Documentation status
-
-:Authors:
-
-    `Fabien Maussion <https://fabienmaussion.info/>`_,
-    Johannes Landmann
