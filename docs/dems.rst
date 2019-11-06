@@ -18,9 +18,9 @@ their own issues. Here is the list currently supported by OGGM/rgitools:
 - the `Radarsat Antarctic Mapping Project`_ (RAMP) Digital Elevation Model, Version 2
   covering the Antarctic continent
   (for RGI region 19 with the exception of the peripheral islands)
-- the `Advanced Spaceborne Thermal Emission and Reflection Radiometer`_ (ASTER GDEM)
-  Global Digital Elevation Model Version 2 covering the entire globe.
-  (password protected for license issues)
+- the `Advanced Spaceborne Thermal Emission and Reflection Radiometer`_ (ASTER)
+  ASTER Global Digital Elevation Model (GDEM) Version 3 (ASTGTM) covering the entire globe but
+  with consequent artefacts (not tagged as invalid data).
 - the `Viewfinder Panoramas DEM3`_ products, a global DEM based on various of the
   above listed sources, manually merged and corrected.
 - the `TanDEM-X 90m`_ DEM, newly released and covering the entire globe.
@@ -39,7 +39,7 @@ their own issues. Here is the list currently supported by OGGM/rgitools:
 .. _Greenland Mapping Project: https://bpcrc.osu.edu/gdg/data/gimpdem
 .. _Radarsat Antarctic Mapping Project: http://nsidc.org/data/nsidc-0082
 .. _Viewfinder Panoramas DEM3: http://viewfinderpanoramas.org/dem3.html
-.. _Advanced Spaceborne Thermal Emission and Reflection Radiometer: https://asterweb.jpl.nasa.gov/gdem.asp
+.. _Advanced Spaceborne Thermal Emission and Reflection Radiometer: https://doi.org/10.5067/ASTER/ASTGTM.003
 .. _TanDEM-X 90m: https://geoservice.dlr.de/web/dataguide/tdm90/
 .. _Arctic DEM: https://www.pgc.umn.edu/data/arcticdem/
 .. _ALOS World 3D - 30mx: https://www.eorc.jaxa.jp/ALOS/en/aw3d30/
