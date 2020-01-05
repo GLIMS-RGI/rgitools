@@ -81,3 +81,32 @@ Altogether, we are confident in:
 For everything else, more investigation is needed. DEM3 offers the stability
 and timeliness that TanDEM-X and ArcticDEM cannot offer (yet), and is the
 current default in OGGM.
+
+
+More detailed analysis
+----------------------
+
+The following section will show a more detailed analysis of all the above
+mentioned DEMs with respect to the different RGI regions.
+
+.. csv-table:: Table 1: Summary of all RGI regions. First column shows total
+    number of glaciers per RGI region. The consecutive columns specify the
+    availability of particular DEMs for a RGI region in percent of the total
+    glaciers per region. Values are not rounded but truncated so 99% could be
+    just one missing glacier. Only DEMs with less than 10% missing values are
+    considered.
+    :file: _static/tables/dem_rgi.csv
+
+Table 1 gives a summary for the RGI regions with respect to the different DEMs.
+For this and all further analysis a DEM is only attributed as available to a
+individual glacier if the glacier centered cutout has less than 10% missing
+data points in this DEM. This threshold obviously only covers actual voids in
+the DEM source but does not state anything about the quality or accuracy of the
+none-void data points.
+
+.. image:: /_static/images/dem_all_regions.png
+    :width: 100%
+
+
+.. csv-table:: Table 2: Same as Table 1 but for all RGI subregions.
+    :file: _static/tables/dem_subrgi.csv
