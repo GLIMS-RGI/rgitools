@@ -1,7 +1,8 @@
-Columbia (Alaska, RGI60-01.10689)
-=================================
+Columbia (Alaska)
+=================
 
-Located in Alaska (`61°12'02"N 146°54'17"W <https://goo.gl/maps/WSLkyYAKqd72>`_).
+Located in Alaska (`61°12'02"N 146°54'17"W <https://goo.gl/maps/WSLkyYAKqd72>`_),
+RGI60-01.10689.
 
 The sources available are: ASTER, AW3D30, DEM3, ArcticDEM, TanDEM-X and MAPZEN.
 **The current default is DEM3**.

@@ -1,7 +1,8 @@
-Shallap (Peru, RGI60-16.02207)
-==============================
+Shallap (Peru)
+==============
 
-Located in Peru (`9°29'08"S 77°20'02"W <https://goo.gl/maps/t7H24X9Zaav>`_).
+Located in Peru (`9°29'08"S 77°20'02"W <https://goo.gl/maps/t7H24X9Zaav>`_),
+RGI60-16.02207.
 
 The sources available are: ASTER, AW3D30, DEM3, SRTM, MAPZEN and TanDEM-X.
 **The current default is SRTM**.

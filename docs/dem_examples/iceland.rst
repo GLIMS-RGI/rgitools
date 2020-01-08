@@ -1,7 +1,8 @@
-Dyngjujoekull (Iceland, RGI60-06.00477)
-=======================================
+Dyngjujoekull (Iceland)
+=======================
 
-Located in Iceland (`64°43'03"N 17°03'28"W <https://goo.gl/maps/2cZCQwY1kx22>`_).
+Located in Iceland (`64°43'03"N 17°03'28"W <https://goo.gl/maps/2cZCQwY1kx22>`_),
+RGI60-06.00477.
 
 The sources available are: ASTER, AW3D30, ArcticDEM, DEM3, MAPZEN and TanDEM-X.
 **The current default is DEM3**.
