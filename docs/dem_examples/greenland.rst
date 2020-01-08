@@ -1,10 +1,11 @@
 Random ice-cap (Greenland)
 ==========================
 
-Located in Greenland (`81°21'55"N 25°40'49"W <https://goo.gl/maps/fMqhbiE6hk82>`_).
+Located in Greenland (`81°21'55"N 25°40'49"W <https://goo.gl/maps/fMqhbiE6hk82>`_),
+RGI60-05.10137).
 
-The sources available are: GIMP, ASTER, ArcticDEM. **The current
-default is GIMP**.
+The sources available are: ASTER, AW3D30, ArcticDEM, DEM3, GIMP, MAPZEN and TanDEM-X.
+**The current default is GIMP**.
 
 Summary
 -------

@@ -1,10 +1,11 @@
 Dyngjujoekull (Iceland)
 =======================
 
-Located in Iceland (`64°43'03"N 17°03'28"W <https://goo.gl/maps/2cZCQwY1kx22>`_).
+Located in Iceland (`64°43'03"N 17°03'28"W <https://goo.gl/maps/2cZCQwY1kx22>`_),
+RGI60-06.00477.
 
-The sources available are: DEM3, ASTER, TanDEM-X, ArcticDEM. **The current
-default is DEM3**.
+The sources available are: ASTER, AW3D30, ArcticDEM, DEM3, MAPZEN and TanDEM-X.
+**The current default is DEM3**.
 
 Summary
 -------
@@ -14,6 +15,7 @@ Summary
 - TanDEM-X and ArcticDEM agree well
 - DEM3 was generated before these new products, so I guess that a little bit
   of magic was needed to generate the map
+- AW3D30 misses huge junks
 
 Maps
 ----
