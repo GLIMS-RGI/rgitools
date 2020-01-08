@@ -1,10 +1,10 @@
-Hintereisferner (Alps)
-======================
+Hintereisferner (Alps, RGI60-11.00897)
+======================================
 
 Located in the Austrian Alps (`46°47'43"N 10°46'01"E <https://goo.gl/maps/hncE2T1NAnC2>`_).
 
-The sources available are: SRTM, ASTER, TanDEM-X, DEM3. **The current
-default is SRTM**.
+The sources available are: ASTER, AW3D30, DEM3, MAPZEN, SRTM and TanDEM-X.
+**The current default is SRTM**.
 
 Summary
 -------

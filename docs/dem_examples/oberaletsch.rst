@@ -1,10 +1,10 @@
-Oberaletschgletscher
-====================
+Oberaletschgletscher (Alps, RGI60-11.01827)
+===========================================
 
 Located in the Swiss Alps (`46°25'21"N 7°57'55"E <https://goo.gl/maps/qudRQdv96o82>`_).
 
-The sources available are: SRTM, ASTER, TanDEM-X, DEM3. **The current
-default is SRTM**.
+The sources available are: ASTER, AW3D30, DEM3, SRTM, MAPZEN and TanDEM-X.
+**The current default is SRTM**.
 
 Summary
 -------

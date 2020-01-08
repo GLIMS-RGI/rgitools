@@ -1,10 +1,10 @@
-Columbia (Alaska)
-=================
+Columbia (Alaska, RGI60-01.10689)
+=================================
 
 Located in Alaska (`61°12'02"N 146°54'17"W <https://goo.gl/maps/WSLkyYAKqd72>`_).
 
-The sources available are: DEM3, ASTER, TanDEM-X, ArcticDEM. **The current
-default is DEM3**.
+The sources available are: ASTER, AW3D30, DEM3, ArcticDEM, TanDEM-X and MAPZEN.
+**The current default is DEM3**.
 
 Summary
 -------
@@ -15,6 +15,7 @@ Summary
 - clear differences between ASTER and the newer products (TanDEM-X,
   ArcticDEM) might be due to mass-loss, although it seems exaggerated
 - it is one of the cases where ArctiDEM has too many data gaps
+- AW3D30 also hast way to many gaps
 
 
 Maps
