@@ -5,7 +5,6 @@ Located in Canada (`75°04'08"N 83°25'03"W <https://goo.gl/maps/Bo5uWJWRmNC2>`_
 RGI60-03.02489.
 
 The sources available are: ASTER, AW3D30, DEM3, ArcticDEM, TanDEM-X and MAPZEN.
-**The current default is DEM3**.
 
 Summary
 -------
