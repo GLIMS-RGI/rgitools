@@ -5,7 +5,6 @@ Located in the Austrian Alps (`46°47'43"N 10°46'01"E <https://goo.gl/maps/hncE
 RGI60-11.00897.
 
 The sources available are: ASTER, AW3D30, DEM3, MAPZEN, SRTM and TanDEM-X.
-**The current default is SRTM**.
 
 Summary
 -------

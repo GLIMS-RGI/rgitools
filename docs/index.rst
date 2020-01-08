@@ -14,7 +14,7 @@ services to the RGI community:
   see :ref:`tools.intersects`.
 - **Merging of glacier clusters**: see :ref:`tools.merge`.
 - **Glacier hypsometry from DEM**: see :ref:`tools.hypso`.
-- **Gridded topography data for each glacier**: see :ref:`dem`.
+- **Gridded topography data for each glacier**: see :ref:`dems`.
 - **ID link list between RGI versions** (not available yet)
 
 
@@ -24,12 +24,12 @@ Documentation
 .. toctree::
     :maxdepth: 1
 
-    whats-new
     installing
     tools
     known-issues
     dems
     api
+    whats-new
 
 
 Get in touch

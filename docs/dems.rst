@@ -1,15 +1,36 @@
 .. _dems:
 
-The DEM problem
-===============
+The RGI-DEM dataset (beta release)
+==================================
 
-One of the main goals of rgitools is to provide not only aggregated
-statistics (hypsometry), but also a local topography map
-for each single glacier in the RGI.
+We provide a local topography map for each single glacier in the RGI.
 
-Unfortunately, **there is no gap-free and freely available global DEM to
-date**. For most regions we can rely on a number of sources, which all have
-their own issues. Here is the list currently supported by OGGM/rgitools:
+We generated a local topography map for each glacier in the RGI V6 and
+for each :ref:`dem-data-sources` we are aware of.
+These data are released in a **beta version and are provided here
+for feedback and testing purposes only**, i.e. they are not (yet) an
+official RGI product. In particular, the various topography data
+are provided "as is", i.e. without recommendation on which data source to use.
+Please see :ref:`dem-how-to-help` to learn how you can help us to finalize
+this product.
+
+
+Data download
+-------------
+
+The data is available at `https://cluster.klima.uni-bremen.de/data/gdirs/dems_v0/RGI62/b_010/L1/ <https://cluster.klima.uni-bremen.de/data/gdirs/dems_v0/RGI62/b_010/L1/>`_
+
+See :ref:`dem-data-format` and :ref:`dem-how-to-cite` for more information.
+
+.. _dem-data-sources:
+
+Data sources
+------------
+
+Unfortunately, **there is no gap-free, global DEM available to
+date**. For most regions several data sources are available, each with different
+aquisition dates and data quality issues.
+As of today (Jan 08 2020), the data sources supported by OGGM/rgitools are:
 
 - the `Shuttle Radar Topography Mission`_ (SRTM) 90m Digital Elevation Database v4.1
   freely available for all locations in the [60°S; 60°N] range
@@ -47,9 +68,8 @@ their own issues. Here is the list currently supported by OGGM/rgitools:
 .. _various data-sources: https://github.com/tilezen/joerd/blob/master/docs/data-sources.md
 .. _REMA Antarctic DEM: https://www.pgc.umn.edu/data/rema/
 
-In theory, this should be enough data. In practice, none of the solutions above
-is 100% satisfying. We didn't do a thorough assesment yet, but you can have a
-look at the following examples:
+Examples
+--------
 
 .. toctree::
     :maxdepth: 1
@@ -62,31 +82,107 @@ look at the following examples:
     dem_examples/devon.rst
     dem_examples/shallap.rst
 
+These graphics and statistics were generated with a freely available
+`Jupyter notebook <https://github.com/OGGM/oggm-edu-notebooks/blob/master/oggm-tuto/dem_comparison.ipynb>`_.
+You can run this notebook online (without any installation) by following
+`this link <https://mybinder.org/v2/gh/OGGM/binder/master?urlpath=git-pull?repo=https://github.com/OGGM/oggm-edu-notebooks%26amp%3Bbranch=master%26amp%3Burlpath=lab/tree/oggm-edu-notebooks//oggm-tuto/dem_comparison.ipynb%3Fautodecode>`_
+(the online server may take a couple of minutes to start).
 
-Summary
--------
+.. _dem-data-format:
 
-We have to keep in mind that any kind of glacier bed estimate inversion or
+Data format
+-----------
+
+The data is sorted into regional folders (one per RGI region). Each tar file
+stores 1000 glaciers (`RGI60-01.00.tar` contains glacier IDs from
+`RGI60-01.00001` to `RGI60-01.00999`,  `RGI60-01.01.tar` contains glacier IDs
+from `RGI60-01.01000` to `RGI60-01.01999`, etc.).
+
+Each glacier data comes in a single folder named after its RGI ID. A glacier
+folder contains the following data files:
+
+- `glacier_mask.tif`: a raster mask of the RGI glacier at the same
+  resolution than the associated DEMs (geotiff format).
+- `outlines.tar.gz`: the RGI vector outlines for this glacier
+- `intersects.tar.gz`: the vector lines of the boundaries between this glacier
+  and possible neighbors
+- `glacier_grid.json`: information about the grid and map projection
+- `diagnostics.json`, `log.txt`: files used by OGGM/rgitools (not relevant here)
+- **one folder per available DEM source**, containing a `dem.tif` file
+  (geotiff format) **and the data source and citation information** in
+  `dem_source.txt` (text file).
+
+The topography data is bilinearily interpolated from the DEM source to a
+local **tranverse mercator map projection** (similar to the well known UTM,
+but with projection parameters centered on the glacier). Most modern GIS packages
+are able to read the projection information out of the geotiff files.
+
+The spatial resolution of the target local grid depends on the size of the
+glacier. We use a square relation to the glacier size (:math:`dx=aS^{\frac{1}{2}}`,
+with a=14 and S the area of the glacier in km:math:`^2`), clipped to a
+minimum (10 m) and maximum (200 m) value.
+
+The map size is chosen so that it is larger than the glacier of about 10 grid
+points (a future release of the data will also ship with larger maps).
+
+.. _dem-how-to-cite:
+
+How to cite these data
+----------------------
+
+**IMPORTANT**: rgitools does NOT provide any new topography data.
+We use freely available data and interpolate it to a local glacier map.
+If you make use of these data for a publication, presentation or website,
+**it is mandatory to refer to the original data provider as given in the
+dem_source.txt file found in each DEM folder.**
+
+We are very thankful to each of the institutions providing these data and we
+ask our users to acknowledge the original contributions accordingly.
+
+**Optional**: if you want to acknowledge the data preparation and processing
+work that was necessary to generate these data, we suggest the
+following citation: "The glacier dem data was processed with the rgitools and
+OGGM software packages (Maussion et al., 2019
+`doi: 10.5194/gmd-12-909-2019 <https://doi.org/10.5194/gmd-12-909-2019>`_)."
+
+.. _dem-how-to-help:
+
+How to provide feedback
+-----------------------
+
+Before the first official release, we aim to:
+
+- make sure that we didn't miss any important data source
+- ensure that there is no bug in our processing, i.e. that the data is properly
+  parsed, reprojected, and documented
+- decide on the most appropriate data format for the majority of users.
+- publish a detailed report about the quality and data availability of each
+  data source
+- decide on a fix a "default" data source for each glacier, which will provide
+  the reference hypsometry for future RGI versions
+
+Your help on any of these objectives is very welcome! :ref:`dem-contact` us if
+you want to provide feedback.
+
+Regarding the choice of the default data source for the RGI:
+we have to keep in mind that any kind of glacier bed estimate inversion or
 glacier simulation based on ice-dynamics cannot deal with artefacts.
 Therefore, robust and gap-free datasets are much preferred over more
 accurate but incomplete DEMS. Furthermore, the concurrent
 timing of the glacier outline with the DEM is another important criterion,
 as shown by the Columbia example.
 
-Altogether, we are confident in:
-- SRTM for all latitudes below 60° N and S
-- GIMP for Greenland
-- RAMP for Antarctica (but the peripheral Islands are an issue)
+Altogether, we are most confident in SRTM for all latitudes below 60° N and S.
+Almost gap free, this data aquisition date is also very concordant with the
+target date of the RGI outlines (around 2000).
 
-For everything else, more investigation is needed. DEM3 offers the stability
-and timeliness that TanDEM-X and ArcticDEM cannot offer (yet), and is the
-current default in OGGM.
+For all other regions, more investigation is needed.
 
 
-More detailed analysis
-----------------------
+Global data availability
+------------------------
 
-The following section will show a more detailed analysis of all the above
+The following section shows a more detailed analysis of all the above
 mentioned DEMs with respect to the different RGI regions.
 
 .. csv-table:: Table 1: Summary of all RGI regions. First column shows total
@@ -110,3 +206,24 @@ none-void data points.
 
 .. csv-table:: Table 2: Same as Table 1 but for all RGI subregions.
     :file: _static/tables/dem_subrgi.csv
+
+Code availability
+-----------------
+
+These data where generated with `OGGM version 1.2 <https://github.com/OGGM/oggm>`_.
+
+
+.. _dem-contact:
+
+Contact
+-------
+
+`Matthias Dusch <https://www.uibk.ac.at/acinn/people/matthias-dusch.html.en>`_ and
+`Fabien Maussion <https://fabienmaussion.info/>`_.
+
+Acknowledgements
+----------------
+
+We aknowledge financial support from the
+`International Association of Cryospheric Sciences <https://cryosphericsciences.org>`_
+(Matthias Dusch) and from the University of Innsbruck (Fabien Maussion).
