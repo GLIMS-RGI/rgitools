@@ -7,13 +7,14 @@ rgitools: processing files from the Randolph Glacier Inventory
 `Randolph Glacier Inventory <https://www.glims.org/RGI/>`_ (RGI).
 
 It is currently in development, but our goal is to provide the following
-sevices to the RGI community:
+services to the RGI community:
 
 - **automated data quality check**: see :ref:`tools.qc`.
 - **Geometry of the ice divides and listing or glacier clusters**:
   see :ref:`tools.intersects`.
 - **Merging of glacier clusters**: see :ref:`tools.merge`.
-- **Glacier hypsometry**: see :ref:`tools.hypso`.
+- **Glacier hypsometry from DEM**: see :ref:`tools.hypso`.
+- **Gridded topography data for each glacier**: see :ref:`dem`.
 - **ID link list between RGI versions** (not available yet)
 
 
@@ -51,13 +52,16 @@ About
 -----
 
 :Tests:
-
     .. image:: https://travis-ci.org/OGGM/rgitools.svg?branch=master
         :target: https://travis-ci.org/OGGM/rgitools
         :alt: Linux build status
 
 :Documentation:
-
     .. image:: https://readthedocs.org/projects/rgitools/badge/?version=latest
         :target: http://rgitools.readthedocs.org/en/latest/?badge=latest
         :alt: Documentation status
+
+:License:
+    .. image:: https://img.shields.io/pypi/l/rgitools.svg
+        :target: https://github.com/OGGM/rgitools/blob/master/LICENSE.txt
+        :alt: BSD-3-Clause License
