@@ -16,8 +16,8 @@ VERSION = '%d.%d.%d' % (MAJOR, MINOR, MICRO)
 QUALIFIER = ''
 
 DISTNAME = 'rgitools'
-LICENSE = 'LGPLv3+'
-AUTHOR = 'rgitools developers'
+LICENSE = 'BSD-3-Clause'
+AUTHOR = 'rgitools contributors'
 AUTHOR_EMAIL = 'fabien.maussion@uibk.ac.at'
 URL = ''
 CLASSIFIERS = [
@@ -26,8 +26,7 @@ CLASSIFIERS = [
         'Development Status :: 4 - Alpha',
         # Indicate who your project is intended for
         'Intended Audience :: Science/Research',
-        'License :: OSI Approved :: GNU Lesser General Public License ' +
-        'v3 or later (LGPLv3+)',
+        'License :: OSI Approved :: BSD License',
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6'
