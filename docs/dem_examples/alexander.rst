@@ -11,7 +11,6 @@ Summary
 
 - ASTER has a lot of noise
 - DEM3 is obviously taken from RAMP
-- TanDEM-X shows strong interpolation features
 - One of the rare cases where there is no proper MAPZEN data
 
 Maps
