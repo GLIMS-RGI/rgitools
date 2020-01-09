@@ -40,6 +40,7 @@ Scatter plots
 -------------
 
 These scatter plots are for the glacier area only.
+The plots do not work in that case, as there is no data available for MAPZEN DEM.
 
 .. image:: /_static/dems_examples/gillock/dem_scatter.png
     :width: 100%
