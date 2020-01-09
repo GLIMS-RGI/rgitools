@@ -1,18 +1,21 @@
 .. _dems:
 
-The RGI-DEM dataset (beta release)
+The RGITOPO dataset (beta release)
 ==================================
 
-We provide a local topography map for each single glacier in the RGI.
+RGITOPO provides a local topography map for each single glacier in the RGI.
 
-We generated a local topography map for each glacier in the RGI V6 and
+.. image:: /_static/dems_examples/rgitopo_ex.jpg
+    :width: 100%
+
+We gathered and processed topography data for each glacier in the RGI V6 and
 for each :ref:`dem-data-sources` we are aware of.
 These data are released in a **beta version and are provided here
 for feedback and testing purposes only**, i.e. they are not (yet) an
 official RGI product. In particular, the various topography data
 are provided "as is", i.e. without recommendation on which data source to use.
-Please see :ref:`dem-how-to-help` to learn how you can help us to finalize
-this product.
+Please help us to finalize this product! :ref:`dem-how-to-help` will tell you
+how.
 
 
 Data download
@@ -28,8 +31,8 @@ Data sources
 ------------
 
 Unfortunately, **there is no gap-free, global DEM available to
-date**. For most regions several data sources are available, each with different
-aquisition dates and data quality issues.
+date**. For most regions several data sources are available, each with various
+acquisition dates and data quality issues.
 As of today (Jan 08 2020), the data sources supported by OGGM/rgitools are:
 
 - the `Shuttle Radar Topography Mission`_ (SRTM) 90m Digital Elevation Database v4.1
@@ -47,8 +50,8 @@ As of today (Jan 08 2020), the data sources supported by OGGM/rgitools are:
   with consequent artefacts (not tagged as invalid data).
   **Date of acquisition: 2000 - 2013**
 - the `Viewfinder Panoramas DEM3`_ products, a global DEM based on various of the
-  above listed sources, manually merged and corrected.
-  **Date of acquisition: Depending on original source.**
+  above listed sources, manually merged and corrected, sometimes from cartographical data.
+  **Date of acquisition: variable, depending on original source.**
 - the `TanDEM-X 90m`_ DEM, newly released and covering the entire globe.
   **Date of acquisition: December 2010 - January 2015**
 - the `Arctic DEM`_ newly released in version 7 and covering the northern
@@ -63,7 +66,7 @@ As of today (Jan 08 2020), the data sources supported by OGGM/rgitools are:
 - the `AWS terrain tiles`_ data hosted on Amazon Web Services and maintained
   by `Mapzen <https://www.mapzen.com>`_. This is a bundle of
   `various data-sources`_ but very flexible in use.
-  **Date of acquisition: Depending on original source**
+  **Date of acquisition: variable, depending on original source**
 
 
 .. _Shuttle Radar Topography Mission: http://srtm.csi.cgiar.org/
@@ -136,21 +139,21 @@ with a=14 and S the area of the glacier in :math:`\text{km}^{2}`), clipped to a
 minimum (10 m) and maximum (200 m) value.
 
 The map size is chosen so that it is larger than the glacier of about 10 grid
-points (a future release of the data will also ship with larger maps).
+points (a future release of the data will also ship with larger map extents).
 
 .. _dem-how-to-cite:
 
 How to cite these data
 ----------------------
 
-**IMPORTANT**: rgitools does NOT provide any new topography data.
+**IMPORTANT**: RGITOPO does NOT generate any new topography data.
 We use freely available data and interpolate it to a local glacier map.
 If you make use of these data for a publication, presentation or website,
 **it is mandatory to refer to the original data provider as given in the
 dem_source.txt file found in each DEM folder.**
 
-We are very thankful to each of the institutions providing these data and we
-ask our users to acknowledge the original contributions accordingly.
+We are very thankful to the institutions providing these data, and we
+ask our users to acknowledge the original major contributions accordingly.
 
 **Optional**: if you want to acknowledge the data preparation and processing
 work that was necessary to generate these data, we suggest the
@@ -166,30 +169,35 @@ How to provide feedback
 Before the first official release, we aim to:
 
 - make sure that we didn't miss any important data source
-- ensure that there is no bug in our processing, i.e. that the data is properly
-  parsed, reprojected, and documented
-- decide on the most appropriate data format for the majority of users.
+- ensure that there is no bug in our processing chain, i.e. that the data is
+  properly parsed, reprojected, and documented
+- decide on the data format which is most suitable for the majority of users
 - publish a detailed report about the quality and data availability of each
   data source
-- decide on a fix a "default" data source for each glacier, which will provide
+- decide on a "standard" data source for each glacier, which will provide
   the reference hypsometry for future RGI versions
 
 Your help on any of these objectives is very welcome! :ref:`dem-contact` us if
 you want to provide feedback.
 
-Regarding the choice of the default data source for the RGI:
-we have to keep in mind that any kind of glacier bed estimate inversion or
-glacier simulation based on ice-dynamics cannot deal with artefacts.
-Therefore, robust and gap-free datasets are much preferred over more
-accurate but incomplete DEMS. Furthermore, the concurrent
-timing of the glacier outline with the DEM is another important criterion,
-as shown by the Columbia example.
+Regarding the choice of the default data source for the RGI, we currently
+formulate the following criteria:
 
-Altogether, we are most confident in SRTM for all latitudes below 60° N and S.
-Almost gap free, this data aquisition date is also very concordant with the
+1. robust and gap-free datasets are preferred over more accurate or recent but
+   incomplete DEMS. Indeed, we have to keep in mind that any kind of glacier
+   bed inversion or glacier simulation based on ice-dynamics cannot deal with
+   topographical artefacts.
+2. the acquisition date of the glacier outline must be as close as possible to
+   the acquisition date of the DEM.
+3. preferably, the DEM source should be the same for neighboring glaciers. This
+   implies that ideally, the DEM source should be chosen at the region or
+   sub-region level.
+
+Currently, we are most confident in SRTM for all latitudes below 60° N and S.
+Almost gap free, the SRTM data aquisition date is also very concordant with the
 target date of the RGI outlines (around 2000).
 
-For all other regions, more investigation is needed.
+For all other regions, more investigation is needed and your feedback is welcome.
 
 
 Global data availability
@@ -224,19 +232,32 @@ Code availability
 -----------------
 
 These data where generated with `OGGM version 1.2 <https://github.com/OGGM/oggm>`_.
-
+This `tutorial <https://github.com/OGGM/oggm-edu-notebooks/blob/master/oggm-tuto/alternative_dem.ipynb>`_
+(`interactive version <https://mybinder.org/v2/gh/OGGM/binder/master?urlpath=git-pull?repo=https://github.com/OGGM/oggm-edu-notebooks%26amp%3Bbranch=master%26amp%3Burlpath=lab/tree/oggm-edu-notebooks//oggm-tuto/alternative_dem.ipynb%3Fautodecode>`_)
+documents how to create local
+topography maps yourselves.
 
 .. _dem-contact:
 
 Contact
 -------
 
+RGITOPO authors:
 `Matthias Dusch <https://www.uibk.ac.at/acinn/people/matthias-dusch.html.en>`_ and
 `Fabien Maussion <https://fabienmaussion.info/>`_.
 
 Acknowledgements
 ----------------
 
-We aknowledge financial support from the
+.. raw:: html
+
+    <a href="https://cryosphericsciences.org" >
+    <img src="https://cryosphericsciences.org/wp-content/themes/iacs/img/iugg_logo_complete.png" alt="Image missing" width="49%" />
+    </a>
+    <a href="https://www.uibk.ac.at/acinn/" >
+    <img src="https://www.uibk.ac.at/public-relations/grafik_design/images/logo/download/sublogos/institute-sublogos/atmospheric-and-cryospheric-sciences.png" alt="Image missing" width="49%" />
+    </a>
+
+We acknowledge financial support from the
 `International Association of Cryospheric Sciences <https://cryosphericsciences.org>`_
 (Matthias Dusch) and from the University of Innsbruck (Fabien Maussion).
