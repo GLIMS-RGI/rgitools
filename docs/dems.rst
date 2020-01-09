@@ -33,27 +33,37 @@ aquisition dates and data quality issues.
 As of today (Jan 08 2020), the data sources supported by OGGM/rgitools are:
 
 - the `Shuttle Radar Topography Mission`_ (SRTM) 90m Digital Elevation Database v4.1
-  freely available for all locations in the [60°S; 60°N] range
+  freely available for all locations in the [60°S; 60°N] range.
+  **Date of acquisition: February 2000**
 - the `Greenland Mapping Project`_ (GIMP) Digital Elevation Model
-  covering Greenland (for RGI region 05)
+  covering Greenland (for RGI region 05).
+  **Date of acquisition: February 2003 - October 2009**
 - the `Radarsat Antarctic Mapping Project`_ (RAMP) Digital Elevation Model, Version 2
   covering the Antarctic continent
-  (for RGI region 19 with the exception of the peripheral islands)
+  (for RGI region 19 with the exception of the peripheral islands).
+  **Date of acquisition: 1940-1999 (mostly 1980s and 1990s)**
 - the `Advanced Spaceborne Thermal Emission and Reflection Radiometer`_ (ASTER)
   ASTER Global Digital Elevation Model (GDEM) Version 3 (ASTGTM) covering the entire globe but
   with consequent artefacts (not tagged as invalid data).
+  **Date of acquisition: 2000 - 2013**
 - the `Viewfinder Panoramas DEM3`_ products, a global DEM based on various of the
   above listed sources, manually merged and corrected.
+  **Date of acquisition: Depending on original source.**
 - the `TanDEM-X 90m`_ DEM, newly released and covering the entire globe.
+  **Date of acquisition: December 2010 - January 2015**
 - the `Arctic DEM`_ newly released in version 7 and covering the northern
   latitudes at various resolutions (we picked 100m for a start).
+  **Date of acquisition: 2007-2018**
 - the `REMA Antarctic DEM`_ newly released and covering the Antarctic
   continent at various resolutions (we picked 100m for a start).
+  **Date of acquisition: 2009 - 2017 (mostly 2015-2016)**
 - the `ALOS World 3D - 30mx`_ (AW3D30) global digital surface model from the
   Japanese space agency JAXA.
+  **Date of acquisition: 2006-2011**
 - the `AWS terrain tiles`_ data hosted on Amazon Web Services and maintained
   by `Mapzen <https://www.mapzen.com>`_. This is a bundle of
   `various data-sources`_ but very flexible in use.
+  **Date of acquisition: Depending on original source**
 
 
 .. _Shuttle Radar Topography Mission: http://srtm.csi.cgiar.org/
@@ -81,6 +91,9 @@ Examples
     dem_examples/greenland.rst
     dem_examples/devon.rst
     dem_examples/shallap.rst
+    dem_examples/nordenskjoeld.rst
+    dem_examples/alexander.rst
+    dem_examples/gillock.rst
 
 These graphics and statistics were generated with a freely available
 `Jupyter notebook <https://github.com/OGGM/oggm-edu-notebooks/blob/master/oggm-tuto/dem_comparison.ipynb>`_.
@@ -119,7 +132,7 @@ are able to read the projection information out of the geotiff files.
 
 The spatial resolution of the target local grid depends on the size of the
 glacier. We use a square relation to the glacier size (:math:`dx=aS^{\frac{1}{2}}`,
-with a=14 and S the area of the glacier in km:math:`^2`), clipped to a
+with a=14 and S the area of the glacier in :math:`\text{km}^{2}`), clipped to a
 minimum (10 m) and maximum (200 m) value.
 
 The map size is chosen so that it is larger than the glacier of about 10 grid
