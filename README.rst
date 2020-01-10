@@ -26,13 +26,11 @@ About
 ~~~~~
 
 :Tests:
-
-    .. image:: https://travis-ci.org/OGGM/rgitools.svg?branch=master
-        :target: https://travis-ci.org/OGGM/rgitools
+    .. image:: https://travis-ci.org/GLIMS-RGI/rgitools.svg?branch=master
+        :target: https://travis-ci.org/GLIMS-RGI/rgitools
         :alt: Linux build status
 
 :Documentation:
-
     .. image:: https://readthedocs.org/projects/rgitools/badge/?version=latest
         :target: http://rgitools.readthedocs.org/en/latest/?badge=latest
         :alt: Documentation status
