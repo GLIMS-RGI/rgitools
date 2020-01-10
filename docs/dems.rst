@@ -1,9 +1,9 @@
 .. _dems:
 
-The RGITOPO dataset (beta release)
-==================================
+The RGI-TOPO dataset (beta release)
+===================================
 
-RGITOPO provides a local topography map for each single glacier in the RGI.
+RGI-TOPO provides a local topography map for each single glacier in the RGI.
 
 .. image:: /_static/dems_examples/rgitopo_ex.jpg
     :width: 100%
@@ -16,6 +16,9 @@ official RGI product. In particular, the various topography data
 are provided "as is", i.e. without recommendation on which data source to use.
 Please help us to finalize this product! :ref:`dem-how-to-help` will tell you
 how.
+
+We will include this topography and hypsometry data in the next official RGI
+release.
 
 
 Data download
@@ -146,7 +149,7 @@ points (a future release of the data will also ship with larger map extents).
 How to cite these data
 ----------------------
 
-**IMPORTANT**: RGITOPO does NOT generate any new topography data.
+**IMPORTANT**: RGI-TOPO does NOT generate any new topography data.
 We use freely available data and interpolate it to a local glacier map.
 If you make use of these data for a publication, presentation or website,
 **it is mandatory to refer to the original data provider as given in the
@@ -166,7 +169,7 @@ OGGM software packages (Maussion et al., 2019
 How to provide feedback
 -----------------------
 
-Before the first official release, we aim to:
+Before the official release with the next RGI version, we aim to:
 
 - make sure that we didn't miss any important data source
 - ensure that there is no bug in our processing chain, i.e. that the data is
@@ -187,21 +190,25 @@ formulate the following criteria:
    incomplete DEMS. Indeed, we have to keep in mind that any kind of glacier
    bed inversion or glacier simulation based on ice-dynamics cannot deal with
    topographical artefacts.
-2. the acquisition date of the glacier outline must be as close as possible to
-   the acquisition date of the DEM.
+2. the acquisition date of the DEM must be as close as possible to the
+   acquisition date of the glacier outline (which is targeted to be around 2000
+   in RGI V6).
 3. preferably, the DEM source should be the same for neighboring glaciers. This
    implies that ideally, the DEM source should be chosen at the region or
    sub-region level.
 
 Currently, we are most confident in SRTM for all latitudes below 60° N and S.
 Almost gap free, the SRTM data aquisition date is also very concordant with the
-target date of the RGI outlines (around 2000).
+target date of the RGI outlines.
 
 For all other regions, more investigation is needed and your feedback is welcome.
 
 
 Global data availability
 ------------------------
+
+**rework this section, with reproduced images and tables: global overview on**
+**this page and region specific plots and tables on sub-pages**
 
 The following section shows a more detailed analysis of all the above
 mentioned DEMs with respect to the different RGI regions.
@@ -221,19 +228,18 @@ data points in this DEM. This threshold obviously only covers actual voids in
 the DEM source but does not state anything about the quality or accuracy of the
 none-void data points.
 
-.. image:: /_static/images/dem_all_regions.png
-    :width: 100%
+.. toctree::
+    :maxdepth: 1
 
+    dem_statistics/rgi01.rst
 
-.. csv-table:: Table 2: Same as Table 1 but for all RGI subregions.
-    :file: _static/tables/dem_subrgi.csv
 
 Code availability
 -----------------
 
 These data where generated with `OGGM version 1.2 <https://github.com/OGGM/oggm>`_.
-This `tutorial <https://github.com/OGGM/oggm-edu-notebooks/blob/master/oggm-tuto/alternative_dem.ipynb>`_
-(`interactive version <https://mybinder.org/v2/gh/OGGM/binder/master?urlpath=git-pull?repo=https://github.com/OGGM/oggm-edu-notebooks%26amp%3Bbranch=master%26amp%3Burlpath=lab/tree/oggm-edu-notebooks//oggm-tuto/alternative_dem.ipynb%3Fautodecode>`_)
+This `tutorial <https://github.com/OGGM/oggm-edu-notebooks/blob/master/oggm-tuto/dem_sources.ipynb>`_
+(`interactive version <https://mybinder.org/v2/gh/OGGM/binder/master?urlpath=git-pull?repo=https://github.com/OGGM/oggm-edu-notebooks%26amp%3Bbranch=master%26amp%3Burlpath=lab/tree/oggm-edu-notebooks//oggm-tuto/dem_sources.ipynb%3Fautodecode>`_)
 documents how to create local
 topography maps yourselves.
 
@@ -242,7 +248,7 @@ topography maps yourselves.
 Contact
 -------
 
-RGITOPO authors:
+RGI-TOPO authors:
 `Matthias Dusch <https://www.uibk.ac.at/acinn/people/matthias-dusch.html.en>`_ and
 `Fabien Maussion <https://fabienmaussion.info/>`_.
 
