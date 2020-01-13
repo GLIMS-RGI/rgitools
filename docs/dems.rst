@@ -100,6 +100,12 @@ Examples
     dem_examples/nordenskjoeld.rst
     dem_examples/alexander.rst
     dem_examples/gillock.rst
+    dem_examples/dobbin.rst
+    dem_examples/thana.rst
+    dem_examples/tellbreen.rst
+    dem_examples/nigards.rst
+    dem_examples/olivine.rst
+    dem_examples/lenin.rst
 
 These graphics and statistics were generated with a freely available
 `Jupyter notebook <https://github.com/OGGM/oggm-edu-notebooks/blob/master/oggm-tuto/dem_comparison.ipynb>`_.
@@ -207,19 +213,8 @@ For all other regions, more investigation is needed and your feedback is welcome
 Global data availability
 ------------------------
 
-**rework this section, with reproduced images and tables: global overview on**
-**this page and region specific plots and tables on sub-pages**
-
 The following section shows a more detailed analysis of all the above
 mentioned DEMs with respect to the different RGI regions.
-
-.. csv-table:: Table 1: Summary of all RGI regions. First column shows total
-    number of glaciers per RGI region. The consecutive columns specify the
-    availability of particular DEMs for a RGI region in percent of the total
-    glaciers per region. Values are not rounded but truncated so 99% could be
-    just one missing glacier. Only DEMs with less than 10% missing values are
-    considered.
-    :file: _static/tables/dem_rgi.csv
 
 Table 1 gives a summary for the RGI regions with respect to the different DEMs.
 For this and all further analysis a DEM is only attributed as available to a
@@ -228,10 +223,31 @@ data points in this DEM. This threshold obviously only covers actual voids in
 the DEM source but does not state anything about the quality or accuracy of the
 none-void data points.
 
+
+.. csv-table:: Table 1: Summary of all RGI regions. First column shows total
+    number of glaciers per RGI region. The consecutive columns specify the
+    availability of particular DEMs for a RGI region in percent of the total
+    glaciers per region. Values are not rounded but truncated so 99% could be
+    just one missing glacier. Only DEMs with less than 10% missing values are
+    considered.
+    :file: _static/tables/dem_allrgi.csv
+
+
+The following barplot shows again the availability of particular DEMs for RGI
+region.
+
+.. image:: /_static/images/barplot_allregions.png
+    :width: 100%
+
+In the section :ref:`subregions` you can find similar statistics but broken
+down into the RGI Subregions.
+
+
 .. toctree::
+    :hidden:
     :maxdepth: 1
 
-    dem_statistics/rgi01.rst
+    dems_subregions.rst
 
 
 Code availability
