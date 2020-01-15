@@ -17,8 +17,10 @@ are provided "as is", i.e. without recommendation on which data source to use.
 Please help us to finalize this product! :ref:`dem-how-to-help` will tell you
 how.
 
-We will include this topography and hypsometry data in the next official RGI
-release.
+.. note::
+
+    We will include the final topography and hypsometry data in the next
+    official RGI release (V7) scheduled for release by end of 2020.
 
 
 Data download
@@ -155,20 +157,34 @@ points (a future release of the data will also ship with larger map extents).
 How to cite these data
 ----------------------
 
-**IMPORTANT**: RGI-TOPO does NOT generate any new topography data.
-We use freely available data and interpolate it to a local glacier map.
-If you make use of these data for a publication, presentation or website,
-**it is mandatory to refer to the original data provider as given in the
-dem_source.txt file found in each DEM folder.**
+.. warning::
 
-We are very thankful to the institutions providing these data, and we
-ask our users to acknowledge the original major contributions accordingly.
+   **IMPORTANT**: RGI-TOPO does NOT generate any new topography data.
+   We use freely available data and interpolate it to a local glacier map.
+   If you make use of these data for a publication, presentation or website,
+   **it is mandatory to refer to the original data provider as given in the
+   dem_source.txt file found in each DEM folder.**
 
-**Optional**: if you want to acknowledge the data preparation and processing
-work that was necessary to generate these data, we suggest the
-following citation: "The glacier dem data was processed with the rgitools and
-OGGM software packages (Maussion et al., 2019
-`doi: 10.5194/gmd-12-909-2019 <https://doi.org/10.5194/gmd-12-909-2019>`_)."
+   We are very thankful to the institutions providing these data, and we
+   ask our users to acknowledge the original contributions according to their
+   respective license (sometimes unclear, unfortunately).
+
+RGI-TOPO itself (i.e., the compilation of data) is licensed under a
+`CC BY 4.0 <https://creativecommons.org/licenses/by/4.0/>`_ license, i.e.
+you can use, share and adapt it under the conditions stated by the license and
+by acknowledging the rgitools contributors as well as the original data
+sources (as explained above). The name of the rgitools contributors cannot be
+used to endorse any product or result derived from RGI-TOPO without
+prior approval.
+
+.. note::
+
+    If you wish to acknowledge the data processing work that was necessary to
+    generate these data in a scientific publication, we suggest the
+    following citation: "The glacier dem data was processed with the rgitools and
+    OGGM software packages (Maussion et al., 2019
+    `doi: 10.5194/gmd-12-909-2019 <https://doi.org/10.5194/gmd-12-909-2019>`_)."
+
 
 .. _dem-how-to-help:
 
@@ -198,12 +214,12 @@ formulate the following criteria:
    topographical artefacts.
 2. the acquisition date of the DEM must be as close as possible to the
    acquisition date of the glacier outline (which is targeted to be around 2000
-   in RGI V6).
+   in RGI V7).
 3. preferably, the DEM source should be the same for neighboring glaciers. This
-   implies that ideally, the DEM source should be chosen at the region or
+   implies that ideally, a single DEM source should be chosen at the region or
    sub-region level.
 
-Currently, we are most confident in SRTM for all latitudes below 60° N and S.
+Currently, we are most confident in SRTM for all latitudes between 60° N and S.
 Almost gap free, the SRTM data aquisition date is also very concordant with the
 target date of the RGI outlines.
 
@@ -267,6 +283,9 @@ Contact
 RGI-TOPO authors:
 `Matthias Dusch <https://www.uibk.ac.at/acinn/people/matthias-dusch.html.en>`_ and
 `Fabien Maussion <https://fabienmaussion.info/>`_.
+
+For feedback, please use the `github issue tracker <https://github.com/GLIMS-RGI/rgitools/issues>`_
+(requires a github account) or send us an email.
 
 Acknowledgements
 ----------------

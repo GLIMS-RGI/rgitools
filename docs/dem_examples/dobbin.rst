@@ -11,7 +11,7 @@ Summary
 
 - The Greenland DEM GIMP is available but all values outside of Greenland are set to 0.
 - AW3D30 has many missing patches
-- ArcticDEM has a few missing points, but overall looks good and agrees with the other DEMs poorly
+- ArcticDEM has a few missing points, but overall looks good and agrees with the other DEMs
 
 Maps
 ----
