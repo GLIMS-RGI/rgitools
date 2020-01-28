@@ -14,6 +14,9 @@ These data are released in a **beta version and are provided here
 for feedback and testing purposes only**, i.e. they are not (yet) an
 official RGI product. In particular, the various topography data
 are provided "as is", i.e. without recommendation on which data source to use.
+Note also that RGI-TOPO cannot be used for glacier change assessment: its aim is 
+to provide a baseline for glacier modelling and other data analysis efforts. 
+
 Please help us to finalize this product! :ref:`dem-how-to-help` will tell you
 how.
 
