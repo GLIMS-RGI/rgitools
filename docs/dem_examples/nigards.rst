@@ -4,7 +4,7 @@ Nigardsbreen (Norway)
 Located in southern Norway (`61°41'32.9"N 7°10'07.7"E <https://goo.gl/maps/PCgte845m8KTrfNh7>`_),
 RGI60-08.01126.
 
-The sources available are: ASTER, AW3D30, ArcticDEM, DEM3, MAPZEN and TanDEM-X.
+The sources available are: ASTER, COPDEM, AW3D30, ArcticDEM, DEM3, MAPZEN and TanDEM-X.
 
 Summary
 -------
