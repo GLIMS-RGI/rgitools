@@ -4,7 +4,7 @@ Leningradskiy Ice Cap
 Located on Bolshevik Island in the Russian Arctic (`78°29'30.4"N 103°05'01.0"E <https://goo.gl/maps/8KrdxsApXJyUZsh99>`_),
 RGI60-09.00552.
 
-The sources available are: ASTER, AW3D30, ArcticDEM, DEM3, MAPZEN and TanDEM-X.
+The sources available are: ASTER, COPDEM, AW3D30, ArcticDEM, DEM3, MAPZEN and TanDEM-X.
 
 Summary
 -------

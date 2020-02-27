@@ -75,6 +75,13 @@ As of today (Jan 08 2020), the data sources supported by OGGM/rgitools are:
   by `Mapzen <https://www.mapzen.com>`_. This is a bundle of
   `various data-sources`_ but very flexible in use.
   **Date of acquisition: variable, depending on original source**
+- the `Copernicus DEM GLO-90`_ is a new global DEM based on WorldDEM and void
+  filled using ASTER, SRTM, GMTED2010, TerraSAR-X and ALOS World 3D-30m.
+  It is a European Space Agency Copernicus product and freely available at a
+  3 arc second resolution.
+  *Copernicus DEM is currently not part of the available data or the global*
+  *summary as it was just added recently!*
+  **Date of acquisition: 2010-2015**
 
 
 .. _Shuttle Radar Topography Mission: http://srtm.csi.cgiar.org/
@@ -88,6 +95,7 @@ As of today (Jan 08 2020), the data sources supported by OGGM/rgitools are:
 .. _AWS terrain tiles: https://registry.opendata.aws/terrain-tiles/
 .. _various data-sources: https://github.com/tilezen/joerd/blob/master/docs/data-sources.md
 .. _REMA Antarctic DEM: https://www.pgc.umn.edu/data/rema/
+.. _Copernicus DEM GLO-90: https://bit.ly/2T98qqs
 
 Examples
 --------
