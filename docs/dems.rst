@@ -38,10 +38,15 @@ See :ref:`dem-data-format` and :ref:`dem-how-to-cite` for more information.
 Data sources
 ------------
 
-Unfortunately, **there is no gap-free, global DEM available to
-date**. For most regions several data sources are available, each with various
+For most regions several data sources are available, each with various
 acquisition dates and data quality issues.
-As of today (Jan 08 2020), the data sources supported by OGGM/rgitools are:
+Until recently there was no **gap-free, global DEM** available. This might have
+changed with the release of `Copernicus DEM GLO-90`_ but further analysis is
+still necessary to asses the quality and reliabilty of this DEM. Also the
+acquisition date of Copernicus DEM (2010-2015) differs from the target year
+2000 of the current and the upcoming RGI outlines. 
+
+As of today (Feb 28 2020), the data sources supported by OGGM/rgitools are:
 
 - the `Shuttle Radar Topography Mission`_ (SRTM) 90m Digital Elevation Database v4.1
   freely available for all locations in the [60°S; 60°N] range.
@@ -79,9 +84,15 @@ As of today (Jan 08 2020), the data sources supported by OGGM/rgitools are:
   filled using ASTER, SRTM, GMTED2010, TerraSAR-X and ALOS World 3D-30m.
   It is a European Space Agency Copernicus product and freely available at a
   3 arc second resolution.
-  *Copernicus DEM is currently not part of the available data or the global*
+  *Copernicus DEM is currently not part of the downloadable data or the global*
   *summary as it was just added recently!*
   **Date of acquisition: 2010-2015**
+- `the Alaska V3 DEM`_ is a merged DEM product from SRTM, IFSAR DEM, SPOT
+  observations of the SPIRIT program and ASTER with a final resolution of 30m.
+  The DEM was created for and is provided by `Kienholz et al., 2014`_.
+  *Alaska DEM is currently not part of the downloadable data or the global*
+  *summary as it was just added recently!*
+  **Date of acquisition: 2000-2011**
 
 
 .. _Shuttle Radar Topography Mission: http://srtm.csi.cgiar.org/
@@ -96,6 +107,8 @@ As of today (Jan 08 2020), the data sources supported by OGGM/rgitools are:
 .. _various data-sources: https://github.com/tilezen/joerd/blob/master/docs/data-sources.md
 .. _REMA Antarctic DEM: https://www.pgc.umn.edu/data/rema/
 .. _Copernicus DEM GLO-90: https://bit.ly/2T98qqs
+.. _`the Alaska V3 DEM`: https://www.the-cryosphere.net/8/503/2014/
+.. _`Kienholz et al., 2014`: https://www.the-cryosphere.net/8/503/2014/
 
 Examples
 --------

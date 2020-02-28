@@ -4,7 +4,7 @@ Columbia (Alaska)
 Located in Alaska (`61°12'02"N 146°54'17"W <https://goo.gl/maps/WSLkyYAKqd72>`_),
 RGI60-01.10689.
 
-The sources available are: ASTER, COPDEM, AW3D30, DEM3, ArcticDEM, TanDEM-X and MAPZEN.
+The sources available are: ASTER, Alaska DEM, COPDEM, AW3D30, DEM3, ArcticDEM, TanDEM-X and MAPZEN.
 
 Summary
 -------
@@ -16,6 +16,8 @@ Summary
   ArcticDEM) might be due to mass-loss, although it seems exaggerated
 - it is one of the cases where ArctiDEM has too many data gaps
 - AW3D30 also hast way to many gaps
+- Both Alaska and Copernicus DEM are without visual problems and compareable
+  besides some differences in the tongue area. 
 
 
 Maps
