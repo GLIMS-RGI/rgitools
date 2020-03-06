@@ -87,12 +87,19 @@ As of today (Feb 28 2020), the data sources supported by OGGM/rgitools are:
   *Copernicus DEM is currently not part of the downloadable data or the global*
   *summary as it was just added recently!*
   **Date of acquisition: 2010-2015**
-- `the Alaska V3 DEM`_ is a merged DEM product from SRTM, IFSAR DEM, SPOT
+- the `Alaska V3 DEM`_ is a merged DEM product from SRTM, IFSAR DEM, SPOT
   observations of the SPIRIT program and ASTER with a final resolution of 30m.
   The DEM was created for and is provided by `Kienholz et al., 2014`_.
   *Alaska DEM is currently not part of the downloadable data or the global*
   *summary as it was just added recently!*
   **Date of acquisition: 2000-2011**
+- the `NASADEM`_ is a merged DEM product with 1 arc second resolution and
+  available between 60N and 56S. NASADEM is dereived from the original SRTM
+  but postprocessed with updated algorithms and newer auxiliary data which were
+  not around for the original SRTM processing.
+  *NASADEM is currently not part of the downloadable data or the global*
+  *summary as it was just added recently!*
+  **Date of acquisition: February 2000**
 
 
 .. _Shuttle Radar Topography Mission: http://srtm.csi.cgiar.org/
@@ -107,8 +114,9 @@ As of today (Feb 28 2020), the data sources supported by OGGM/rgitools are:
 .. _various data-sources: https://github.com/tilezen/joerd/blob/master/docs/data-sources.md
 .. _REMA Antarctic DEM: https://www.pgc.umn.edu/data/rema/
 .. _Copernicus DEM GLO-90: https://bit.ly/2T98qqs
-.. _`the Alaska V3 DEM`: https://www.the-cryosphere.net/8/503/2014/
+.. _`Alaska V3 DEM`: https://www.the-cryosphere.net/8/503/2014/
 .. _`Kienholz et al., 2014`: https://www.the-cryosphere.net/8/503/2014/
+.. _`NASADEM`: https://lpdaac.usgs.gov/products/nasadem_hgtv001/
 
 Examples
 --------

@@ -4,13 +4,16 @@ Thana (Bhutan)
 Located in the eastern Himalayas (`28°01'16.1"N 90°36'36.6"E <https://goo.gl/maps/uGeddecxxueBRntp7>`_),
 RGI60-15.02578.
 
-The sources available are: ASTER, COPDEM, AW3D30, DEM3, SRTM, MAPZEN and TanDEM-X.
+The sources available are: ASTER, COPDEM, AW3D30, DEM3, SRTM, NASADEM, MAPZEN and TanDEM-X.
 
 Summary
 -------
 
 - Aster has a noisy glacier surface
 - SRTM is available for the entire High Mountain Asia
+- NASADEM shows noticeable differences to SRTM in steeper (often unglaciated
+  areas) which are also present in e.g. ASTER. But the flatter/lower parts of
+  the glacier look similar.
 
 Maps
 ----

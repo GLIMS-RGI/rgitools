@@ -4,12 +4,14 @@ Nordenskjöld Glacier (S. Georgia)
 Located in South Georgia (`54°24'27.5"S 36°22'47.2"W <https://goo.gl/maps/BmeFW6iBsi6XcPe58>`_),
 RGI60-19.02274.
 
-The sources available are: ASTER, COPDEM, AW3D30, DEM3, SRTM, MAPZEN and TanDEM-X.
+The sources available are: ASTER, COPDEM, AW3D30, DEM3, SRTM, NASADEM, MAPZEN and TanDEM-X.
 
 Summary
 -------
 
 - one of the (many) cases where TanDEM-X has data gaps and artefacts. Especially note the artefacts in the upper (southern) part of the glacier.
+- NASADEM shows noticeable differences to SRTM in steeper/upper parts which are
+  also present in e.g. AW3D30.
 
 Maps
 ----
