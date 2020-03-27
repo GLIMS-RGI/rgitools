@@ -4,7 +4,7 @@ Hintereisferner (Alps)
 Located in the Austrian Alps (`46°47'43"N 10°46'01"E <https://goo.gl/maps/hncE2T1NAnC2>`_),
 RGI60-11.00897.
 
-The sources available are: ASTER, COPDEM, AW3D30, DEM3, MAPZEN, SRTM and TanDEM-X.
+The sources available are: ASTER, COPDEM, AW3D30, DEM3, MAPZEN, NASADEM, SRTM and TanDEM-X.
 
 Summary
 -------
@@ -14,6 +14,9 @@ Summary
 - worrying generalised bias between SRTM and TanDEM-X, the latter
   being higher of 40m in average
 - ASTER and SRTM agree the most
+- NASADEM shows noticeable differences to SRTM in steeper (often unglaciated
+  areas) which are also present in e.g. AW3D30. But the flatter parts of the
+  glacier are very similar.
 
 Maps
 ----
