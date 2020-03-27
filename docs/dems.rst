@@ -29,9 +29,13 @@ how.
 Data download
 -------------
 
-The data is available at `https://cluster.klima.uni-bremen.de/data/gdirs/dems_v0/RGI62/b_010/L1/ <https://cluster.klima.uni-bremen.de/data/gdirs/dems_v0/RGI62/b_010/L1/>`_
+We processed the data at two different resolutions.
+The default version is available at `https://cluster.klima.uni-bremen.de/data/gdirs/dems_v1/default/RGI62/b_010/L1/ <https://cluster.klima.uni-bremen.de/data/gdirs/dems_v1/default/RGI62/b_010/L1/>`_.
+And a version with higher spatial resolution is available at `https://cluster.klima.uni-bremen.de/data/gdirs/dems_v1/highres/RGI62/b_020/L1/ <https://cluster.klima.uni-bremen.de/data/gdirs/dems_v1/highres/RGI62/b_020/L1/>`_
 
-See :ref:`dem-data-format` and :ref:`dem-how-to-cite` for more information.
+See :ref:`dem-data-format` for details on file content, processing and resolution.
+And carefully read :ref:`dem-how-to-cite` to find information on the original
+data sources and how to acknowledge them.
 
 .. _dem-data-sources:
 
@@ -40,13 +44,19 @@ Data sources
 
 For most regions several data sources are available, each with various
 acquisition dates and data quality issues.
-Until recently there was no **gap-free, global DEM** available. This might have
-changed with the release of `Copernicus DEM GLO-90`_ but further analysis is
-still necessary to asses the quality and reliabilty of this DEM. Also the
-acquisition date of Copernicus DEM (2010-2015) differs from the target year
-2000 of the current and the upcoming RGI outlines. 
+Until recently there was no **gap-free, global DEM** available.
+This might have changed with the release of `Copernicus DEM GLO-90`_ which so
+far shows no artifacts and a very good global coverage:
+All but 284 RGI v6 glaciers are covered by Copernicus DEM.
+Unfortunately 264 of these are located in the
+:ref:`RGI region 19: Antarctic and Subantarctic<rgi19>` which accounts for 10%
+of this region's total glaciers. These are mostly situated on small islands
+which are either not covered by the DEM or the RGI outlines are slightly
+misaligned and placed in the ocean. But this needs further investigation.
+Another downside is that the acquisition date of Copernicus DEM (2010-2015)
+differs from the target year 2000 of the current and the upcoming RGI outlines.
 
-As of today (Feb 28 2020), the data sources supported by OGGM/rgitools are:
+As of today (Mar 27 2020), the data sources supported by OGGM/rgitools are:
 
 - the `Shuttle Radar Topography Mission`_ (SRTM) 90m Digital Elevation Database v4.1
   freely available for all locations in the [60°S; 60°N] range.
@@ -84,21 +94,15 @@ As of today (Feb 28 2020), the data sources supported by OGGM/rgitools are:
   filled using ASTER, SRTM, GMTED2010, TerraSAR-X and ALOS World 3D-30m.
   It is a European Space Agency Copernicus product and freely available at a
   3 arc second resolution.
-  *Copernicus DEM is currently not part of the downloadable data or the global*
-  *summary as it was just added recently!*
   **Date of acquisition: 2010-2015**
 - the `Alaska V3 DEM`_ is a merged DEM product from SRTM, IFSAR DEM, SPOT
   observations of the SPIRIT program and ASTER with a final resolution of 30m.
   The DEM was created for and is provided by `Kienholz et al., 2014`_.
-  *Alaska DEM is currently not part of the downloadable data or the global*
-  *summary as it was just added recently!*
   **Date of acquisition: 2000-2011**
 - the `NASADEM`_ is a merged DEM product with 1 arc second resolution and
   available between 60N and 56S. NASADEM is dereived from the original SRTM
   but postprocessed with updated algorithms and newer auxiliary data which were
   not around for the original SRTM processing.
-  *NASADEM is currently not part of the downloadable data or the global*
-  *summary as it was just added recently!*
   **Date of acquisition: February 2000**
 
 
@@ -177,12 +181,17 @@ but with projection parameters centered on the glacier). Most modern GIS package
 are able to read the projection information out of the geotiff files.
 
 The spatial resolution of the target local grid depends on the size of the
-glacier. We use a square relation to the glacier size (:math:`dx=aS^{\frac{1}{2}}`,
-with a=14 and S the area of the glacier in :math:`\text{km}^{2}`), clipped to a
-minimum (10 m) and maximum (200 m) value.
+glacier. We use a square relation to the glacier size
+(:math:`dx=aS^{\frac{1}{2}}`, with S the area of the glacier
+in :math:`\text{km}^{2}`). The parameter a is set to 14 in the default
+and 7 in the higher resolution data set.
+The resulting dx is clipped to minimum of 10m in both versions.
+The maximum of dx is clipped to 200m in the
+default and 100m in the higher resolution version.
 
 The map size is chosen so that it is larger than the glacier of about 10 grid
-points (a future release of the data will also ship with larger map extents).
+points (20 in the higher resolution version to give approximately the same
+extents). A future release of the data will also ship with larger map extents.
 
 .. _dem-how-to-cite:
 
@@ -278,13 +287,13 @@ none-void data points.
     glaciers per region. Values are not rounded but truncated so 99% could be
     just one missing glacier. Only DEMs with less than 10% missing values are
     considered.
-    :file: _static/tables/dem_allrgi.csv
+    :file: _static/tables/dem_allrgi_v1.csv
 
 
 The following barplot shows again the availability of particular DEMs for RGI
 region.
 
-.. image:: /_static/images/barplot_allregions.png
+.. image:: /_static/images/barplot_allregions_v1.png
     :width: 100%
 
 In the section :ref:`subregions` you can find similar statistics but broken

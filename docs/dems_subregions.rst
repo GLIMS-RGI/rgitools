@@ -8,7 +8,7 @@ Details for RGI subregions
 01 - Alaska
 -----------
 
-.. image:: /_static/images/barplot_rgi01.png
+.. image:: /_static/images/barplot_rgi01_v1.png
     :width: 100%
 
 .. csv-table:: Summary of all the RGI subregions. First column shows total
@@ -17,7 +17,7 @@ Details for RGI subregions
     glaciers per subregion. Values are not rounded but truncated so 99% could
     be just one missing glacier. Only DEMs with less than 10% missing values
     are considered.
-    :file: _static/tables/dem_rgi01.csv
+    :file: _static/tables/dem_rgi01_v1.csv
 
 
 .. _rgi02:
@@ -25,7 +25,7 @@ Details for RGI subregions
 02 - Western Canada and USA
 ---------------------------
 
-.. image:: /_static/images/barplot_rgi02.png
+.. image:: /_static/images/barplot_rgi02_v1.png
     :width: 100%
 
 .. csv-table:: Summary of all the RGI subregions. First column shows total
@@ -34,7 +34,7 @@ Details for RGI subregions
     glaciers per subregion. Values are not rounded but truncated so 99% could
     be just one missing glacier. Only DEMs with less than 10% missing values
     are considered.
-    :file: _static/tables/dem_rgi02.csv
+    :file: _static/tables/dem_rgi02_v1.csv
 
 
 .. _rgi03:
@@ -42,7 +42,7 @@ Details for RGI subregions
 03 - Arctic Canada, North
 -------------------------
 
-.. image:: /_static/images/barplot_rgi03.png
+.. image:: /_static/images/barplot_rgi03_v1.png
     :width: 100%
 
 .. csv-table:: Summary of all the RGI subregions. First column shows total
@@ -51,7 +51,7 @@ Details for RGI subregions
     glaciers per subregion. Values are not rounded but truncated so 99% could
     be just one missing glacier. Only DEMs with less than 10% missing values
     are considered.
-    :file: _static/tables/dem_rgi03.csv
+    :file: _static/tables/dem_rgi03_v1.csv
 
 
 .. _rgi04:
@@ -59,7 +59,7 @@ Details for RGI subregions
 04 - Arctic Canada, South
 -------------------------
 
-.. image:: /_static/images/barplot_rgi04.png
+.. image:: /_static/images/barplot_rgi04_v1.png
     :width: 100%
 
 .. csv-table:: Summary of all the RGI subregions. First column shows total
@@ -68,7 +68,7 @@ Details for RGI subregions
     glaciers per subregion. Values are not rounded but truncated so 99% could
     be just one missing glacier. Only DEMs with less than 10% missing values
     are considered.
-    :file: _static/tables/dem_rgi04.csv
+    :file: _static/tables/dem_rgi04_v1.csv
 
 
 .. _rgi05:
@@ -76,7 +76,7 @@ Details for RGI subregions
 05 - Greenland Periphery
 ------------------------
 
-.. image:: /_static/images/barplot_rgi05.png
+.. image:: /_static/images/barplot_rgi05_v1.png
     :width: 100%
 
 .. csv-table:: Summary of all the RGI subregions. First column shows total
@@ -85,7 +85,7 @@ Details for RGI subregions
     glaciers per subregion. Values are not rounded but truncated so 99% could
     be just one missing glacier. Only DEMs with less than 10% missing values
     are considered.
-    :file: _static/tables/dem_rgi05.csv
+    :file: _static/tables/dem_rgi05_v1.csv
 
 
 .. _rgi06:
@@ -93,7 +93,7 @@ Details for RGI subregions
 06 - Iceland
 ------------
 
-.. image:: /_static/images/barplot_rgi06.png
+.. image:: /_static/images/barplot_rgi06_v1.png
     :width: 100%
 
 .. csv-table:: Summary of all the RGI subregions. First column shows total
@@ -102,7 +102,7 @@ Details for RGI subregions
     glaciers per subregion. Values are not rounded but truncated so 99% could
     be just one missing glacier. Only DEMs with less than 10% missing values
     are considered.
-    :file: _static/tables/dem_rgi06.csv
+    :file: _static/tables/dem_rgi06_v1.csv
 
 
 .. _rgi07:
@@ -110,7 +110,7 @@ Details for RGI subregions
 07 - Svalbard and Jan Mayen
 ---------------------------
 
-.. image:: /_static/images/barplot_rgi07.png
+.. image:: /_static/images/barplot_rgi07_v1.png
     :width: 100%
 
 .. csv-table:: Summary of all the RGI subregions. First column shows total
@@ -119,7 +119,7 @@ Details for RGI subregions
     glaciers per subregion. Values are not rounded but truncated so 99% could
     be just one missing glacier. Only DEMs with less than 10% missing values
     are considered.
-    :file: _static/tables/dem_rgi07.csv
+    :file: _static/tables/dem_rgi07_v1.csv
 
 
 .. _rgi08:
@@ -127,7 +127,7 @@ Details for RGI subregions
 08 - Scandinavia
 ----------------
 
-.. image:: /_static/images/barplot_rgi08.png
+.. image:: /_static/images/barplot_rgi08_v1.png
     :width: 100%
 
 .. csv-table:: Summary of all the RGI subregions. First column shows total
@@ -136,7 +136,7 @@ Details for RGI subregions
     glaciers per subregion. Values are not rounded but truncated so 99% could
     be just one missing glacier. Only DEMs with less than 10% missing values
     are considered.
-    :file: _static/tables/dem_rgi08.csv
+    :file: _static/tables/dem_rgi08_v1.csv
 
 
 .. _rgi09:
@@ -144,7 +144,7 @@ Details for RGI subregions
 09 - Russian Arctic
 -------------------
 
-.. image:: /_static/images/barplot_rgi09.png
+.. image:: /_static/images/barplot_rgi09_v1.png
     :width: 100%
 
 .. csv-table:: Summary of all the RGI subregions. First column shows total
@@ -153,7 +153,7 @@ Details for RGI subregions
     glaciers per subregion. Values are not rounded but truncated so 99% could
     be just one missing glacier. Only DEMs with less than 10% missing values
     are considered.
-    :file: _static/tables/dem_rgi09.csv
+    :file: _static/tables/dem_rgi09_v1.csv
 
 
 .. _rgi10:
@@ -161,7 +161,7 @@ Details for RGI subregions
 10 - Asia, North
 ----------------
 
-.. image:: /_static/images/barplot_rgi10.png
+.. image:: /_static/images/barplot_rgi10_v1.png
     :width: 100%
 
 .. csv-table:: Summary of all the RGI subregions. First column shows total
@@ -170,7 +170,7 @@ Details for RGI subregions
     glaciers per subregion. Values are not rounded but truncated so 99% could
     be just one missing glacier. Only DEMs with less than 10% missing values
     are considered.
-    :file: _static/tables/dem_rgi10.csv
+    :file: _static/tables/dem_rgi10_v1.csv
 
 
 .. _rgi11:
@@ -178,7 +178,7 @@ Details for RGI subregions
 11 - Central Europe
 -------------------
 
-.. image:: /_static/images/barplot_rgi11.png
+.. image:: /_static/images/barplot_rgi11_v1.png
     :width: 100%
 
 .. csv-table:: Summary of all the RGI subregions. First column shows total
@@ -187,7 +187,7 @@ Details for RGI subregions
     glaciers per subregion. Values are not rounded but truncated so 99% could
     be just one missing glacier. Only DEMs with less than 10% missing values
     are considered.
-    :file: _static/tables/dem_rgi11.csv
+    :file: _static/tables/dem_rgi11_v1.csv
 
 
 .. _rgi12:
@@ -195,7 +195,7 @@ Details for RGI subregions
 12 - Caucasus and Middle East
 -----------------------------
 
-.. image:: /_static/images/barplot_rgi12.png
+.. image:: /_static/images/barplot_rgi12_v1.png
     :width: 100%
 
 .. csv-table:: Summary of all the RGI subregions. First column shows total
@@ -204,7 +204,7 @@ Details for RGI subregions
     glaciers per subregion. Values are not rounded but truncated so 99% could
     be just one missing glacier. Only DEMs with less than 10% missing values
     are considered.
-    :file: _static/tables/dem_rgi12.csv
+    :file: _static/tables/dem_rgi12_v1.csv
 
 
 .. _rgi13:
@@ -212,7 +212,7 @@ Details for RGI subregions
 13 - Asia, Central
 ------------------
 
-.. image:: /_static/images/barplot_rgi13.png
+.. image:: /_static/images/barplot_rgi13_v1.png
     :width: 100%
 
 .. csv-table:: Summary of all the RGI subregions. First column shows total
@@ -221,7 +221,7 @@ Details for RGI subregions
     glaciers per subregion. Values are not rounded but truncated so 99% could
     be just one missing glacier. Only DEMs with less than 10% missing values
     are considered.
-    :file: _static/tables/dem_rgi13.csv
+    :file: _static/tables/dem_rgi13_v1.csv
 
 
 .. _rgi14:
@@ -229,7 +229,7 @@ Details for RGI subregions
 14 - Asia, South West
 ---------------------
 
-.. image:: /_static/images/barplot_rgi14.png
+.. image:: /_static/images/barplot_rgi14_v1.png
     :width: 100%
 
 .. csv-table:: Summary of all the RGI subregions. First column shows total
@@ -238,7 +238,7 @@ Details for RGI subregions
     glaciers per subregion. Values are not rounded but truncated so 99% could
     be just one missing glacier. Only DEMs with less than 10% missing values
     are considered.
-    :file: _static/tables/dem_rgi14.csv
+    :file: _static/tables/dem_rgi14_v1.csv
 
 
 .. _rgi15:
@@ -246,7 +246,7 @@ Details for RGI subregions
 15 - Asia, South East
 ---------------------
 
-.. image:: /_static/images/barplot_rgi15.png
+.. image:: /_static/images/barplot_rgi15_v1.png
     :width: 100%
 
 .. csv-table:: Summary of all the RGI subregions. First column shows total
@@ -255,7 +255,7 @@ Details for RGI subregions
     glaciers per subregion. Values are not rounded but truncated so 99% could
     be just one missing glacier. Only DEMs with less than 10% missing values
     are considered.
-    :file: _static/tables/dem_rgi15.csv
+    :file: _static/tables/dem_rgi15_v1.csv
 
 
 .. _rgi16:
@@ -263,7 +263,7 @@ Details for RGI subregions
 16 - Low Latitudes
 ------------------
 
-.. image:: /_static/images/barplot_rgi16.png
+.. image:: /_static/images/barplot_rgi16_v1.png
     :width: 100%
 
 .. csv-table:: Summary of all the RGI subregions. First column shows total
@@ -272,7 +272,7 @@ Details for RGI subregions
     glaciers per subregion. Values are not rounded but truncated so 99% could
     be just one missing glacier. Only DEMs with less than 10% missing values
     are considered.
-    :file: _static/tables/dem_rgi16.csv
+    :file: _static/tables/dem_rgi16_v1.csv
 
 
 .. _rgi17:
@@ -280,7 +280,7 @@ Details for RGI subregions
 17 - Southern Andes
 -------------------
 
-.. image:: /_static/images/barplot_rgi17.png
+.. image:: /_static/images/barplot_rgi17_v1.png
     :width: 100%
 
 .. csv-table:: Summary of all the RGI subregions. First column shows total
@@ -289,7 +289,7 @@ Details for RGI subregions
     glaciers per subregion. Values are not rounded but truncated so 99% could
     be just one missing glacier. Only DEMs with less than 10% missing values
     are considered.
-    :file: _static/tables/dem_rgi17.csv
+    :file: _static/tables/dem_rgi17_v1.csv
 
 
 .. _rgi18:
@@ -297,7 +297,7 @@ Details for RGI subregions
 18 - New Zealand
 ----------------
 
-.. image:: /_static/images/barplot_rgi18.png
+.. image:: /_static/images/barplot_rgi18_v1.png
     :width: 100%
 
 .. csv-table:: Summary of all the RGI subregions. First column shows total
@@ -306,7 +306,7 @@ Details for RGI subregions
     glaciers per subregion. Values are not rounded but truncated so 99% could
     be just one missing glacier. Only DEMs with less than 10% missing values
     are considered.
-    :file: _static/tables/dem_rgi18.csv
+    :file: _static/tables/dem_rgi18_v1.csv
 
 
 .. _rgi19:
@@ -314,7 +314,7 @@ Details for RGI subregions
 19 - Antarctic and Subantarctic
 -------------------------------
 
-.. image:: /_static/images/barplot_rgi19.png
+.. image:: /_static/images/barplot_rgi19_v1.png
     :width: 100%
 
 .. csv-table:: Summary of all the RGI subregions. First column shows total
@@ -323,4 +323,4 @@ Details for RGI subregions
     glaciers per subregion. Values are not rounded but truncated so 99% could
     be just one missing glacier. Only DEMs with less than 10% missing values
     are considered.
-    :file: _static/tables/dem_rgi19.csv
+    :file: _static/tables/dem_rgi19_v1.csv
