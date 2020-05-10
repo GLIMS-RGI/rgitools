@@ -1,13 +1,38 @@
-name: test_env
+name: oggm_env
 channels:
-  - oggm
   - conda-forge
-  - conda-forge/label/dev
 dependencies:
-  - python=3.6
-  - oggm-deps
-  - rasterio>=1.*
+  - python=3.7
+  - jupyter
+  - jupyterlab
+  - numpy<1.17
+  - scipy
+  - pandas
+  - shapely
+  - matplotlib
+  - Pillow
+  - netcdf4
+  - scikit-image
+  - scikit-learn
+  - configobj
+  - xarray
+  - pytables
+  - pytest
+  - dask
+  - bottleneck
+  - pyproj<2.3
+  - cartopy
+  - geopandas
+  - rasterio
+  - descartes
+  - seaborn
+  - pip
   - pip:
+    - joblib
+    - progressbar2
+    - motionless
+    - git+https://github.com/fmaussion/salem.git
     - git+https://github.com/OGGM/oggm.git
+    - git+https://github.com/OGGM/pytest-mpl
     - coveralls
     - pytest-cov
