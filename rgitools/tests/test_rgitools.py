@@ -11,21 +11,10 @@ import pandas as pd
 import geopandas as gpd
 import numpy as np
 from numpy.testing import assert_equal, assert_allclose
-import oggm.utils
-from oggm.tests.funcs import patch_url_retrieve_github
 
 import rgitools
 from rgitools import funcs
 from rgitools.funcs import get_demo_file, mkdir
-
-
-def setup_module(module):
-    module._url_retrieve = oggm.utils.oggm_urlretrieve
-    oggm.utils._downloads.oggm_urlretrieve = patch_url_retrieve_github
-
-
-def teardown_module(module):
-    oggm.utils._downloads.oggm_urlretrieve = module._url_retrieve
 
 
 def get_iceland_df(reduced=False):
