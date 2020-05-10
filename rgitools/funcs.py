@@ -354,10 +354,9 @@ def merge_clusters(rgi_df, intersects_df, keep_all=True, to_file='',
     d2 = rgi_df.dissolve(by='OrigIds')
 
     # Process attributes
-    gb = rgi_df.groupby('OrigIds')
-    d2['Area'] = gb.sum()['Area']
-    d2['Zmax'] = gb.max()['Zmax']
-    d2['Zmin'] = gb.min()['Zmin']
+    d2['Area'] = rgi_df.groupby('OrigIds').sum()['Area']
+    d2['Zmax'] = rgi_df.groupby('OrigIds').max()['Zmax']
+    d2['Zmin'] = rgi_df.groupby('OrigIds').min()['Zmin']
     centers = [g.centroid.xy for g in d2.geometry]
     d2['CenLat'] = [c[1][0] for c in centers]
     d2['CenLon'] = [c[0][0] for c in centers]

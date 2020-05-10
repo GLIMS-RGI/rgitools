@@ -11,7 +11,6 @@ import pandas as pd
 import geopandas as gpd
 import numpy as np
 from numpy.testing import assert_equal, assert_allclose
-import oggm.utils
 
 import rgitools
 from rgitools import funcs
