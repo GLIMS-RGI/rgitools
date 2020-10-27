@@ -21,8 +21,9 @@ before_install:
   - source ~/.bashrc
 
 install:
-  - micromamba create -f "ci/requirements-$TEST_ENV.yml" -y
-  - micromamba activate test_env
+  - micromamba activate
+  - micromamba install python=3.8 flake8 -c conda-forge
+  - pip install coveralls
   - pip install -e .
 
 script:
