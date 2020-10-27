@@ -16,17 +16,13 @@ matrix:
       env: TEST_ENV=flake8
 
 before_install:
-  - wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh;
-  - bash miniconda.sh -b -p $HOME/miniconda
-  - export PATH="$HOME/miniconda/bin:$PATH"
-  - hash -r
-  - conda config --set always_yes yes --set changeps1 no
-  - conda update -q conda
-  - pip install pyyaml
+  - wget -qO- https://micromamba.snakepit.net/api/micromamba/linux-64/latest | tar -xvj bin/micromamba
+  - ./bin/micromamba shell init -s bash -p ~/micromamba
+  - source ~/.bashrc
 
 install:
-  - conda env create --file ci/requirements-$TEST_ENV.yml --quiet
-  - source activate test_env
+  - micromamba env create --file ci/requirements-$TEST_ENV.yml --quiet
+  - micromamba activate test_env
   - pip install -e .
 
 script:
