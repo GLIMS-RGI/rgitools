@@ -354,7 +354,7 @@ def merge_clusters(rgi_df, intersects_df, keep_all=True, to_file='',
     d2 = rgi_df.dissolve(by='OrigIds')
 
     # Process attributes
-    gb = rgi_df.groupby('OrigIds')
+    gb = rgi_df[['OrigIds', 'Area', 'Zmax', 'Zmin']].groupby('OrigIds')
     d2['Area'] = gb.sum()['Area']
     d2['Zmax'] = gb.max()['Zmax']
     d2['Zmin'] = gb.min()['Zmin']
@@ -436,8 +436,10 @@ def hypsometries(rgi_df, to_file='', job_id='', oggm_working_dir='',
     cfg.PARAMS['use_intersects'] = False
     cfg.PARAMS['continue_on_error'] = True
     cfg.PARAMS['use_multiprocessing'] = False
-    gdirs = workflow.init_glacier_regions(rgi_df)
-    workflow.execute_entity_task(tasks.simple_glacier_masks, gdirs)
+    gdirs = workflow.init_glacier_directories(rgi_df)
+    workflow.execute_entity_task(tasks.define_glacier_region, gdirs)
+    workflow.execute_entity_task(tasks.simple_glacier_masks, gdirs,
+                                 write_hypsometry=True)
     compile_glacier_statistics(gdirs,
                                filesuffix='_{}'.format(gdirs[0].rgi_region))
 
