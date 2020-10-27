@@ -1,7 +1,10 @@
 Known issues in RGI V6
 ======================
 
-This page lists the issues that have been discovered in RGIV6.
+This page lists some of the issues that have been discovered in RGIV6.
+
+For an updated list (and submit a bug report yourself), visit:
+https://github.com/GLIMS-RGI/rgi_issue_tracker 
 
 
 Data files
