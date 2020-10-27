@@ -7,7 +7,7 @@ pyproj
 rasterio
 Pillow
 geopandas
-netcdf4
+netcdf4==1.3.1
 scikit-image
 configobj
 joblib
@@ -21,7 +21,7 @@ bottleneck
 descartes
 toolz
 ipython
-pytables
+tables
 numpydoc
 git+https://github.com/fmaussion/salem.git
 git+https://github.com/OGGM/oggm.git
