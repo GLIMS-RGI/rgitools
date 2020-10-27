@@ -21,6 +21,7 @@ bottleneck
 descartes
 toolz
 ipython
+pytables
 numpydoc
 git+https://github.com/fmaussion/salem.git
 git+https://github.com/OGGM/oggm.git
