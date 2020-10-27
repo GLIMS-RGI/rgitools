@@ -21,7 +21,7 @@ before_install:
   - source ~/.bashrc
 
 install:
-  - micromamba create -f ci/requirements-$TEST_ENV.yml -y
+  - micromamba create -f "ci/requirements-$TEST_ENV.yml" -y
   - micromamba activate test_env
   - pip install -e .
 
