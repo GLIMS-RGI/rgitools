@@ -257,7 +257,10 @@ def compute_intersects(rgi_df, to_file='', job_id=''):
                 continue
 
             # Simplify the geometries if possible
-            mult_intersect = linemerge(mult_intersect)
+            try:
+                mult_intersect = linemerge(mult_intersect)
+            except IndexError:
+                pass
 
             # Add each line to the output file
             if isinstance(mult_intersect, shpg.linestring.LineString):
