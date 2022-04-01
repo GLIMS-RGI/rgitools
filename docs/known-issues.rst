@@ -1,23 +1,16 @@
 Known issues in RGI V6
 ======================
 
-This page lists some of the issues that have been discovered in RGIV6.
+This page has moved! To read current issues (and add your own), visit:
+https://github.com/GLIMS-RGI/rgi_issue_tracker
 
-For an updated list (and submit a bug report yourself), visit:
-https://github.com/GLIMS-RGI/rgi_issue_tracker 
-
-
-Data files
-----------
+Data files (RGI6)
+-----------------
 
 - The file ``01_rgi60_Alaska_hypso.csv`` contains RGI IDs which are still labelled
   as RGI50.
 - The column ``Zmed`` in the file '19_rgi60_AntarcticSubantarctic.shp' contains
   only missing data
-- the file ``08_rgi60_Scandinavia.shp`` is located in a folder wrongly entitled
-  ``07_rgi60_Scandinavia``.
-- the file ``04_rgi60_ArcticCanadaSouth.shp`` is located in a folder
-  wrongly entitled ``04_rgi60_ArcticCanadaNorth``.
 - in the `summary file <http://www.glims.org/RGI/rgi60_files/00_rgi60_summary.zip>`_,
   the RGI subregions of Region 08 (Scandinavia) are wrongly named and the
   subregion 08-03 as defined in the technical report is missing.

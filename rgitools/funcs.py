@@ -272,7 +272,7 @@ def compute_intersects(rgi_df, to_file='', job_id=''):
                     continue
                 line = gpd.GeoDataFrame([[major.RGIId, neighbor.RGIId, line]],
                                         columns=out_cols)
-                out = out.append(line)
+                out = pd.concat([out, line])
 
     # Index and merge
     out.reset_index(inplace=True, drop=True)
