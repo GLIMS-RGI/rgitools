@@ -308,7 +308,7 @@ def test_hypsometry(tmpdir):
     assert rmsd(gdf['Zmed'], rgi_df['Zmed']) < 25
     assert rmsd(gdf['Zmin'], rgi_df['Zmin']) < 25
     assert rmsd(gdf['Zmax'], rgi_df['Zmax']) < 25
-    assert rmsd(gdf['Slope'], rgi_df['Slope']) < 1
+    assert rmsd(gdf['Slope'], rgi_df['Slope']) < 2
 
     # For aspect test for cos / sin  because of 0 360 thing
     us = np.cos(np.deg2rad(gdf.Aspect))
@@ -333,7 +333,7 @@ def test_hypsometry(tmpdir):
     assert rmsd(gdf['Zmed'], rgi_df['Zmed']) < 25
     assert rmsd(gdf['Zmin'], rgi_df['Zmin']) < 25
     assert rmsd(gdf['Zmax'], rgi_df['Zmax']) < 25
-    assert rmsd(gdf['Slope'], rgi_df['Slope']) < 1
+    assert rmsd(gdf['Slope'], rgi_df['Slope']) < 2
 
     # For aspect test for cos / sin  because of 0 360 thing
     us = np.cos(np.deg2rad(gdf.Aspect))

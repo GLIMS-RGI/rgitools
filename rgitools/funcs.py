@@ -248,10 +248,10 @@ def compute_intersects(rgi_df, to_file='', job_id=''):
             if isinstance(mult_intersect, shpg.Point):
                 continue
             if isinstance(mult_intersect, shpg.linestring.LineString):
-                mult_intersect = [mult_intersect]
-            if len(mult_intersect) == 0:
+                mult_intersect = shpg.MultiLineString([mult_intersect])
+            if len(mult_intersect.geoms) == 0:
                 continue
-            mult_intersect = [m for m in mult_intersect if
+            mult_intersect = [m for m in mult_intersect.geoms if
                               not isinstance(m, shpg.Point)]
             if len(mult_intersect) == 0:
                 continue
@@ -264,15 +264,15 @@ def compute_intersects(rgi_df, to_file='', job_id=''):
 
             # Add each line to the output file
             if isinstance(mult_intersect, shpg.linestring.LineString):
-                mult_intersect = [mult_intersect]
-            for line in mult_intersect:
+                mult_intersect = shpg.MultiLineString([mult_intersect])
+            for line in mult_intersect.geoms:
                 assert isinstance(line, shpg.linestring.LineString)
                 # Filter the very small ones
                 if line.length < 1e-3:
                     continue
                 line = gpd.GeoDataFrame([[major.RGIId, neighbor.RGIId, line]],
                                         columns=out_cols)
-                out = out.append(line)
+                out = pd.concat([out, line])
 
     # Index and merge
     out.reset_index(inplace=True, drop=True)
@@ -481,7 +481,7 @@ def hypsometries(rgi_df, to_file='', job_id='', oggm_working_dir='',
 
     out_gdf = out_gdf.reset_index()
     df = df.reset_index(drop=True)
-    bdf = df[df.columns[3:]].fillna(0).astype(np.int)
+    bdf = df[df.columns[3:]].fillna(0).astype(int)
     ok = bdf.sum(axis=1)
     bdf.loc[ok < 1000, :] = -9
     df[df.columns[3:]] = bdf
