@@ -146,9 +146,9 @@ Examples
     dem_examples/lenin.rst
 
 These graphics and statistics were generated with a freely available
-`Jupyter notebook <https://github.com/OGGM/oggm-edu-notebooks/blob/master/oggm-tuto/dem_comparison.ipynb>`_.
+`Jupyter notebook <https://github.com/OGGM/tutorials/blob/master/notebooks/dem_comparison.ipynb>`_.
 You can run this notebook online (without any installation) by following
-`this link <https://mybinder.org/v2/gh/OGGM/binder/master?urlpath=git-pull?repo=https://github.com/OGGM/oggm-edu-notebooks%26amp%3Bbranch=master%26amp%3Burlpath=lab/tree/oggm-edu-notebooks//oggm-tuto/dem_comparison.ipynb%3Fautodecode>`_
+`this link <https://mybinder.org/v2/gh/OGGM/binder/stable?urlpath=git-pull%3Frepo=https://github.com/OGGM/tutorials%26urlpath%3Dlab%252Ftree%252Ftutorials/./notebooks/dem_comparison.ipynb%26branch%3Dstable>`_
 (the online server may take a couple of minutes to start).
 
 .. _dem-data-format:
@@ -311,8 +311,8 @@ Code availability
 -----------------
 
 These data where generated with `OGGM version 1.2 <https://github.com/OGGM/oggm>`_.
-This `tutorial <https://github.com/OGGM/oggm-edu-notebooks/blob/master/oggm-tuto/dem_sources.ipynb>`_
-(`interactive version <https://mybinder.org/v2/gh/OGGM/binder/master?urlpath=git-pull?repo=https://github.com/OGGM/oggm-edu-notebooks%26amp%3Bbranch=master%26amp%3Burlpath=lab/tree/oggm-edu-notebooks//oggm-tuto/dem_sources.ipynb%3Fautodecode>`_)
+This `tutorial <https://github.com/OGGM/tutorials/blob/master/notebooks/dem_sources.ipynb>`_
+(`interactive version <https://mybinder.org/v2/ghhttps://mybinder.org/v2/gh/OGGM/binder/stable?urlpath=git-pull%3Frepo=https://github.com/OGGM/tutorials%26urlpath%3Dlab%252Ftree%252Ftutorials/./notebooks/dem_sources.ipynb%26branch%3Dstable>`_)
 documents how to create local
 topography maps yourselves.
 
