@@ -33,7 +33,7 @@ We processed the data at two different resolutions.
 The default version is available at `https://cluster.klima.uni-bremen.de/data/gdirs/dems_v1/default/RGI62/b_010/L1/ <https://cluster.klima.uni-bremen.de/data/gdirs/dems_v1/default/RGI62/b_010/L1/>`_.
 And a version with higher spatial resolution is available at `https://cluster.klima.uni-bremen.de/data/gdirs/dems_v1/highres/RGI62/b_020/L1/ <https://cluster.klima.uni-bremen.de/data/gdirs/dems_v1/highres/RGI62/b_020/L1/>`_
 
-Now also a new default version(**dems_v2**) available at `https://cluster.klima.uni-bremen.de/data/gdirs/dems_v2/default/RGI62/b_010/L1/ <https://cluster.klima.uni-bremen.de/data/gdirs/dems_v1/default/RGI62/b_010/L1/>`_. This preprocessed data includes the `Copernicus DEM GLO-30`_
+Now also a new default version(**dems_v2**) is available at `https://cluster.klima.uni-bremen.de/data/gdirs/dems_v2/default/RGI62/b_010/L1/ <https://cluster.klima.uni-bremen.de/data/gdirs/dems_v1/default/RGI62/b_010/L1/>`_. This preprocessed data includes the `Copernicus DEM GLO-30`_
 
 See :ref:`dem-data-format` for details on file content, processing and resolution.
 And carefully read :ref:`dem-how-to-cite` to find information on the original
