@@ -99,6 +99,7 @@ As of today (Mar 27 2020), the data sources supported by OGGM/rgitools are:
   **Date of acquisition: 2010-2015**
 - the `Copernicus DEM GLO-30`_ - as the Copernicus DEM GLO-90 - is a global DEM based
   on WorldDEM and void filled using ASTER, SRTM, GMTED2010, TerraSAR-X, ALOS World 3D-30m and Norway National DEM.
+  It is a European Space Agency Copernicus product and freely available at a 1 arc second resolution.
   **Date of acquisition: 2010-2015**
 - the `Alaska V3 DEM`_ is a merged DEM product from SRTM, IFSAR DEM, SPOT
   observations of the SPIRIT program and ASTER with a final resolution of 30m.
