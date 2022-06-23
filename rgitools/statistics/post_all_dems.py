@@ -91,15 +91,15 @@ def hgt_barplot(df1, df2, title='', savepath=None):
         fig.savefig(savepath)
 
 
-wd = '/home/users/mdusch/rgidems/wd'
+wd = '/home/users/afischer/runs/rgitopo_creation_2/post_processing_wd_rgitopo_creation'
 # wd = os.environ.get('WORKDIR')
-post = '/home/users/mdusch/rgidems/post'
+post = '/home/users/afischer/runs/rgitopo_creation_2/post'
 
 cfg.initialize()
 cfg.PATHS['working_dir'] = wd
 
 #path = '/home/users/mdusch/rgidems/out/dems_v1/default/RGI62/b_010/L1'
-path = '/home/users/mdusch/rgidems/out/dems_v1/highres/RGI62/b_020/L1'
+path = '/home/users/afischer/runs/rgitopo_creation_2/rgitopo_v2/RGI62/b_010/L1'
 #sfx ='_v1'
 sfx ='_v1_highres'
 
