@@ -33,6 +33,8 @@ We processed the data at two different resolutions.
 The default version is available at `https://cluster.klima.uni-bremen.de/data/gdirs/dems_v1/default/RGI62/b_010/L1/ <https://cluster.klima.uni-bremen.de/data/gdirs/dems_v1/default/RGI62/b_010/L1/>`_.
 And a version with higher spatial resolution is available at `https://cluster.klima.uni-bremen.de/data/gdirs/dems_v1/highres/RGI62/b_020/L1/ <https://cluster.klima.uni-bremen.de/data/gdirs/dems_v1/highres/RGI62/b_020/L1/>`_
 
+**New in June 2022**: a new version for RGI6 (**dems_v2**) is available at `https://cluster.klima.uni-bremen.de/data/gdirs/dems_v2/default/RGI62/b_010/L1/ <https://cluster.klima.uni-bremen.de/data/gdirs/dems_v1/default/RGI62/b_010/L1/>`_. This preprocessed data includes the recently released `Copernicus DEM GLO-30`_.
+
 See :ref:`dem-data-format` for details on file content, processing and resolution.
 And carefully read :ref:`dem-how-to-cite` to find information on the original
 data sources and how to acknowledge them.
@@ -95,6 +97,9 @@ As of today (Mar 27 2020), the data sources supported by OGGM/rgitools are:
   It is a European Space Agency Copernicus product and freely available at a
   3 arc second resolution.
   **Date of acquisition: 2010-2015**
+- the `Copernicus DEM GLO-30`_ - is similar to Copernicus DEM GLO-90 but at approximately
+  30m resolution (1 arc second).
+  **Date of acquisition: 2010-2015**
 - the `Alaska V3 DEM`_ is a merged DEM product from SRTM, IFSAR DEM, SPOT
   observations of the SPIRIT program and ASTER with a final resolution of 30m.
   The DEM was created for and is provided by `Kienholz et al., 2014`_.
@@ -118,6 +123,7 @@ As of today (Mar 27 2020), the data sources supported by OGGM/rgitools are:
 .. _various data-sources: https://github.com/tilezen/joerd/blob/master/docs/data-sources.md
 .. _REMA Antarctic DEM: https://www.pgc.umn.edu/data/rema/
 .. _Copernicus DEM GLO-90: https://bit.ly/2T98qqs
+.. _Copernicus DEM GLO-30: https://spacedata.copernicus.eu/web/cscda/dataset-details?articleId=394198
 .. _`Alaska V3 DEM`: https://www.the-cryosphere.net/8/503/2014/
 .. _`Kienholz et al., 2014`: https://www.the-cryosphere.net/8/503/2014/
 .. _`NASADEM`: https://lpdaac.usgs.gov/products/nasadem_hgtv001/
