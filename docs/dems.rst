@@ -33,7 +33,7 @@ We processed the data at two different resolutions.
 The default version is available at `https://cluster.klima.uni-bremen.de/data/gdirs/dems_v1/default/RGI62/b_010/L1/ <https://cluster.klima.uni-bremen.de/data/gdirs/dems_v1/default/RGI62/b_010/L1/>`_.
 And a version with higher spatial resolution is available at `https://cluster.klima.uni-bremen.de/data/gdirs/dems_v1/highres/RGI62/b_020/L1/ <https://cluster.klima.uni-bremen.de/data/gdirs/dems_v1/highres/RGI62/b_020/L1/>`_
 
-Now also a new default version(**dems_v2**) is available at `https://cluster.klima.uni-bremen.de/data/gdirs/dems_v2/default/RGI62/b_010/L1/ <https://cluster.klima.uni-bremen.de/data/gdirs/dems_v1/default/RGI62/b_010/L1/>`_. This preprocessed data includes the `Copernicus DEM GLO-30`_
+**New in June 2022**: a new version for RGI6 (**dems_v2**) is available at `https://cluster.klima.uni-bremen.de/data/gdirs/dems_v2/default/RGI62/b_010/L1/ <https://cluster.klima.uni-bremen.de/data/gdirs/dems_v1/default/RGI62/b_010/L1/>`_. This preprocessed data includes the recently released `Copernicus DEM GLO-30`_.
 
 See :ref:`dem-data-format` for details on file content, processing and resolution.
 And carefully read :ref:`dem-how-to-cite` to find information on the original
@@ -97,9 +97,8 @@ As of today (Mar 27 2020), the data sources supported by OGGM/rgitools are:
   It is a European Space Agency Copernicus product and freely available at a
   3 arc second resolution.
   **Date of acquisition: 2010-2015**
-- the `Copernicus DEM GLO-30`_ - as the Copernicus DEM GLO-90 - is a global DEM based
-  on WorldDEM and void filled using ASTER, SRTM, GMTED2010, TerraSAR-X, ALOS World 3D-30m and Norway National DEM.
-  It is a European Space Agency Copernicus product and freely available at a 1 arc second resolution.
+- the `Copernicus DEM GLO-30`_ - is similar to Copernicus DEM GLO-90 but at approximately
+  30m resolution (1 arc second).
   **Date of acquisition: 2010-2015**
 - the `Alaska V3 DEM`_ is a merged DEM product from SRTM, IFSAR DEM, SPOT
   observations of the SPIRIT program and ASTER with a final resolution of 30m.
