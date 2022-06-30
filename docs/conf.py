@@ -117,9 +117,10 @@ extensions = [
     'IPython.sphinxext.ipython_console_highlighting',
 ]
 
-extlinks = {'issue': ('https://github.com/OGGM/rgitools/issues/%s', 'GH'),
-            'pull': ('https://github.com/OGGM/rgitools/pull/%s', 'PR'),
-            }
+extlinks = {
+    'issue': ('https://github.com/OGGM/rgitools/issues/%s', 'GH %s'),
+    'pull': ('https://github.com/OGGM/rgitools/pull/%s', 'PR %s'),
+}
 
 autosummary_generate = True
 
@@ -161,7 +162,7 @@ release = rgitools.__version__
 #
 # This is also used if you do content translation via gettext catalogs.
 # Usually you set "language" from the command line for these cases.
-language = None
+language = 'en'
 
 # There are two options for replacing |today|: either, you set today to some
 # non-false value, then it is used:
