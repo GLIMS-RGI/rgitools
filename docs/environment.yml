@@ -2,26 +2,39 @@ name: rgitools_docs
 channels:
   - conda-forge
 dependencies:
+  - jupyter
+  - jupyterlab
   - numpy
   - scipy
   - pandas
-  - matplotlib
   - shapely
-  - requests
-  - configobj
+  - matplotlib
+  - Pillow
   - netcdf4
+  - scikit-image
+  - scikit-learn
+  - configobj
   - xarray
-  - pytables
   - pytest
+  - dask
+  - bottleneck
+  - pyproj
+  - cartopy
+  - geopandas
+  - rasterio<1.2.10
+  - rioxarray
   - seaborn
+  - pytables
+  - salem
+  - motionless
   - sphinx
-  - pydata-sphinx-theme>=0.7.2
-  - sphinx-book-theme>=0.3.2
   - ipython
   - numpydoc
-  - sphinx-intl
+  - seaborn
+  - sphinx_rtd_theme
   - pip:
-    - git+https://github.com/fmaussion/salem
-    - git+https://github.com/OGGM/oggm
+    - joblib
+    - progressbar2
+    - oggm
     # relative to this file. Needs to be editable to be accepted.
     - -e ..
