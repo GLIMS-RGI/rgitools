@@ -38,11 +38,6 @@ try:
 except ImportError:
     print("no scipy")
 try:
-    import PIL
-    print("PIL (Pillow): %s, %s" % (PIL.PILLOW_VERSION, PIL.__file__))
-except ImportError:
-    print("no PIL (Pillow)")
-try:
     import pandas
     print("pandas: %s, %s" % (pandas.__version__, pandas.__file__))
 except ImportError:
@@ -166,7 +161,7 @@ release = rgitools.__version__
 #
 # This is also used if you do content translation via gettext catalogs.
 # Usually you set "language" from the command line for these cases.
-language = None
+language = 'en'
 
 # There are two options for replacing |today|: either, you set today to some
 # non-false value, then it is used:
@@ -303,7 +298,7 @@ if not os.path.exists(ipython_savefig_dir):
 # Sphinx supports the following languages:
 #   'da', 'de', 'en', 'es', 'fi', 'fr', 'h', 'it', 'ja'
 #   'nl', 'no', 'pt', 'ro', 'r', 'sv', 'tr'
-#html_search_language = 'en'
+html_search_language = 'en'
 
 # A dictionary with options for the search language support, empty by default.
 # Now only 'ja' uses this config value

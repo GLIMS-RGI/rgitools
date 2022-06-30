@@ -328,7 +328,7 @@ Contact
 -------
 
 RGI-TOPO authors:
-`Matthias Dusch <https://www.uibk.ac.at/acinn/people/matthias-dusch.html.en>`_ and
+`Matthias Dusch <https://www.uibk.ac.at/acinn/people/matthias-dusch.html.en>`_ Alexander Fisher and
 `Fabien Maussion <https://fabienmaussion.info/>`_.
 
 For feedback, please use the `github issue tracker <https://github.com/GLIMS-RGI/rgitools/issues>`_
@@ -343,7 +343,7 @@ Acknowledgements
     <img src="https://cryosphericsciences.org/wp-content/themes/iacs/img/iugg_logo_complete.png" alt="Image missing" width="49%" />
     </a>
     <a href="https://www.uibk.ac.at/acinn/" >
-    <img src="https://www.uibk.ac.at/public-relations/grafik_design/images/logo/download/sublogos/institute-sublogos/atmospheric-and-cryospheric-sciences.png" alt="Image missing" width="49%" />
+    <img src="https://www.uibk.ac.at/media/filer_public/00/c3/00c369ba-9e7a-42a4-9f73-466c81dc951a/universitaet-innsbruck-logo-cmyk-farbe.jpg" alt="Image missing" width="49%" />
     </a>
 
 We acknowledge financial support from the
