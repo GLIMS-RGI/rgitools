@@ -4,7 +4,7 @@ Oberaletschgletscher (Alps)
 Located in the Swiss Alps (`46°25'21"N 7°57'55"E <https://goo.gl/maps/qudRQdv96o82>`_),
 RGI60-11.01827.
 
-The sources available are: ASTER, COPDEM, AW3D30, DEM3, SRTM, NASADEM, MAPZEN and TanDEM-X.
+The sources available are: ASTER, COPDEM30, COPDEM90, AW3D30, DEM3, SRTM, NASADEM, MAPZEN and TanDEM-X.
 
 Summary
 -------
