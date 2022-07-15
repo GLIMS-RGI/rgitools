@@ -1,3 +1,5 @@
+# This script has originally been created by Matthias Dusch(https://github.com/matthiasdusch) and got modified
+# for the creation of dems_v2 statistics
 import os
 import pandas as pd
 import geopandas as gpd
@@ -9,7 +11,8 @@ from oggm import utils, cfg, GlacierDirectory
 from oggm.workflow import execute_entity_task
 
 from my_dem_funcs import (check_all_dems_per_gdir, gdirs_from_tar_files,
-                          get_dem_area, dem_barplot)
+                          get_dem_area)
+import statistics_paths
 
 
 def parse_logfile(path, df=None):
@@ -91,17 +94,15 @@ def hgt_barplot(df1, df2, title='', savepath=None):
         fig.savefig(savepath)
 
 
-wd = '/home/users/afischer/runs/rgitopo_creation_2/post_processing_wd_rgitopo_creation'
-# wd = os.environ.get('WORKDIR')
-post = '/home/users/afischer/runs/rgitopo_creation_2/post'
+wd = statistics_paths.wd
+post = statistics_paths.post
+sfx = statistics_paths.sfx
+prepro_path = statistics_paths.prepro_path
+
+os.makedirs(post, exist_ok=True)
 
 cfg.initialize()
 cfg.PATHS['working_dir'] = wd
-
-#path = '/home/users/mdusch/rgidems/out/dems_v1/default/RGI62/b_010/L1'
-path = '/home/users/afischer/runs/rgitopo_creation_2/rgitopo_v2/RGI62/b_010/L1'
-#sfx ='_v1'
-sfx ='_v1_highres'
 
 
 dfarea = pd.DataFrame([], index=np.arange(1, 20), columns=['demarea'])
@@ -113,8 +114,8 @@ for reg in np.arange(1, 20):
         rgidf = gpd.read_file(utils.get_rgi_region_file(regstr, version='6'))
         gdirs = [GlacierDirectory(rgiid) for rgiid in rgidf.RGIId]
         print('from gdir')
-    except OSError:
-        gdirs = gdirs_from_tar_files(path, rgi_region=regstr)
+    except:
+        gdirs = gdirs_from_tar_files(prepro_path, rgi_region=regstr)
         print('from tar')
 
     dfreg = execute_entity_task(check_all_dems_per_gdir, gdirs)

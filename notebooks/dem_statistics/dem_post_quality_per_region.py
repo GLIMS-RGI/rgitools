@@ -1,3 +1,6 @@
+# This script has originally been created by Matthias Dusch(https://github.com/matthiasdusch) and got modified
+# for the creation of dems_v2 statistics
+
 import os
 import pandas as pd
 import geopandas as gpd
@@ -7,15 +10,17 @@ import matplotlib.pyplot as plt
 from oggm import utils, cfg
 
 from my_dem_funcs import dem_barplot
+import statistics_paths
 
+wd = statistics_paths.wd
+post = statistics_paths.post
+sfx = statistics_paths.sfx
 
-wd = '/home/alex/atmo_master/rgi_job/wd'
-post_folder = '/home/alex/atmo_master/rgi_job/rgitools/rgitools/statistics/post'
+os.makedirs(os.path.join(post, 'out/images'), exist_ok=True)
+os.makedirs(os.path.join(post, 'out/tables'), exist_ok=True)
+
 cfg.initialize()
 cfg.PATHS['working_dir'] = wd
-# gdirs storage path(the 'path' variable shouldn't have to be used in this script)
-# path = '/home/users/afischer/runs/rgitopo_creation_2/rgitopo_v2/RGI62/b_010/L1'
-sfx = '_v1_highres'
 
 # dataframe for all areas
 dfall = pd.DataFrame()
@@ -29,17 +34,21 @@ dfstat = pd.DataFrame([], columns=cols)
 # statistic on subregions
 dfsub = dfstat.copy()
 
-# rgi region file
-regions = gpd.read_file('/media/alex/alexsd400/rgi/00_rgi62_regions/00_rgi62_O1Regions.shp')
-subregs = gpd.read_file('/media/alex/alexsd400/rgi/00_rgi62_regions/00_rgi62_O2Regions.shp')
-
+# rgi region & subregion file - depending on the RGI version (6.0, 6.x ..) chosen for the RGI Topo Dataset creation
+# this folder- and filenames have to be adapted
+regions = gpd.read_file(os.path.join(cfg.PATHS['rgi_dir'], 'RGIV62',
+                                     '00_rgi62_regions',
+                                     '00_rgi62_O1Regions.shp'))
+subregs = gpd.read_file(os.path.join(cfg.PATHS['rgi_dir'], 'RGIV62',
+                                     '00_rgi62_regions',
+                                     '00_rgi62_O2Regions.shp'))
 fig0, ax0 = plt.subplots(1, 1, figsize=[10, 10])
 
 for reg in np.arange(1, 20):
     fig, ax = plt.subplots(1, 1, figsize=[10, 10])
     regstr = '{:02.0f}'.format(reg)
 
-    quality = pd.read_hdf(os.path.join(post_folder, 'rgi_{}.h5'.format(regstr + sfx)),
+    quality = pd.read_hdf(os.path.join(post, 'rgi_{}.h5'.format(regstr + sfx)),
                           'quality')
     regname = regions.loc[regions['RGI_CODE'].astype('int') == reg, 'FULL_NAME'].iloc[0]
 
@@ -47,11 +56,11 @@ for reg in np.arange(1, 20):
                 title='RGI region {}: {} ({:.0f} glaciers)'.
                 format(regstr, regname, len(quality)))
     fig.tight_layout()
-    fig.savefig('/home/alex/atmo_master/rgi_job/rgitools/rgitools/statistics/post/out/images/' +
-                'barplot_rgi{}.png'.format(regstr + sfx))
+    fig.savefig(os.path.join(post, 'out/images/',
+                'barplot_rgi{}.png'.format(regstr + sfx)))
 
-    dfall = dfall.append(quality)
-
+    # dfall = dfall.append(quality)
+    dfall = pd.concat([dfall, quality])
     # FULL REGION
     total = len(quality)
     good = (quality > 0.9).sum()
@@ -69,8 +78,12 @@ for reg in np.arange(1, 20):
     regdf = gpd.read_file(utils.get_rgi_region_file(regstr))
     sregs = np.unique(regdf.O2Region)
 
+    # For greenland we omit connectivity level 2. As this has also been done when generating the data with the
+    # prepo_levels cli, it also has to be done here.
+    if regstr == '05':
+        regdf = regdf.loc[regdf['Connect'] != 2]
+
     for sreg in sregs:
-        from IPython import embed; embed()
         ids = regdf.loc[regdf.O2Region == sreg, 'RGIId'].values
         subq = quality.loc[ids]
 
@@ -110,15 +123,14 @@ dfsub['RGI region'] = dfsub.index
 
 
 # write csv files for RST readthedocs
-dfstat.to_csv('/home/alex/atmo_master/rgi_job/rgitools/rgitools/statistics/post/out/tables/dem_allrgi{}.csv'.format(sfx),
+dfstat.to_csv(os.path.join(post, 'out/tables/', 'dem_allrgi{}.csv'.format(sfx)),
               index=False)
 
 # write subregion tables:
 for reg in np.arange(1, 20):
     regstr = '{:02.0f}'.format(reg)
-    dfsub
     sub = dfsub.loc[dfsub.index.str.contains('{}-'.format(regstr))]
-    sub.to_csv('/home/alex/atmo_master/rgi_job/rgitools/rgitools/statistics/post/out/tables/dem_rgi{}.csv'.format(regstr + sfx),
+    sub.to_csv(os.path.join(post, 'out/tables/', 'dem_rgi{}.csv'.format(regstr + sfx)),
                index=False)
 
 # make and save plots
@@ -126,5 +138,5 @@ dem_barplot(dfall, ax0,
             title='All RGI regions ({:.0f} glaciers)'.format(len(dfall)))
 
 fig0.tight_layout()
-fig0.savefig('/home/alex/atmo_master/rgi_job/rgitools/rgitools/statistics/post/out/images/' +
-             'barplot_allregions{}.png'.format(sfx))
+fig0.savefig(os.path.join(post, 'out/images/',
+             'barplot_allregions{}.png'.format(sfx)))

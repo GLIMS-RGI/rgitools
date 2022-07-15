@@ -1,10 +1,10 @@
+# This script has been created by Matthias Dusch(https://github.com/matthiasdusch)
 import os
 import tarfile
 import logging
 
 import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
 import rasterio
 
 from oggm import utils, GlacierDirectory, entity_task
