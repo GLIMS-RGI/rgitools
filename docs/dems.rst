@@ -287,13 +287,13 @@ none-void data points.
     glaciers per region. Values are not rounded but truncated so 99% could be
     just one missing glacier. Only DEMs with less than 10% missing values are
     considered.
-    :file: _static/tables/dem_allrgi_v1.csv
+    :file: _static/tables/dem_allrgi_v2.csv
 
 
 The following barplot shows again the availability of particular DEMs for RGI
 region.
 
-.. image:: /_static/images/barplot_allregions_v1.png
+.. image:: /_static/images/barplot_allregions_v2.png
     :width: 100%
 
 In the section :ref:`subregions` you can find similar statistics but broken
