@@ -4,7 +4,7 @@ Dobbin Bay (Arctic Canada)
 Located on Ellesmere Island (`80°05'21.1"N 74°43'43.3"W <https://goo.gl/maps/CiJkyWwXybKsGy678>`_),
 RGI60-03.00251.
 
-The sources available are: ASTER, COPDEM, AW3D30, ArcticDEM, DEM3, GIMP, MAPZEN and TanDEM-X.
+The sources available are: ASTER, COPDEM30, COPDEM90, AW3D30, ArcticDEM, DEM3, GIMP, MAPZEN and TanDEM-X.
 
 Summary
 -------

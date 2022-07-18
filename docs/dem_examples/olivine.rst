@@ -4,7 +4,7 @@ Olivine Ice Plateau (NZ)
 Located in New Zealand (`44°26'02.2"S 168°22'27.2"E <https://goo.gl/maps/KoDhNaMtzKmyYfC17>`_),
 RGI60-18.00854.
 
-The sources available are: ASTER, COPDEM, AW3D30, DEM3, SRTM, NASADEM, MAPZEN and TanDEM-X.
+The sources available are: ASTER, COPDEM30, COPDEM90, AW3D30, DEM3, SRTM, NASADEM, MAPZEN and TanDEM-X.
 
 Summary
 -------

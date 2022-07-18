@@ -4,7 +4,7 @@ Hintereisferner (Alps)
 Located in the Austrian Alps (`46°47'43"N 10°46'01"E <https://goo.gl/maps/hncE2T1NAnC2>`_),
 RGI60-11.00897.
 
-The sources available are: ASTER, COPDEM, AW3D30, DEM3, MAPZEN, NASADEM, SRTM and TanDEM-X.
+The sources available are: ASTER, COPDEM30, COPDEM90, AW3D30, DEM3, MAPZEN, NASADEM, SRTM and TanDEM-X.
 
 Summary
 -------
