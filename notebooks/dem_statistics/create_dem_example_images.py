@@ -18,8 +18,12 @@ name_mapping = {
     'RGI60-07.01114': 'tellbreen',
     'RGI60-08.01126': 'nigards',
     'RGI60-18.00854': 'olivine',
-    'RGI60-09.00552': 'lenin'
+    'RGI60-09.00552': 'lenin',
+    'RGI60-19.00783': 'balleny_islands',
+    'RGI60-19.00792': 'queen_maud_land',
+    'RGI60-19.01405': 'pine_island_bay'
 }
+
 # create the comparison plots for each example glacier in the dictionary above
 # and save them in their corresponding directory
 for (rgiid, name) in name_mapping.items():
@@ -27,5 +31,5 @@ for (rgiid, name) in name_mapping.items():
     pm.execute_notebook(
        'dem_comparison_for_rgitopo_docs.ipynb',
        '/dev/null',
-       parameters = dict(rgi_id=rgiid, plot_dir=output_path)
+       parameters=dict(rgi_id=rgiid, plot_dir=output_path)
     )
