@@ -4,7 +4,7 @@ Shallap (Peru)
 Located in Peru (`9°29'08"S 77°20'02"W <https://goo.gl/maps/t7H24X9Zaav>`_),
 RGI60-16.02207.
 
-The sources available are: ASTER, COPDEM, AW3D30, DEM3, SRTM, NASADEM, MAPZEN and TanDEM-X.
+The sources available are: ASTER, COPDEM30, COPDEM90, AW3D30, DEM3, SRTM, NASADEM, MAPZEN and TanDEM-X.
 
 Summary
 -------

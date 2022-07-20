@@ -4,7 +4,7 @@ Gillock Island (Antarctica)
 Located at the East Antarctica (`70°26'06.0"S 71°48'25.3"E <https://goo.gl/maps/XBV3Av6fsBb7ow3A6>`_),
 RGI60-19.01251).
 
-The sources available are: ASTER, COPDEM, DEM3, RAMP, REMA, MAPZEN and TanDEM-X.
+The sources available are: ASTER, AW3D30, COPDEM30, COPDEM90, DEM3, RAMP, REMA, MAPZEN and TanDEM-X.
 
 Summary
 -------
@@ -14,6 +14,7 @@ Summary
 - REMA and TanDEM-X agree quite well
 - REMA has small missing featuers
 - One of the rare cases where there is no MAPZEN data
+- AW3D30 has poor data coverage
 
 Maps
 ----
