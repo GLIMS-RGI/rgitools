@@ -2,7 +2,7 @@ Pine Island Bay (Antarctica)
 =============================
 
 Located at the Antarctic Peninsula (`73°08'40.6"S 105°05'34.8"W <https://goo.gl/maps/VrDF4BmQmzJurFFj6>`_),
-RGI60-19.01405).
+RGI60-19.01405.
 
 The sources available are: RAMP, MAPZEN, TANDEM-X, COPDEM30, COPDEM90 and DEM3.
 
@@ -13,6 +13,7 @@ Summary
 - AW3D30 has no data
 - MAPZEN and ASTER are noisy and a bit shifted to the east
 - DEM3 is taken from RAMP
+
 Maps
 ----
 

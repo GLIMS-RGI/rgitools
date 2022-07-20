@@ -2,7 +2,7 @@ Queen Maud Land (Antarctica)
 =============================
 
 Located at the Antarctic Peninsula (`70°02'24.4"S 10°48'19.8"E <https://goo.gl/maps/xYjdQqMNnVHo5dxV6>`_),
-RGI60-19.00792).
+RGI60-19.00792.
 
 The sources available are: ASTER, REMA, RAMP, MAPZEN, TANDEM-X, COPDEM30, COPDEM90 and DEM3.
 
@@ -13,6 +13,7 @@ Summary
 - MAPZEN has no data
 - TANDEM, COPDEM30 and COPDEM90 are shifted towards the south
 - DEM3 and RAMP are similiar but show no glacier
+
 Maps
 ----
 

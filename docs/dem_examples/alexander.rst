@@ -2,7 +2,7 @@ Alexander Island (Antarctica)
 =============================
 
 Located at the Antarctic Peninsula (`72°30'59.8"S 71°18'00.1"W <https://goo.gl/maps/HVgBaBn5jwKv2XgPA>`_),
-RGI60-19.00124).
+RGI60-19.00124.
 
 The sources available are: ASTER, AW3D30, COPDEM30, COPDEM90, DEM3, RAMP, MAPZEN and TanDEM-X.
 

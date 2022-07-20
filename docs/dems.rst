@@ -144,12 +144,16 @@ Examples
     dem_examples/nordenskjoeld.rst
     dem_examples/alexander.rst
     dem_examples/gillock.rst
+    dem_examples/balleny_islands.rst
+    dem_examples/pine_island_bay.rst
+    dem_examples/queen_maud_land.rst
     dem_examples/dobbin.rst
     dem_examples/thana.rst
     dem_examples/tellbreen.rst
     dem_examples/nigards.rst
     dem_examples/olivine.rst
     dem_examples/lenin.rst
+
 
 These graphics and statistics were generated with a freely available
 `Jupyter notebook <https://github.com/OGGM/tutorials/blob/master/notebooks/dem_comparison.ipynb>`_.

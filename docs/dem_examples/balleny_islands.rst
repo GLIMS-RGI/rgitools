@@ -2,7 +2,7 @@ Balleny Islands (Antarctica)
 =============================
 
 Located at the Antarctic Peninsula (`67°26'33.0"S 164°45'21.6"E <https://goo.gl/maps/MrvYDJNAxQ1kdZWF7>`_),
-RGI60-19.00783).
+RGI60-19.00783.
 
 The sources available are: RAMP, MAPZEN, TANDEM-X, COPDEM30, COPDEM90 and DEM3.
 
